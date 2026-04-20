@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo SQL Sorguları | Hazır Logo ERP SQL Örnekleri</title>
+    <meta name="description" content="Logo ERP için hazır SQL sorguları. Cari, stok, satış, fatura, alacak ve raporlama odaklı Logo SQL örnekleri.">
+    <meta name="keywords" content="logo sql sorguları, logo erp sql, logo tiger sql, logo raporlama sorguları">
+    <link rel="canonical" href="https://erpkutusu.com/pages/logo-sql-sorgulari.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Logo SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="Logo ERP için hazır SQL sorguları ve raporlama örnekleri.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/logo-sql-sorgulari.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">Logo ERP SQL Rehberi</div>
+    <h1>Logo SQL Sorguları</h1>
+    <p>
+        Logo ERP kullanıcıları için hazır SQL sorguları, raporlama örnekleri ve veri analiz
+        amaçlı temel sorgu şablonları.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// rehber</div>
+    <h2>Logo SQL Sorguları Ne İşe Yarar?</h2>
+    <p class="section-sub">
+        Logo veritabanı üzerinden cari hesap, stok hareketleri, faturalar, satışlar ve alacaklar
+        gibi temel ERP verileri SQL ile analiz edilebilir. Hazır Logo SQL sorguları, standart
+        ekranların ötesinde raporlama yapmak isteyen ekipler için zaman kazandırır.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// hazır sorgular</div>
+    <h2>Hazır Logo SQL Örnekleri</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular Logo raporlama süreçlerinde en çok kullanılan örneklerdendir.
+    </p>
+
+    <div class="sql-grid">
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Cari Bazlı Satış Özeti</div>
+                <span class="erp-tag tag-logo">Logo</span>
+            </div>
+            <div class="sql-code">SELECT
+  c.UNVAN,
+  SUM(f.TOTALDISCOUNTED) AS TOPLAM_SATIS
+FROM LG_CLCARD c
+JOIN LG_INVOICE f ON c.LOGICALREF = f.CLIENTREF
+WHERE f.CANCELLED = 0
+GROUP BY c.UNVAN
+ORDER BY TOPLAM_SATIS DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Müşteri bazında satış toplamı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Vadesi Geçen Alacaklar</div>
+                <span class="erp-tag tag-logo">Logo</span>
+            </div>
+            <div class="sql-code">SELECT
+  c.UNVAN,
+  f.FISNO,
+  f.DATE_,
+  f.TOTALDISCOUNTED
+FROM LG_CLCARD c
+JOIN LG_INVOICE f ON c.LOGICALREF = f.CLIENTREF
+WHERE f.TRCODE = 8
+  AND f.CANCELLED = 0</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Açık alacak kontrolü</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Stok Devir Hızı Raporu</div>
+                <span class="erp-tag tag-logo">Logo</span>
+            </div>
+            <div class="sql-code">SELECT
+  s.STOKKODU,
+  s.STOKADI,
+  SUM(h.MIKTAR) AS TOPLAM_HAREKET,
+  AVG(s.BAKIYE) AS ORT_STOK
+FROM LG_STOK s
+LEFT JOIN LG_HAREKET h ON s.LOGICALREF = h.STOCKREF
+GROUP BY s.STOKKODU, s.STOKADI</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Stok dönüş hızını analiz eder</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Aylık Fatura Özeti</div>
+                <span class="erp-tag tag-logo">Logo</span>
+            </div>
+            <div class="sql-code">SELECT
+  MONTH(f.DATE_) AS AY,
+  YEAR(f.DATE_) AS YIL,
+  COUNT(*) AS FATURA_SAYISI,
+  SUM(f.TOTALDISCOUNTED) AS TOPLAM_TUTAR
+FROM LG_INVOICE f
+WHERE f.CANCELLED = 0
+GROUP BY YEAR(f.DATE_), MONTH(f.DATE_)
+ORDER BY YIL DESC, AY DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Aylık satış faturası raporu</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// kullanım notları</div>
+    <h2>Logo SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Firma ve dönem yapısı</div>
+            <div class="kpi-desc">Tablo isimleri firma numarası ve dönem yapısına göre değişebilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Canlı veritabanında dikkat</div>
+            <div class="kpi-desc">Özellikle yoğun sistemlerde sorguları test ortamında doğrulamak daha güvenlidir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Özelleştirme farkları</div>
+            <div class="kpi-desc">Her Logo kurulumu aynı alan ve tablo mantığıyla ilerlemeyebilir; küçük uyarlamalar gerekebilir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Tüm SQL Kütüphanesi</div>
+            <div class="tool-desc">Farklı ERP sistemleri için tüm SQL sorgularını görüntüleyin.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">KPI Formülleri</div>
+            <div class="tool-desc">ERP verileri ile takip edilebilecek KPI metriklerini inceleyin.</div>
+            <a href="kpi.html" class="tool-link">KPI Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">Özel Logo raporları ve SQL ihtiyaçları için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
