@@ -3,155 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KPI ve OEE Hesaplayıcıları | ERP Kutusu</title>
-    <meta name="description" content="OEE, stok devir hızı, brüt kar marjı, DSO ve diğer KPI hesaplamaları için ücretsiz ERP araçları.">
+    <title>KPI Formülleri ve Hesaplayıcılar | ERP Kutusu</title>
+    <meta name="description" content="OEE, DSO, stok devir hızı, brüt kar marjı, cari oran ve daha fazlası için KPI formülleri ve ücretsiz hesaplayıcılar.">
+    <meta name="keywords" content="kpi formülleri, oee hesaplama, stok devir hızı, dso hesaplama, brüt kar marjı, erp kpi">
+    <link rel="canonical" href="https://erpkutusu.com/pages/kpi.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KPI Formülleri ve Hesaplayıcılar | ERP Kutusu">
+    <meta property="og:description" content="Üretim, finans, satış ve lojistik için KPI formülleri ve ücretsiz hesaplayıcılar.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/kpi.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
 </head>
 <body>
 
-<header>
-    <h1>ERP KPI ve OEE Hesaplayıcıları</h1>
-    <nav>
-        <a href="../index.html">Ana Sayfa</a>
-        <a href="sql.html">SQL</a>
-        <a href="kpi.html">KPI</a>
-        <a href="araclar.html">Araçlar</a>
-        <a href="iletisim.html">İletişim</a>
-    </nav>
-</header>
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
 
-<div class="container">
-    <div class="card">
-        <h2>📈 KPI Kütüphanesi</h2>
-        <p>Üretim, finans, lojistik ve ERP süreçleri için temel KPI hesaplamaları.</p>
+<section class="hero">
+    <div class="hero-badge">KPI Kütüphanesi ve Hesaplayıcılar</div>
+    <h1>ERP, Üretim ve Finans İçin KPI Formülleri</h1>
+    <p>
+        OEE, DSO, cari oran, stok devir hızı, brüt kar marjı ve daha fazlası için
+        açıklamalı KPI formülleri ve ücretsiz hesaplayıcılar.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// arama ve filtre</div>
+    <h2>KPI Ara ve Filtrele</h2>
+    <p class="section-sub">
+        KPI adını, kategorisini veya açıklamasını kullanarak arama yapabilirsiniz.
+    </p>
+
+    <div class="calc-box" style="max-width:100%;">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Arama</div>
+            <input class="calc-input" type="text" id="kpiSearch" placeholder="Örn: OEE, stok, finans, teslimat">
+        </div>
+
+        <div>
+            <div class="calc-label">Kategori</div>
+            <select class="calc-input" id="kpiCategory">
+                <option value="tum">Tümü</option>
+                <option value="Üretim">Üretim</option>
+                <option value="Finans">Finans</option>
+                <option value="Lojistik">Lojistik</option>
+                <option value="Satış">Satış</option>
+                <option value="Operasyon">Operasyon</option>
+            </select>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <input type="text" id="kpiSearch" placeholder="KPI ara...">
+<section class="section">
+    <div class="section-tag">// seo içerik</div>
+    <h2>KPI Nedir ve Neden Önemlidir?</h2>
+    <p class="section-sub">
+        KPI yani Key Performance Indicator, işletmelerin performansını ölçmek için kullandığı
+        temel göstergelerdir. ERP sistemlerinden çekilen veriler KPI hesaplamalarında doğrudan
+        kullanılır. Üretimde OEE, finansta DSO ve cari oran, lojistikte OTIF gibi metrikler
+        karar alma süreçlerini hızlandırır.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// kpi listesi</div>
+    <h2>KPI Formül Kartları</h2>
+    <p class="section-sub">
+        Aşağıda en sık kullanılan KPI metriklerini, açıklamalarını ve temel formüllerini bulabilirsiniz.
+    </p>
+
+    <div id="kpiInfo" class="section-sub" style="margin-bottom:18px;"></div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// canlı hesaplayıcı</div>
+    <h2>Hızlı KPI Hesaplayıcı</h2>
+    <p class="section-sub">
+        Hazır KPI tiplerinden birini seçin, değerleri girin ve sonucu anında görün.
+    </p>
+
+    <div class="calc-layout">
+        <div class="calc-panel">
+            <div class="calc-switches">
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('oee')">OEE</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('stok')">Stok Devir Hızı</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('kar')">Brüt Kar Marjı</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('dso')">DSO</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('otif')">OTIF</button>
+            </div>
+
+            <div class="calc-box">
+                <div id="calc-fields"></div>
+                <div class="calc-result">
+                    <span class="calc-result-label" id="calc-label">Sonuç</span>
+                    <span class="calc-result-val" id="calc-val">—</span>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div id="kpiList"></div>
-</div>
+<section class="section">
+    <div class="section-tag">// kpi rehberi</div>
+    <h2>KPI Yorumlama Rehberi</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">OEE</div>
+            <div class="tool-desc">
+                Üretim hatlarının ne kadar verimli çalıştığını gösterir. Kullanılabilirlik,
+                performans ve kalite bileşenlerinin çarpımıdır.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">DSO</div>
+            <div class="tool-desc">
+                Alacakların kaç günde tahsil edildiğini gösterir. DSO arttıkça nakit dönüş hızı düşebilir.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Stok Devir Hızı</div>
+            <div class="tool-desc">
+                Stokların dönem içinde kaç kez yenilendiğini gösterir. Çok düşük olması stokta bekleme riskini artırır.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Brüt Kar Marjı</div>
+            <div class="tool-desc">
+                Satışların maliyet sonrası ne kadar verimli olduğunu ölçer. Karlılık analizlerinin temel KPI’larından biridir.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Cari Oran</div>
+            <div class="tool-desc">
+                Kısa vadeli yükümlülüklerin ödeme gücünü gösterir. Finansal dayanıklılık için temel göstergedir.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">OTIF</div>
+            <div class="tool-desc">
+                Siparişlerin zamanında ve eksiksiz teslim edilme oranını gösterir. Lojistik performans için kritik bir metriktir.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// sık sorulanlar</div>
+    <h2>Sık Sorulan Sorular</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">KPI formülleri her firmada aynı mıdır?</div>
+            <div class="kpi-desc">Temel matematik aynıdır ancak veri kaynakları, dönem tanımları ve şirket politikalarına göre yorum değişebilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">ERP verileri KPI hesaplamasında nasıl kullanılır?</div>
+            <div class="kpi-desc">Sipariş, stok, üretim, tahsilat ve maliyet verileri ERP üzerinden alınarak formüllerde kullanılır.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">KPI hedefleri sektöre göre değişir mi?</div>
+            <div class="kpi-desc">Evet. Üretim, dağıtım, perakende ve proje bazlı sektörlerde aynı KPI için hedef aralıklar farklı olabilir.</div>
+        </div>
+    </div>
+</section>
 
 <footer>
-    © 2026 ERP Kutusu
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
 </footer>
 
-<script src="../js/security.js"></script>
-<script src="../js/kpi-data.js"></script>
-
 <script>
-const kpiContainer = document.getElementById("kpiList");
-const kpiSearch = document.getElementById("kpiSearch");
+const kpiLibrary = [
+    {
+        title: "OEE",
+        category: "Üretim",
+        formula: "Kullanılabilirlik × Performans × Kalite",
+        description: "Genel ekipman etkinliğini ölçer. Üretim hatlarının toplam verimliliğini gösterir."
+    },
+    {
+        title: "Stok Devir Hızı",
+        category: "Lojistik",
+        formula: "Satılan Malın Maliyeti ÷ Ortalama Stok",
+        description: "Stokların dönem içinde kaç kez yenilendiğini gösterir."
+    },
+    {
+        title: "Brüt Kar Marjı",
+        category: "Finans",
+        formula: "(Net Satış - SMM) ÷ Net Satış × 100",
+        description: "Satışların maliyet sonrası ne kadar karlı olduğunu gösterir."
+    },
+    {
+        title: "DSO",
+        category: "Finans",
+        formula: "Alacaklar ÷ Günlük Ortalama Satış",
+        description: "Alacakların kaç günde tahsil edildiğini hesaplar."
+    },
+    {
+        title: "Cari Oran",
+        category: "Finans",
+        formula: "Dönen Varlıklar ÷ Kısa Vadeli Borçlar",
+        description: "Kısa vadeli borç ödeme gücünü gösterir."
+    },
+    {
+        title: "OTIF",
+        category: "Lojistik",
+        formula: "Zamanında ve Tam Teslimat ÷ Toplam Sipariş × 100",
+        description: "Zamanında ve eksiksiz teslim oranını ölçer."
+    },
+    {
+        title: "Takt Süresi",
+        category: "Üretim",
+        formula: "Net Üretim Süresi ÷ Müşteri Talebi",
+        description: "Talebe uygun üretim temposunu hesaplar."
+    },
+    {
+        title: "Fire Oranı",
+        category: "Üretim",
+        formula: "Fire Miktarı ÷ Toplam Üretim × 100",
+        description: "Toplam üretim içindeki fire oranını gösterir."
+    },
+    {
+        title: "Sipariş Karşılama Oranı",
+        category: "Satış",
+        formula: "Karşılanan Sipariş ÷ Toplam Sipariş × 100",
+        description: "Siparişlerin ne kadarının eksiksiz karşılandığını gösterir."
+    },
+    {
+        title: "Teslimat Süresi Sapması",
+        category: "Operasyon",
+        formula: "Gerçek Teslim Süresi - Planlanan Teslim Süresi",
+        description: "Plan ile gerçekleşen teslimat süreleri arasındaki farkı ölçer."
+    }
+];
 
-function safeValue(val, fallback = "") {
-    return val !== undefined && val !== null ? val : fallback;
-}
+const grid = document.getElementById("kpiGrid");
+const info = document.getElementById("kpiInfo");
+const searchInput = document.getElementById("kpiSearch");
+const categorySelect = document.getElementById("kpiCategory");
 
-function renderKPIs(list) {
-    kpiContainer.innerHTML = "";
+function renderKpis(items) {
+    grid.innerHTML = "";
+    info.textContent = `${items.length} KPI listeleniyor.`;
 
-    if (!Array.isArray(list) || list.length === 0) {
-        kpiContainer.innerHTML = `
-            <div class="card">
-                <h3>Sonuç bulunamadı</h3>
-                <p>Arama kriterine uygun KPI bulunamadı.</p>
+    if (!items.length) {
+        grid.innerHTML = `
+            <div class="tool-card">
+                <div class="tool-name">Sonuç bulunamadı</div>
+                <div class="tool-desc">Arama veya filtre kriterini değiştirerek tekrar deneyin.</div>
             </div>
         `;
         return;
     }
 
-    list.forEach((item, index) => {
-        const title = safeValue(item.title, "Başlıksız KPI");
-        const category = safeValue(item.category, "Genel");
-        const description = safeValue(item.description, "");
-        const inputs = Array.isArray(item.inputs) ? item.inputs : [];
-
+    items.forEach(item => {
         const card = document.createElement("div");
-        card.className = "card";
-
-        let inputsHtml = "";
-
-        inputs.forEach((input, i) => {
-            const label = safeValue(input.label, `Alan ${i + 1}`);
-            const placeholder = safeValue(input.placeholder, "");
-            inputsHtml += `
-                <div class="input-group">
-                    <label>${label}</label>
-                    <input type="number" id="input-${index}-${i}" placeholder="${placeholder}">
-                </div>
-            `;
-        });
-
+        card.className = "kpi-card";
         card.innerHTML = `
-            <h3>${title}</h3>
-            <p><strong>Kategori:</strong> ${category}</p>
-            <p>${description}</p>
-            ${inputsHtml}
-            <button onclick="calculateKPI(${index})">Hesapla</button>
-            <div class="kpi-box" id="result-${index}">Sonuç burada görünecek.</div>
+            <div class="kpi-name">${item.title}</div>
+            <div class="kpi-formula">${item.formula}</div>
+            <div class="kpi-desc"><strong>Kategori:</strong> ${item.category}<br>${item.description}</div>
         `;
-
-        kpiContainer.appendChild(card);
+        grid.appendChild(card);
     });
 }
 
-function calculateKPI(index) {
-    const item = filteredKpiData[index] || kpiData[index];
+function filterKpis() {
+    const q = searchInput.value.toLowerCase().trim();
+    const cat = categorySelect.value;
 
-    if (!item) return;
+    const filtered = kpiLibrary.filter(item => {
+        const matchSearch =
+            item.title.toLowerCase().includes(q) ||
+            item.category.toLowerCase().includes(q) ||
+            item.formula.toLowerCase().includes(q) ||
+            item.description.toLowerCase().includes(q);
 
-    const inputs = Array.isArray(item.inputs) ? item.inputs : [];
-    const values = [];
-
-    for (let i = 0; i < inputs.length; i++) {
-        const inputEl = document.getElementById(`input-${index}-${i}`);
-        const val = parseFloat(inputEl.value);
-
-        if (isNaN(val)) {
-            document.getElementById(`result-${index}`).innerText = "Lütfen tüm alanları doldurun.";
-            return;
-        }
-
-        values.push(val);
-    }
-
-    try {
-        let result;
-
-        if (typeof item.calculate === "function") {
-            result = item.calculate(...values);
-        } else if (typeof item.formula === "function") {
-            result = item.formula(...values);
-        } else {
-            result = "Bu KPI için hesaplama fonksiyonu tanımlı değil.";
-        }
-
-        document.getElementById(`result-${index}`).innerText = `Sonuç: ${result}`;
-    } catch (e) {
-        document.getElementById(`result-${index}`).innerText = "Hesaplama sırasında hata oluştu.";
-    }
-}
-
-let filteredKpiData = Array.isArray(kpiData) ? [...kpiData] : [];
-
-kpiSearch.addEventListener("input", () => {
-    const val = kpiSearch.value.toLowerCase();
-
-    filteredKpiData = (Array.isArray(kpiData) ? kpiData : []).filter(item => {
-        const title = safeValue(item.title, "").toLowerCase();
-        const category = safeValue(item.category, "").toLowerCase();
-        const description = safeValue(item.description, "").toLowerCase();
-
-        return title.includes(val) || category.includes(val) || description.includes(val);
+        const matchCategory = cat === "tum" || item.category === cat;
+        return matchSearch && matchCategory;
     });
 
-    renderKPIs(filteredKpiData);
-});
+    renderKpis(filtered);
+}
 
-renderKPIs(filteredKpiData);
+searchInput.addEventListener("input", filterKpis);
+categorySelect.addEventListener("change", filterKpis);
+
+const calcs = {
+    oee: {
+        label: "OEE",
+        resultLabel: "OEE Sonucu",
+        fields: [
+            { id: "availability", label: "Kullanılabilirlik (%)", placeholder: "90" },
+            { id: "performance", label: "Performans (%)", placeholder: "85" },
+            { id: "quality", label: "Kalite (%)", placeholder: "95" }
+        ],
+        calc: (v) => {
+            if (!v.availability || !v.performance || !v.quality) return "—";
+            return ((v.availability * v.performance * v.quality) / 10000).toFixed(2) + "%";
+        }
+    },
+    stok: {
+        label: "Stok Devir Hızı",
+        resultLabel: "Devir Hızı",
+        fields: [
+            { id: "cogs", label: "Satılan Malın Maliyeti", placeholder: "1000000" },
+            { id: "avgStock", label: "Ortalama Stok", placeholder: "250000" }
+        ],
+        calc: (v) => {
+            if (!v.cogs || !v.avgStock) return "—";
+            return (v.cogs / v.avgStock).toFixed(2) + "x";
+        }
+    },
+    kar: {
+        label: "Brüt Kar Marjı",
+        resultLabel: "Kar Marjı",
+        fields: [
+            { id: "sales", label: "Net Satış", placeholder: "2000000" },
+            { id: "cost", label: "Satılan Malın Maliyeti", placeholder: "1200000" }
+        ],
+        calc: (v) => {
+            if (!v.sales || !v.cost) return "—";
+            return (((v.sales - v.cost) / v.sales) * 100).toFixed(2) + "%";
+        }
+    },
+    dso: {
+        label: "DSO",
+        resultLabel: "Tahsilat Süresi",
+        fields: [
+            { id: "receivables", label: "Toplam Alacak", placeholder: "500000" },
+            { id: "dailySales", label: "Günlük Ortalama Satış", placeholder: "15000" }
+        ],
+        calc: (v) => {
+            if (!v.receivables || !v.dailySales) return "—";
+            return Math.round(v.receivables / v.dailySales) + " gün";
+        }
+    },
+    otif: {
+        label: "OTIF",
+        resultLabel: "OTIF Oranı",
+        fields: [
+            { id: "onTimeFull", label: "Zamanında ve Tam Teslimat", placeholder: "90" },
+            { id: "totalOrders", label: "Toplam Sipariş", placeholder: "100" }
+        ],
+        calc: (v) => {
+            if (!v.onTimeFull || !v.totalOrders) return "—";
+            return ((v.onTimeFull / v.totalOrders) * 100).toFixed(2) + "%";
+        }
+    }
+};
+
+let currentCalc = "oee";
+
+function setCalc(type) {
+    currentCalc = type;
+    renderCalc();
+}
+
+function renderCalc() {
+    const c = calcs[currentCalc];
+    const fieldsEl = document.getElementById("calc-fields");
+    const labelEl = document.getElementById("calc-label");
+    const valEl = document.getElementById("calc-val");
+
+    fieldsEl.innerHTML = c.fields.map(f => `
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">${f.label}</div>
+            <input class="calc-input" id="field-${f.id}" type="number" placeholder="${f.placeholder}" oninput="updateCalc()">
+        </div>
+    `).join("");
+
+    labelEl.textContent = c.resultLabel;
+    valEl.textContent = "—";
+}
+
+function updateCalc() {
+    const c = calcs[currentCalc];
+    const values = {};
+
+    c.fields.forEach(f => {
+        const el = document.getElementById("field-" + f.id);
+        values[f.id] = el ? parseFloat(el.value) : 0;
+    });
+
+    document.getElementById("calc-val").textContent = c.calc(values);
+}
+
+renderKpis(kpiLibrary);
+setCalc("oee");
 </script>
-
 </body>
 </html>
