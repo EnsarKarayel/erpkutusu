@@ -1,106 +1,447 @@
- 
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ERP SQL Sorguları | Logo, SAP, Odoo SQL Örnekleri</title>
-    <meta name="description" content="Logo, SAP, Odoo, IFS, Minerva ve Plantum ERP sistemleri için hazır SQL sorguları. Ücretsiz indir ve kullan.">
-
+    <title>ERP SQL Sorguları | Logo, SAP, IFS, Odoo ve Minerva SQL Örnekleri</title>
+    <meta name="description" content="ERP sistemleri için hazır SQL sorguları. Logo, SAP, IFS, Odoo, Minerva ve Plantum için stok, satış, finans, üretim ve raporlama sorguları.">
+    <meta name="keywords" content="logo sql sorguları, sap sql, ifs sql, odoo sql, minerva sql, plantum sql, erp sql sorguları">
+    <link rel="canonical" href="https://erpkutusu.com/pages/sql.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ERP SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="Logo, SAP, IFS, Odoo, Minerva ve Plantum için hazır ERP SQL sorguları.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/sql.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
 </head>
-
 <body>
 
-<header>
-    <h1>ERP SQL Kütüphanesi</h1>
-    <nav>
-        <a href="../index.html">Ana Sayfa</a>
-        <a href="sql.html">SQL</a>
-        <a href="kpi.html">KPI</a>
-        <a href="araclar.html">Araçlar</a>
-        <a href="iletisim.html">İletişim</a>
-    </nav>
-</header>
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
 
-<div class="container">
+<section class="hero">
+    <div class="hero-badge">Hazır ERP SQL Kütüphanesi</div>
+    <h1>ERP Sistemleri İçin Hazır SQL Sorguları</h1>
+    <p>
+        Logo, SAP, IFS, Odoo, Minerva ve Plantum için hazırlanmış stok, satış,
+        finans, müşteri, üretim ve raporlama odaklı SQL sorgularını burada bulabilirsiniz.
+    </p>
+</section>
 
-    <div class="card">
-        <h2>📊 ERP SQL Sorguları</h2>
-        <p>Logo, SAP, Odoo, IFS, Minerva ve Plantum sistemleri için hazır sorgular.</p>
+<section class="section section-no-top">
+    <div class="section-tag">// arama ve filtre</div>
+    <h2>SQL Kütüphanesinde Ara</h2>
+    <p class="section-sub">
+        Sorgu adı, ERP sistemi, kategori veya açıklamaya göre filtreleyebilirsiniz.
+    </p>
+
+    <div class="calc-box" style="max-width:100%;">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Arama</div>
+            <input class="calc-input" type="text" id="sqlSearch" placeholder="Örn: stok, müşteri, satış, üretim, odoo">
+        </div>
+
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">ERP Sistemi</div>
+            <select class="calc-input" id="erpFilter">
+                <option value="tum">Tümü</option>
+                <option value="Logo">Logo</option>
+                <option value="SAP">SAP</option>
+                <option value="IFS">IFS</option>
+                <option value="Odoo">Odoo</option>
+                <option value="Minerva">Minerva</option>
+                <option value="Plantum">Plantum</option>
+                <option value="Genel">Genel</option>
+            </select>
+        </div>
+
+        <div>
+            <div class="calc-label">Kategori</div>
+            <select class="calc-input" id="categoryFilter">
+                <option value="tum">Tümü</option>
+                <option value="Stok">Stok</option>
+                <option value="Satış">Satış</option>
+                <option value="Finans">Finans</option>
+                <option value="Üretim">Üretim</option>
+                <option value="Müşteri">Müşteri</option>
+                <option value="Raporlama">Raporlama</option>
+            </select>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <input type="text" id="search" placeholder="Sorgu ara...">
+<section class="section">
+    <div class="section-tag">// seo içerik</div>
+    <h2>ERP SQL Sorguları Neden Önemlidir?</h2>
+    <p class="section-sub">
+        ERP verileri çoğu zaman standart raporların ötesine geçmek için SQL ile analiz edilir.
+        Hazır sorgular; stok hareketlerini, satış performansını, vadesi geçen alacakları,
+        üretim tamamlanma oranlarını ve yönetim raporlarını daha hızlı üretmenizi sağlar.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// sorgular</div>
+    <h2>Hazır SQL Sorgu Listesi</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular arasında arama yapabilir, filtreleyebilir ve tek tıkla kopyalayabilirsiniz.
+    </p>
+
+    <div id="sqlResultsInfo" class="section-sub" style="margin-bottom:18px;"></div>
+    <div class="sql-grid" id="sqlGrid"></div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// erp bazlı rehber</div>
+    <h2>ERP Bazlı SQL Rehberi</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Logo SQL Sorguları</div>
+            <div class="tool-desc">
+                Cari hesap, fatura, stok, bakiye ve satış analizleri için en çok kullanılan Logo sorguları.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">SAP SQL Sorguları</div>
+            <div class="tool-desc">
+                Maliyet merkezi, finansal hareketler, satış dokümanları ve temel raporlama odaklı SAP örnekleri.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">IFS SQL Sorguları</div>
+            <div class="tool-desc">
+                İş emri, üretim, sipariş, teslimat ve tamamlanma oranı raporlarında kullanılan IFS sorguları.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Odoo SQL Sorguları</div>
+            <div class="tool-desc">
+                Ürün, satış siparişi, stok hareketi ve müşteri bazlı raporlar için Odoo veri sorguları.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Minerva SQL Sorguları</div>
+            <div class="tool-desc">
+                Üretim ve ERP süreçlerini ölçmek için kullanılabilecek temel Minerva raporlama sorguları.
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Plantum SQL Sorguları</div>
+            <div class="tool-desc">
+                Planlama, iş akışı ve operasyon takibi için kullanılabilecek Plantum veri sorguları.
+            </div>
+        </div>
     </div>
+</section>
 
-    <div id="sqlList"></div>
+<section class="section">
+    <div class="section-tag">// sık sorulanlar</div>
+    <h2>Sık Sorulan Sorular</h2>
 
-</div>
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Hazır SQL sorguları nasıl kullanılır?</div>
+            <div class="kpi-desc">İlgili ERP veritabanında tablo isimlerini ve firma dönem yapısını kontrol ederek sorguyu kendi ortamına uyarlayabilirsin.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Bu sorgular her firmada aynı çalışır mı?</div>
+            <div class="kpi-desc">Hayır. ERP kurulumuna, tablo yapısına, firma numarasına ve özelleştirmelere göre küçük düzenlemeler gerekebilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">SQL sorguları raporlamada neden önemli?</div>
+            <div class="kpi-desc">Standart ERP ekranlarında olmayan yönetim raporlarını, KPI analizlerini ve detay veri kontrollerini hızla üretmeyi sağlar.</div>
+        </div>
+    </div>
+</section>
 
 <footer>
-    © 2026 ERP Kutusu
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
 </footer>
 
 <script src="../js/security.js"></script>
-<script src="../js/sql-data.js"></script>
-
 <script>
-const container = document.getElementById("sqlList");
-const searchInput = document.getElementById("search");
+const sqlLibrary = [
+    {
+        title: "Stok Devir Hızı Raporu",
+        erp: "Logo",
+        category: "Stok",
+        description: "Son 3 ay için stok devir hızını hesaplar.",
+        query: `SELECT
+  s.STOKKODU,
+  s.STOKADI,
+  SUM(h.MIKTAR) AS TOPLAM_SATIS,
+  AVG(s.BAKIYE) AS ORT_STOK
+FROM LG_STOK s
+LEFT JOIN LG_HAREKET h ON s.LOGICALREF = h.STOCKREF
+GROUP BY s.STOKKODU, s.STOKADI`
+    },
+    {
+        title: "Vadesi Geçen Alacaklar",
+        erp: "Logo",
+        category: "Finans",
+        description: "30 günden eski açık fatura ve alacak listesini verir.",
+        query: `SELECT
+  c.UNVAN,
+  f.FISNO,
+  f.DATE_,
+  f.TOTALDISCOUNTED
+FROM LG_CLCARD c
+JOIN LG_INVOICE f ON c.LOGICALREF = f.CLIENTREF
+WHERE f.TRCODE = 8`
+    },
+    {
+        title: "Cari Bazlı Satış Özeti",
+        erp: "Logo",
+        category: "Satış",
+        description: "Müşteri bazında toplam satış tutarlarını listeler.",
+        query: `SELECT
+  c.UNVAN,
+  SUM(f.TOTALDISCOUNTED) AS TOPLAM_SATIS
+FROM LG_CLCARD c
+JOIN LG_INVOICE f ON c.LOGICALREF = f.CLIENTREF
+GROUP BY c.UNVAN`
+    },
+    {
+        title: "Departman Maliyet Merkezi",
+        erp: "SAP",
+        category: "Finans",
+        description: "SAP maliyet merkezi toplamlarını özetler.",
+        query: `SELECT
+  kostl AS MALIYET_MERKEZI,
+  SUM(wkgbtr) AS TOPLAM_MALIYET
+FROM COSP
+GROUP BY kostl`
+    },
+    {
+        title: "Açık Siparişler",
+        erp: "SAP",
+        category: "Satış",
+        description: "Kapanmamış siparişleri listeler.",
+        query: `SELECT
+  VBELN,
+  AUART,
+  ERDAT
+FROM VBAK
+WHERE GBSTK <> 'C'`
+    },
+    {
+        title: "Üretim Fiili vs Planlanan",
+        erp: "IFS",
+        category: "Üretim",
+        description: "İş emirlerinde planlanan ve tamamlanan miktarı karşılaştırır.",
+        query: `SELECT
+  WO_NO,
+  PART_NO,
+  QTY_DEMAND,
+  QTY_COMPLETE
+FROM SHOP_ORD
+WHERE OBJSTATE = 'Released'`
+    },
+    {
+        title: "Açık İş Emirleri",
+        erp: "IFS",
+        category: "Üretim",
+        description: "Kapanmamış iş emirlerini listeler.",
+        query: `SELECT
+  WO_NO,
+  PART_NO,
+  REAL_SHIP_DATE
+FROM SHOP_ORD
+WHERE REAL_SHIP_DATE IS NULL`
+    },
+    {
+        title: "Odoo Ürün Stok Listesi",
+        erp: "Odoo",
+        category: "Stok",
+        description: "Ürünlerin mevcut stok bilgisini listeler.",
+        query: `SELECT
+  pt.name,
+  sq.quantity
+FROM stock_quant sq
+JOIN product_product pp ON sq.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id`
+    },
+    {
+        title: "Odoo Satış Siparişleri",
+        erp: "Odoo",
+        category: "Satış",
+        description: "Satış siparişlerini ve durumlarını gösterir.",
+        query: `SELECT
+  name,
+  date_order,
+  state,
+  amount_total
+FROM sale_order`
+    },
+    {
+        title: "Odoo Müşteri Listesi",
+        erp: "Odoo",
+        category: "Müşteri",
+        description: "Müşteri kayıtlarını listeler.",
+        query: `SELECT
+  name,
+  email,
+  phone
+FROM res_partner
+WHERE customer_rank > 0`
+    },
+    {
+        title: "Minerva Üretim Özeti",
+        erp: "Minerva",
+        category: "Üretim",
+        description: "Üretim kayıtlarını özetler.",
+        query: `SELECT
+  IS_EMRI,
+  URUN_KODU,
+  MIKTAR,
+  TARIH
+FROM URETIM_HAREKETLERI`
+    },
+    {
+        title: "Minerva Stok Hareketleri",
+        erp: "Minerva",
+        category: "Stok",
+        description: "Stok giriş çıkış hareketlerini gösterir.",
+        query: `SELECT
+  STOK_KODU,
+  HAREKET_TIPI,
+  MIKTAR,
+  TARIH
+FROM STOK_HAREKETLERI`
+    },
+    {
+        title: "Plantum Planlama Kayıtları",
+        erp: "Plantum",
+        category: "Raporlama",
+        description: "Planlama kayıtlarını listeler.",
+        query: `SELECT
+  PLAN_NO,
+  ISLEM,
+  BASLANGIC_TARIHI,
+  BITIS_TARIHI
+FROM PLANLAMA`
+    },
+    {
+        title: "Plantum Operasyon Takibi",
+        erp: "Plantum",
+        category: "Üretim",
+        description: "Operasyon bazlı süreç takibi için temel rapor.",
+        query: `SELECT
+  OPERASYON_KODU,
+  DURUM,
+  BASLAMA_ZAMANI,
+  BITIS_ZAMANI
+FROM OPERASYON_TAKIP`
+    }
+];
 
-function renderSQL(list) {
-    container.innerHTML = "";
+const grid = document.getElementById("sqlGrid");
+const searchInput = document.getElementById("sqlSearch");
+const erpFilter = document.getElementById("erpFilter");
+const categoryFilter = document.getElementById("categoryFilter");
+const info = document.getElementById("sqlResultsInfo");
 
-    list.forEach((item) => {
-        const div = document.createElement("div");
-        div.className = "card";
+function renderSQL(items) {
+    grid.innerHTML = "";
 
-        const safeTitle = Security.sanitize(item.title || "");
-        const safeErp = Security.sanitize(item.erp || "");
-        const safeQuery = Security.sanitize(item.query || "");
+    info.textContent = `${items.length} sorgu listeleniyor.`;
 
-        div.innerHTML = `
-            <h3>${safeTitle}</h3>
-            <p>${safeErp}</p>
-            <div class="sql-box">${safeQuery}</div>
-            <button class="copy-btn">Kopyala</button>
-        `;
-
-        const btn = div.querySelector(".copy-btn");
-        btn.addEventListener("click", () => {
-            Security.safeCopy(item.query || "", btn);
-        });
-
-        container.appendChild(div);
-    });
-}
-
-searchInput.addEventListener("input", () => {
-    const val = searchInput.value.toLowerCase();
-
-    if (Security.hasSQLInjection(val)) {
-        container.innerHTML = `
-            <div class="card">
-                <h3>Geçersiz arama</h3>
-                <p>Arama alanında geçersiz karakter veya ifade tespit edildi.</p>
+    if (!items.length) {
+        grid.innerHTML = `
+            <div class="tool-card">
+                <div class="tool-name">Sonuç bulunamadı</div>
+                <div class="tool-desc">Arama veya filtre kriterini değiştirerek tekrar deneyin.</div>
             </div>
         `;
         return;
     }
 
-    const filtered = sqlData.filter(x =>
-        (x.title || "").toLowerCase().includes(val) ||
-        (x.erp || "").toLowerCase().includes(val)
-    );
+    items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "sql-card";
+
+        const tagClass =
+            item.erp === "Logo" ? "tag-logo" :
+            item.erp === "SAP" ? "tag-sap" :
+            item.erp === "IFS" ? "tag-ifs" :
+            "tag-genel";
+
+        card.innerHTML = `
+            <div class="sql-card-head">
+                <div class="sql-card-title">${item.title}</div>
+                <span class="erp-tag ${tagClass}">${item.erp}</span>
+            </div>
+            <div class="sql-code">${item.query.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">${item.category} • ${item.description}</span>
+                <button class="copy-btn">Kopyala</button>
+            </div>
+        `;
+
+        const btn = card.querySelector(".copy-btn");
+        btn.addEventListener("click", () => {
+            if (window.Security && Security.safeCopy) {
+                Security.safeCopy(item.query, btn);
+            } else {
+                navigator.clipboard.writeText(item.query);
+            }
+        });
+
+        grid.appendChild(card);
+    });
+}
+
+function filterSQL() {
+    const search = searchInput.value.toLowerCase().trim();
+    const erp = erpFilter.value;
+    const category = categoryFilter.value;
+
+    const filtered = sqlLibrary.filter(item => {
+        const matchSearch =
+            item.title.toLowerCase().includes(search) ||
+            item.erp.toLowerCase().includes(search) ||
+            item.category.toLowerCase().includes(search) ||
+            item.description.toLowerCase().includes(search) ||
+            item.query.toLowerCase().includes(search);
+
+        const matchErp = erp === "tum" || item.erp === erp;
+        const matchCategory = category === "tum" || item.category === category;
+
+        return matchSearch && matchErp && matchCategory;
+    });
 
     renderSQL(filtered);
-});
+}
 
-renderSQL(sqlData);
+searchInput.addEventListener("input", filterSQL);
+erpFilter.addEventListener("change", filterSQL);
+categoryFilter.addEventListener("change", filterSQL);
+
+renderSQL(sqlLibrary);
 </script>
-
 </body>
 </html>
