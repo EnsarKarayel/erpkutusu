@@ -1,129 +1,293 @@
- 
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERP Araçları | ERP Kutusu</title>
-    <meta name="description" content="ERP, üretim, finans ve operasyon ekipleri için ücretsiz online araçlar ve yardımcı hesaplamalar.">
+    <title>ERP Araçları ve Hesaplayıcılar | ERP Kutusu</title>
+    <meta name="description" content="KDV hesaplayıcı, OEE hesaplama, kur çevirici, gün farkı hesaplayıcı ve ERP süreçlerinde işe yarayan ücretsiz araçlar.">
+    <meta name="keywords" content="erp araçları, kdv hesaplayıcı, oee hesaplama, kur çevirici, gün farkı hesaplama, ücretsiz araçlar">
+    <link rel="canonical" href="https://erpkutusu.com/pages/araclar.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ERP Araçları ve Hesaplayıcılar | ERP Kutusu">
+    <meta property="og:description" content="ERP, finans, üretim ve operasyon için ücretsiz online araçlar ve hesaplayıcılar.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/araclar.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
 </head>
 <body>
 
-<header>
-    <h1>ERP Araçları</h1>
-    <nav>
-        <a href="../index.html">Ana Sayfa</a>
-        <a href="sql.html">SQL</a>
-        <a href="kpi.html">KPI</a>
-        <a href="araclar.html">Araçlar</a>
-        <a href="iletisim.html">İletişim</a>
-    </nav>
-</header>
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
 
-<div class="container">
+<section class="hero">
+    <div class="hero-badge">Ücretsiz Online Araçlar</div>
+    <h1>ERP, Finans ve Operasyon İçin Pratik Araçlar</h1>
+    <p>
+        KDV hesaplayıcı, OEE hesaplama, kur çevirici, gün farkı hesaplama ve
+        operasyonel kararları hızlandıran ücretsiz araçlar.
+    </p>
+</section>
 
-    <div class="card">
-        <h2>🧰 ERP ve Operasyon Araçları</h2>
-        <p>Günlük işlerde hızlı hesaplama ve dönüşüm yapabilmen için pratik araçlar.</p>
+<section class="section section-no-top">
+    <div class="section-tag">// araç rehberi</div>
+    <h2>ERP Araçları Neden Faydalıdır?</h2>
+    <p class="section-sub">
+        ERP kullanıcıları çoğu zaman küçük ama sık tekrarlanan hesaplamalar yapar.
+        KDV toplamı, gün farkı, kur dönüşümü veya OEE gibi metrikler için hızlı araçlar,
+        hem zaman kazandırır hem de raporlama hatalarını azaltır.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// araç kartları</div>
+    <h2>Kullanılabilir Araçlar</h2>
+    <p class="section-sub">
+        Aşağıdaki araçlar doğrudan tarayıcıda çalışır. Ek kurulum veya giriş gerekmez.
+    </p>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-icon">💰</div>
+            <div class="tool-name">KDV Hesaplayıcı</div>
+            <div class="tool-desc">KDV tutarını ve KDV dahil toplamı hesaplar.</div>
+            <a href="#kdv" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">🏭</div>
+            <div class="tool-name">OEE Hesaplayıcı</div>
+            <div class="tool-desc">Kullanılabilirlik, performans ve kaliteye göre OEE sonucu verir.</div>
+            <a href="#oee" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">📅</div>
+            <div class="tool-name">Gün Farkı Hesaplayıcı</div>
+            <div class="tool-desc">İki tarih arasındaki gün farkını hesaplar.</div>
+            <a href="#gunfarki" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">💱</div>
+            <div class="tool-name">Kur Çevirici</div>
+            <div class="tool-desc">Döviz kuruna göre hızlı çeviri yapar.</div>
+            <a href="#kur" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">📦</div>
+            <div class="tool-name">Stok Devir Hızı Hesaplayıcı</div>
+            <div class="tool-desc">Satılan malın maliyeti ve ortalama stok ile devir hızını verir.</div>
+            <a href="#stokdevir" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">📈</div>
+            <div class="tool-name">Brüt Kar Marjı Hesaplayıcı</div>
+            <div class="tool-desc">Net satış ve maliyet verileri ile brüt kar marjını hesaplar.</div>
+            <a href="#brutkar" class="tool-link">Aracı Aç</a>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h2>📦 KDV Hesaplayıcı</h2>
+<section class="section" id="kdv">
+    <div class="section-tag">// kdv</div>
+    <h2>KDV Hesaplayıcı</h2>
+    <p class="section-sub">Tutar ve KDV oranını girin, KDV tutarını ve toplamı görün.</p>
 
-        <div class="input-group">
-            <label>Tutar</label>
-            <input type="number" id="kdvTutar" placeholder="Örn: 1000">
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Tutar</div>
+            <input class="calc-input" type="number" id="kdvTutar" placeholder="1000" oninput="hesaplaKDV()">
         </div>
 
-        <div class="input-group">
-            <label>KDV Oranı (%)</label>
-            <input type="number" id="kdvOran" placeholder="Örn: 20">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">KDV Oranı (%)</div>
+            <input class="calc-input" type="number" id="kdvOran" placeholder="20" oninput="hesaplaKDV()">
         </div>
 
-        <button onclick="hesaplaKDV()">Hesapla</button>
-        <div class="kpi-box" id="kdvResult">Sonuç burada görünecek.</div>
+        <div class="calc-result">
+            <span class="calc-result-label">KDV Dahil Toplam</span>
+            <span class="calc-result-val" id="kdvResult">—</span>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h2>🏭 OEE Hızlı Hesaplama</h2>
+<section class="section" id="oee">
+    <div class="section-tag">// oee</div>
+    <h2>OEE Hesaplayıcı</h2>
+    <p class="section-sub">Kullanılabilirlik, performans ve kalite değerleri ile OEE hesaplayın.</p>
 
-        <div class="input-group">
-            <label>Kullanılabilirlik (%)</label>
-            <input type="number" id="oeeA" placeholder="Örn: 90">
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Kullanılabilirlik (%)</div>
+            <input class="calc-input" type="number" id="oeeA" placeholder="90" oninput="hesaplaOEE()">
         </div>
 
-        <div class="input-group">
-            <label>Performans (%)</label>
-            <input type="number" id="oeeP" placeholder="Örn: 85">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Performans (%)</div>
+            <input class="calc-input" type="number" id="oeeP" placeholder="85" oninput="hesaplaOEE()">
         </div>
 
-        <div class="input-group">
-            <label>Kalite (%)</label>
-            <input type="number" id="oeeQ" placeholder="Örn: 95">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Kalite (%)</div>
+            <input class="calc-input" type="number" id="oeeQ" placeholder="95" oninput="hesaplaOEE()">
         </div>
 
-        <button onclick="hesaplaOEE()">Hesapla</button>
-        <div class="kpi-box" id="oeeResult">Sonuç burada görünecek.</div>
+        <div class="calc-result">
+            <span class="calc-result-label">OEE Sonucu</span>
+            <span class="calc-result-val" id="oeeResult">—</span>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h2>📅 Gün Farkı Hesaplayıcı</h2>
+<section class="section" id="gunfarki">
+    <div class="section-tag">// tarih</div>
+    <h2>Gün Farkı Hesaplayıcı</h2>
+    <p class="section-sub">İki tarih arasındaki farkı gün bazında hesaplayın.</p>
 
-        <div class="input-group">
-            <label>Başlangıç Tarihi</label>
-            <input type="date" id="dateStart">
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Başlangıç Tarihi</div>
+            <input class="calc-input" type="date" id="dateStart" oninput="hesaplaGunFarki()">
         </div>
 
-        <div class="input-group">
-            <label>Bitiş Tarihi</label>
-            <input type="date" id="dateEnd">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Bitiş Tarihi</div>
+            <input class="calc-input" type="date" id="dateEnd" oninput="hesaplaGunFarki()">
         </div>
 
-        <button onclick="hesaplaGunFarki()">Hesapla</button>
-        <div class="kpi-box" id="dateResult">Sonuç burada görünecek.</div>
+        <div class="calc-result">
+            <span class="calc-result-label">Gün Farkı</span>
+            <span class="calc-result-val" id="dateResult">—</span>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h2>💱 Kur Çevirici</h2>
+<section class="section" id="kur">
+    <div class="section-tag">// kur</div>
+    <h2>Kur Çevirici</h2>
+    <p class="section-sub">Tutar ve kur bilgisine göre hızlı çevrim yapın.</p>
 
-        <div class="input-group">
-            <label>Tutar</label>
-            <input type="number" id="kurTutar" placeholder="Örn: 100">
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Tutar</div>
+            <input class="calc-input" type="number" id="kurTutar" placeholder="100" oninput="hesaplaKur()">
         </div>
 
-        <div class="input-group">
-            <label>Kur</label>
-            <input type="number" id="kurOran" placeholder="Örn: 38.50">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Kur</div>
+            <input class="calc-input" type="number" id="kurOran" placeholder="38.50" oninput="hesaplaKur()">
         </div>
 
-        <button onclick="hesaplaKur()">Hesapla</button>
-        <div class="kpi-box" id="kurResult">Sonuç burada görünecek.</div>
+        <div class="calc-result">
+            <span class="calc-result-label">Çevrilen Tutar</span>
+            <span class="calc-result-val" id="kurResult">—</span>
+        </div>
     </div>
+</section>
 
-</div>
+<section class="section" id="stokdevir">
+    <div class="section-tag">// stok</div>
+    <h2>Stok Devir Hızı Hesaplayıcı</h2>
+    <p class="section-sub">Satılan malın maliyeti ve ortalama stok ile stok devir hızını hesaplayın.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Satılan Malın Maliyeti</div>
+            <input class="calc-input" type="number" id="stokMaliyet" placeholder="1000000" oninput="hesaplaStokDevir()">
+        </div>
+
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Ortalama Stok</div>
+            <input class="calc-input" type="number" id="stokOrtalama" placeholder="250000" oninput="hesaplaStokDevir()">
+        </div>
+
+        <div class="calc-result">
+            <span class="calc-result-label">Devir Hızı</span>
+            <span class="calc-result-val" id="stokDevirResult">—</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="brutkar">
+    <div class="section-tag">// kar</div>
+    <h2>Brüt Kar Marjı Hesaplayıcı</h2>
+    <p class="section-sub">Net satış ve satılan malın maliyeti ile brüt kar marjını bulun.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Net Satış</div>
+            <input class="calc-input" type="number" id="karSatis" placeholder="2000000" oninput="hesaplaBrutKar()">
+        </div>
+
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Satılan Malın Maliyeti</div>
+            <input class="calc-input" type="number" id="karMaliyet" placeholder="1200000" oninput="hesaplaBrutKar()">
+        </div>
+
+        <div class="calc-result">
+            <span class="calc-result-label">Brüt Kar Marjı</span>
+            <span class="calc-result-val" id="brutKarResult">—</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// sık sorulanlar</div>
+    <h2>Sık Sorulan Sorular</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Bu araçlar ücretsiz mi?</div>
+            <div class="kpi-desc">Evet. ERP Kutusu üzerindeki temel hesaplayıcılar ücretsiz kullanılabilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Sonuçları kayıt ediyor musunuz?</div>
+            <div class="kpi-desc">Hayır. Bu araçlar doğrudan tarayıcıda çalışır ve verileriniz saklanmaz.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Bu hesaplayıcılar ERP verileriyle kullanılabilir mi?</div>
+            <div class="kpi-desc">Evet. ERP sisteminden aldığınız değerleri ilgili alanlara girerek hızlı hesaplama yapabilirsiniz.</div>
+        </div>
+    </div>
+</section>
 
 <footer>
-    © 2026 ERP Kutusu
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
 </footer>
 
-<script src="../js/security.js"></script>
 <script>
 function hesaplaKDV() {
     const tutar = parseFloat(document.getElementById("kdvTutar").value);
     const oran = parseFloat(document.getElementById("kdvOran").value);
     const result = document.getElementById("kdvResult");
 
-    if (isNaN(tutar) || isNaN(oran)) {
-        result.innerText = "Lütfen tüm alanları doldurun.";
+    if (!tutar || !oran) {
+        result.textContent = "—";
         return;
     }
 
-    const kdv = tutar * oran / 100;
-    const toplam = tutar + kdv;
-
-    result.innerText = `KDV: ${kdv.toFixed(2)} | KDV Dahil Toplam: ${toplam.toFixed(2)}`;
+    const toplam = tutar + (tutar * oran / 100);
+    result.textContent = toplam.toFixed(2);
 }
 
 function hesaplaOEE() {
@@ -132,13 +296,13 @@ function hesaplaOEE() {
     const q = parseFloat(document.getElementById("oeeQ").value);
     const result = document.getElementById("oeeResult");
 
-    if (isNaN(a) || isNaN(p) || isNaN(q)) {
-        result.innerText = "Lütfen tüm alanları doldurun.";
+    if (!a || !p || !q) {
+        result.textContent = "—";
         return;
     }
 
     const oee = (a * p * q) / 10000;
-    result.innerText = `OEE: ${oee.toFixed(2)}%`;
+    result.textContent = oee.toFixed(2) + "%";
 }
 
 function hesaplaGunFarki() {
@@ -147,17 +311,16 @@ function hesaplaGunFarki() {
     const result = document.getElementById("dateResult");
 
     if (!start || !end) {
-        result.innerText = "Lütfen iki tarihi de seçin.";
+        result.textContent = "—";
         return;
     }
 
     const startDate = new Date(start);
     const endDate = new Date(end);
-
     const diffTime = endDate - startDate;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-    result.innerText = `Tarih farkı: ${diffDays} gün`;
+    result.textContent = diffDays + " gün";
 }
 
 function hesaplaKur() {
@@ -165,15 +328,40 @@ function hesaplaKur() {
     const kur = parseFloat(document.getElementById("kurOran").value);
     const result = document.getElementById("kurResult");
 
-    if (isNaN(tutar) || isNaN(kur)) {
-        result.innerText = "Lütfen tüm alanları doldurun.";
+    if (!tutar || !kur) {
+        result.textContent = "—";
         return;
     }
 
-    const toplam = tutar * kur;
-    result.innerText = `Çevrilen tutar: ${toplam.toFixed(2)}`;
+    result.textContent = (tutar * kur).toFixed(2);
+}
+
+function hesaplaStokDevir() {
+    const maliyet = parseFloat(document.getElementById("stokMaliyet").value);
+    const ortalama = parseFloat(document.getElementById("stokOrtalama").value);
+    const result = document.getElementById("stokDevirResult");
+
+    if (!maliyet || !ortalama) {
+        result.textContent = "—";
+        return;
+    }
+
+    result.textContent = (maliyet / ortalama).toFixed(2) + "x";
+}
+
+function hesaplaBrutKar() {
+    const satis = parseFloat(document.getElementById("karSatis").value);
+    const maliyet = parseFloat(document.getElementById("karMaliyet").value);
+    const result = document.getElementById("brutKarResult");
+
+    if (!satis || !maliyet) {
+        result.textContent = "—";
+        return;
+    }
+
+    const oran = ((satis - maliyet) / satis) * 100;
+    result.textContent = oran.toFixed(2) + "%";
 }
 </script>
-
 </body>
 </html>
