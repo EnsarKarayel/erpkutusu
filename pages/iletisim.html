@@ -3,86 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İletişim | ERP Kutusu</title>
-    <meta name="description" content="ERP Kutusu ile iletişime geçin. SQL, ERP raporlama, KPI danışmanlığı ve özel çözümler için form gönderin.">
+    <title>İletişim ve Danışmanlık | ERP Kutusu</title>
+    <meta name="description" content="ERP Kutusu ile iletişime geçin. SQL sorguları, KPI raporları, ERP danışmanlığı, dashboard geliştirme ve özel raporlama talepleri için form gönderin.">
+    <meta name="keywords" content="erp danışmanlığı, sql sorgu desteği, kpi raporu, dashboard geliştirme, iletişim, erp kutusu">
+    <link rel="canonical" href="https://erpkutusu.com/pages/iletisim.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="İletişim ve Danışmanlık | ERP Kutusu">
+    <meta property="og:description" content="ERP danışmanlığı, SQL sorguları, KPI raporları ve dashboard geliştirme için iletişime geçin.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/iletisim.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
 </head>
 <body>
 
-<header>
-    <h1>İletişim</h1>
-    <nav>
-        <a href="../index.html">Ana Sayfa</a>
-        <a href="sql.html">SQL</a>
-        <a href="kpi.html">KPI</a>
-        <a href="araclar.html">Araçlar</a>
-        <a href="iletisim.html">İletişim</a>
-    </nav>
-</header>
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
 
-<div class="container">
+<section class="hero">
+    <div class="hero-badge">İletişim ve Danışmanlık</div>
+    <h1>ERP, SQL ve KPI Konularında İletişime Geçin</h1>
+    <p>
+        SQL sorguları, KPI hesaplamaları, dashboard geliştirme, ERP raporlama ve
+        özel analiz ihtiyaçlarınız için mesaj gönderebilirsiniz.
+    </p>
+</section>
 
-    <div class="card">
-        <h2>📩 Bizimle İletişime Geçin</h2>
-        <p>ERP, SQL sorguları, KPI raporları ve özel geliştirme talepleriniz için mesaj gönderebilirsiniz.</p>
+<section class="section section-no-top">
+    <div class="section-tag">// hizmet alanları</div>
+    <h2>Hangi Konularda Yardım Alabilirsiniz?</h2>
+    <p class="section-sub">
+        ERP Kutusu; veri analizi, SQL raporlama, üretim KPI’ları ve operasyonel görünürlük
+        konularında pratik çözümler sunar.
+    </p>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-icon">🗄️</div>
+            <div class="tool-name">ERP SQL Sorguları</div>
+            <div class="tool-desc">Logo, SAP, IFS, Odoo ve benzeri sistemlerde raporlama ve veri çekme desteği.</div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">📊</div>
+            <div class="tool-name">KPI ve OEE Raporlama</div>
+            <div class="tool-desc">Üretim, finans, lojistik ve satış ekipleri için KPI tasarımı ve yorumlama desteği.</div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">📈</div>
+            <div class="tool-name">Dashboard Geliştirme</div>
+            <div class="tool-desc">Yönetim raporları, operasyon panelleri ve veri görünürlüğü için dashboard çözümleri.</div>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">⚙️</div>
+            <div class="tool-name">Özel Raporlama</div>
+            <div class="tool-desc">Standart ERP ekranlarında olmayan analizler ve özel rapor ihtiyaçları için çözüm geliştirme.</div>
+        </div>
     </div>
+</section>
 
-    <div class="card">
+<section class="section">
+    <div class="section-tag">// iletişim formu</div>
+    <h2>Mesaj Gönderin</h2>
+    <p class="section-sub">
+        Talebinizi ne kadar net yazarsanız, çözüm üretmek o kadar kolay olur. ERP sistemi,
+        ihtiyaç konusu ve hedef rapor bilgisini yazmanız faydalı olur.
+    </p>
+
+    <div class="calc-box" style="max-width:760px;">
         <form id="contactForm">
-            <div class="input-group">
-                <label for="name">Ad Soyad</label>
-                <input type="text" id="name" name="name" maxlength="100" required>
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">Ad Soyad</div>
+                <input class="calc-input" type="text" id="name" name="name" maxlength="100" placeholder="Adınız ve soyadınız">
             </div>
 
-            <div class="input-group">
-                <label for="email">E-posta</label>
-                <input type="email" id="email" name="email" maxlength="150" required>
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">E-posta</div>
+                <input class="calc-input" type="email" id="email" name="email" maxlength="150" placeholder="ornek@firma.com">
             </div>
 
-            <div class="input-group">
-                <label for="phone">Telefon</label>
-                <input type="text" id="phone" name="phone" maxlength="20">
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">Telefon</div>
+                <input class="calc-input" type="text" id="phone" name="phone" maxlength="20" placeholder="05xxxxxxxxx">
             </div>
 
-            <div class="input-group">
-                <label for="subject">Konu</label>
-                <input type="text" id="subject" name="subject" maxlength="150" required>
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">Konu</div>
+                <input class="calc-input" type="text" id="subject" name="subject" maxlength="150" placeholder="Örn: Logo SQL raporu ihtiyacı">
             </div>
 
-            <div class="input-group">
-                <label for="message">Mesaj</label>
-                <textarea id="message" name="message" rows="6" maxlength="2000" required></textarea>
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">ERP Sistemi</div>
+                <select class="calc-input" id="erpSystem" name="erpSystem">
+                    <option value="">Seçiniz</option>
+                    <option value="Logo">Logo</option>
+                    <option value="SAP">SAP</option>
+                    <option value="IFS">IFS</option>
+                    <option value="Odoo">Odoo</option>
+                    <option value="Minerva">Minerva</option>
+                    <option value="Plantum">Plantum</option>
+                    <option value="Diğer">Diğer</option>
+                </select>
             </div>
 
-            <div class="input-group" style="display:none;">
-                <label for="website">Website</label>
-                <input type="text" id="website" name="website">
+            <div style="margin-bottom:12px;">
+                <div class="calc-label">Mesaj</div>
+                <textarea class="calc-input" id="message" name="message" rows="7" maxlength="2000" placeholder="İhtiyacınızı, hedef raporu ve varsa örnek beklentinizi yazın."></textarea>
             </div>
 
-            <button type="submit">Gönder</button>
-            <div class="kpi-box" id="formResult">Form hazır.</div>
+            <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+
+            <button type="submit" class="btn-primary">Mesajı Gönder</button>
+
+            <div class="calc-result" style="margin-top:16px;">
+                <span class="calc-result-label">Durum</span>
+                <span class="calc-result-val" id="formResult" style="font-size:1rem;">Form hazır</span>
+            </div>
         </form>
     </div>
+</section>
 
-    <div class="card">
-        <h2>🧭 Hizmet Alanları</h2>
-        <ul>
-            <li>ERP SQL sorguları</li>
-            <li>OEE ve KPI raporlamaları</li>
-            <li>Dashboard geliştirme</li>
-            <li>Rapor ve veri analizi danışmanlığı</li>
-        </ul>
+<section class="section">
+    <div class="section-tag">// neden iletişime geçilir</div>
+    <h2>En Sık Gelen Talepler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Hazır SQL sorgusunu firmaya uyarlama</div>
+            <div class="kpi-desc">Mevcut sorguların tablo yapısına ve firma veritabanına göre uyarlanması.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Yönetim dashboard tasarımı</div>
+            <div class="kpi-desc">Üst yönetim ve operasyon ekipleri için KPI odaklı dashboard ihtiyaçları.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">OEE ve üretim raporlama</div>
+            <div class="kpi-desc">Makine, hat, vardiya ve üretim verimliliği analizleri.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Finansal raporlama geliştirme</div>
+            <div class="kpi-desc">DSO, brüt kar, cari oran ve benzeri metrikler için özel raporlar.</div>
+        </div>
     </div>
+</section>
 
-</div>
+<section class="section">
+    <div class="section-tag">// sık sorulanlar</div>
+    <h2>Sık Sorulan Sorular</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Mesaj gönderince ne olur?</div>
+            <div class="kpi-desc">Talebiniz incelenir, uygun çözüm yaklaşımı belirlenir ve size dönüş planlanır.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Hangi ERP sistemlerinde destek veriliyor?</div>
+            <div class="kpi-desc">Logo, SAP, IFS, Odoo, Minerva, Plantum ve benzeri ERP yapılarında veri ve raporlama desteği sağlanabilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Form verileri güvenli mi?</div>
+            <div class="kpi-desc">Form alanlarında basit güvenlik kontrolleri uygulanır. Gerçek gönderim servisi bağlandığında ek korumalar da aktif edilir.</div>
+        </div>
+    </div>
+</section>
 
 <footer>
-    © 2026 ERP Kutusu
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
 </footer>
 
 <script src="../js/security.js"></script>
-<script src="../js/main.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contactForm");
@@ -91,14 +199,14 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        if (!Security.rateLimiter.check("contactForm")) {
-            resultBox.textContent = "Çok sık deneme yapıldı. Lütfen biraz sonra tekrar deneyin.";
+        if (typeof Security !== "undefined" && !Security.rateLimiter.check("contactForm")) {
+            resultBox.textContent = "Çok sık deneme";
             return;
         }
 
         const honeypotValue = document.getElementById("website").value;
-        if (!Security.checkHoneypot(honeypotValue)) {
-            resultBox.textContent = "Gönderim başarısız.";
+        if (typeof Security !== "undefined" && !Security.checkHoneypot(honeypotValue)) {
+            resultBox.textContent = "Gönderim başarısız";
             return;
         }
 
@@ -137,28 +245,32 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         ];
 
-        const errors = Security.validateForm(fields);
+        const errors = typeof Security !== "undefined" ? Security.validateForm(fields) : [];
 
         if (errors.length > 0) {
-            resultBox.innerHTML = errors.join("<br>");
+            resultBox.textContent = errors[0];
             return;
         }
 
         const formData = {
-            name: Security.sanitize(document.getElementById("name").value),
-            email: Security.sanitize(document.getElementById("email").value),
-            phone: Security.sanitize(document.getElementById("phone").value),
-            subject: Security.sanitize(document.getElementById("subject").value),
-            message: Security.sanitize(document.getElementById("message").value)
+            name: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("name").value) : document.getElementById("name").value,
+            email: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("email").value) : document.getElementById("email").value,
+            phone: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("phone").value) : document.getElementById("phone").value,
+            subject: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("subject").value) : document.getElementById("subject").value,
+            erpSystem: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("erpSystem").value) : document.getElementById("erpSystem").value,
+            message: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("message").value) : document.getElementById("message").value
         };
 
-        console.log("Form verisi:", formData);
+        console.log("İletişim formu verisi:", formData);
 
-        resultBox.textContent = "Form doğrulandı. Sonraki adımda bunu Formspree veya EmailJS ile bağlayacağız.";
+        resultBox.textContent = "Form doğrulandı";
         form.reset();
+
+        setTimeout(() => {
+            resultBox.textContent = "Form hazır";
+        }, 2500);
     });
 });
 </script>
-
 </body>
 </html>
