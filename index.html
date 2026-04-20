@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Logo, SAP, IFS ve diğer ERP sistemleri için hazır SQL sorguları, KPI formülleri ve ücretsiz araçlar. Türkiye'nin ERP uzman kaynağı.">
+<meta name="keywords" content="ERP SQL sorguları, Logo ERP, SAP sorgu, IFS raporlama, KPI formül, ERP araçları">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ERP Araç Kutusu — SQL, KPI & ERP Rehberi">
+<meta property="og:description" content="Logo, SAP, IFS ve diğer ERP sistemleri için hazır SQL sorguları, KPI formülleri ve ücretsiz araçlar.">
+<meta property="og:url" content="https://ensarkarayel.github.io/erpkutusu/">
+<meta property="og:site_name" content="ERP Araç Kutusu">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ERP Araç Kutusu — SQL, KPI & ERP Rehberi">
+<meta name="twitter:description" content="Hazır SQL sorguları, KPI formülleri ve ücretsiz ERP araçları.">
+<title>ERP Araç Kutusu — SQL, KPI & ERP Rehberi
+    <link rel="canonical" href="https://ensarkarayel.github.io/erpkutusu/">
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">ERP<span>Kutusu</span></a>
+  <ul>
+    <li><a href="#sql">SQL Sorguları</a></li>
+    <li><a href="#kpi">KPI Formülleri</a></li>
+    <li><a href="#araclar">Araçlar</a></li>
+    <li><a href="#karsilastir">ERP Karşılaştır</a></li>
+    <li><a href="#iletisim" class="nav-cta">Danışmanlık</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Türkiye'nin ERP Kaynak Merkezi</div>
+  <h1>ERP & SQL Araçları,<br><em>Hepsi Burada</em></h1>
+  <p>Logo, SAP, IFS ve diğer ERP sistemleri için hazır SQL sorguları, KPI formülleri ve ücretsiz online araçlar. Veri mühendislerinden, veri mühendislerine.</p>
+  <div class="hero-actions">
+    <a href="#sql" class="btn-primary">SQL Kütüphanesini Gör</a>
+    <a href="#araclar" class="btn-secondary">Ücretsiz Araçlar</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">120+</div>
+    <div class="stat-label">Hazır SQL Sorgusu</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">40+</div>
+    <div class="stat-label">KPI Formülü</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5</div>
+    <div class="stat-label">ERP Sistemi</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">%100</div>
+    <div class="stat-label">Ücretsiz</div>
+  </div>
+</div>
+
+<section class="section" id="sql">
+  <div class="section-tag">// sql kütüphanesi</div>
+  <h2>Hazır SQL Sorguları</h2>
+  <p class="section-sub">Kopyala, yapıştır, çalıştır. ERP sistemine göre filtrelenmiş, test edilmiş sorgular.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Stok Devir Hızı Raporu</div>
+        <span class="erp-tag tag-logo">Logo</span>
+      </div>
+      <div class="sql-code"><span class="sql-kw">SELECT</span>
+  s.STOKKODU,
+  s.STOKADI,
+  <span class="sql-fn">SUM</span>(h.MIKTAR) <span class="sql-kw">AS</span> TOPLAM_SATIS,
+  <span class="sql-fn">AVG</span>(s.BAKIYE) <span class="sql-kw">AS</span> ORT_STOK,
+  <span class="sql-fn">ROUND</span>(
+    <span class="sql-fn">SUM</span>(h.MIKTAR) / <span class="sql-fn">NULLIF</span>(<span class="sql-fn">AVG</span>(s.BAKIYE),<span class="sql-str">0</span>), <span class="sql-str">2</span>
+  ) <span class="sql-kw">AS</span> DEVIR_HIZI
+<span class="sql-kw">FROM</span> LG_STOK s
+<span class="sql-kw">LEFT JOIN</span> LG_HAREKET h <span class="sql-kw">ON</span> s.LOGICALREF = h.STOCKREF
+<span class="sql-kw">WHERE</span> h.DATE_ >= <span class="sql-fn">DATEADD</span>(month,-<span class="sql-str">3</span>,<span class="sql-fn">GETDATE</span>())
+<span class="sql-kw">GROUP BY</span> s.STOKKODU, s.STOKADI
+<span class="sql-kw">ORDER BY</span> DEVIR_HIZI <span class="sql-kw">DESC</span></div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 3 ay stok devir hızı analizi</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Vadesi Geçen Alacaklar</div>
+        <span class="erp-tag tag-logo">Logo</span>
+      </div>
+      <div class="sql-code"><span class="sql-kw">SELECT</span>
+  c.UNVAN <span class="sql-kw">AS</span> MUSTERI,
+  f.FISNO <span class="sql-kw">AS</span> FATURA_NO,
+  f.DATE_ <span class="sql-kw">AS</span> TARIH,
+  f.TOTALDISCOUNTED <span class="sql-kw">AS</span> TUTAR,
+  <span class="sql-fn">DATEDIFF</span>(day, f.DATE_, <span class="sql-fn">GETDATE</span>()) <span class="sql-kw">AS</span> GECEN_GUN
+<span class="sql-kw">FROM</span> LG_CLCARD c
+<span class="sql-kw">JOIN</span> LG_INVOICE f <span class="sql-kw">ON</span> c.LOGICALREF = f.CLIENTREF
+<span class="sql-kw">WHERE</span> f.TRCODE = <span class="sql-str">8</span>
+  <span class="sql-kw">AND</span> f.CANCELLED = <span class="sql-str">0</span>
+  <span class="sql-kw">AND</span> <span class="sql-fn">DATEDIFF</span>(day, f.DATE_, <span class="sql-fn">GETDATE</span>()) > <span class="sql-str">30</span>
+<span class="sql-kw">ORDER BY</span> GECEN_GUN <span class="sql-kw">DESC</span></div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">30 günden eski tahsilatsız faturalar</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Üretim Fiili vs Planlanan</div>
+        <span class="erp-tag tag-ifs">IFS</span>
+      </div>
+      <div class="sql-code"><span class="sql-kw">SELECT</span>
+  wo.WO_NO,
+  wo.PART_NO,
+  wo.QTY_DEMAND <span class="sql-kw">AS</span> PLANLANAN,
+  wo.QTY_COMPLETE <span class="sql-kw">AS</span> TAMAMLANAN,
+  <span class="sql-fn">ROUND</span>(
+    wo.QTY_COMPLETE * <span class="sql-str">100.0</span>
+    / <span class="sql-fn">NULLIF</span>(wo.QTY_DEMAND,<span class="sql-str">0</span>), <span class="sql-str">1</span>
+  ) <span class="sql-kw">AS</span> TAMAMLANMA_PCT,
+  wo.REAL_SHIP_DATE
+<span class="sql-kw">FROM</span> SHOP_ORD wo
+<span class="sql-kw">WHERE</span> wo.OBJSTATE = <span class="sql-str">'Released'</span>
+  <span class="sql-kw">AND</span> wo.REAL_SHIP_DATE IS NULL
+<span class="sql-kw">ORDER BY</span> wo.WO_NO</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Açık iş emirleri tamamlanma oranı</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Departman Maliyet Merkezi</div>
+        <span class="erp-tag tag-sap">SAP</span>
+      </div>
+      <div class="sql-code"><span class="sql-kw">SELECT</span>
+  kostl <span class="sql-kw">AS</span> MALIYET_MERKEZI,
+  ktext <span class="sql-kw">AS</span> ACIKLAMA,
+  <span class="sql-fn">SUM</span>(wkgbtr) <span class="sql-kw">AS</span> TOPLAM_MALIYET,
+  gjahr <span class="sql-kw">AS</span> YIL,
+  poper <span class="sql-kw">AS</span> DONEM
+<span class="sql-kw">FROM</span> COSP
+<span class="sql-kw">JOIN</span> CSKT <span class="sql-kw">ON</span> COSP.kostl = CSKT.kostl
+<span class="sql-kw">WHERE</span> gjahr = <span class="sql-fn">YEAR</span>(<span class="sql-fn">GETDATE</span>())
+  <span class="sql-kw">AND</span> CSKT.spras = <span class="sql-str">'TR'</span>
+<span class="sql-kw">GROUP BY</span>
+  kostl, ktext, gjahr, poper
+<span class="sql-kw">ORDER BY</span> TOPLAM_MALIYET <span class="sql-kw">DESC</span></div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Yıl bazında maliyet merkezi dağılımı</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-center">
+    <a href="#" class="btn-secondary">Tüm 120+ Sorguyu Gör →</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section" id="kpi">
+  <div class="section-tag">// kpi formülleri</div>
+  <h2>KPI Formül Kütüphanesi</h2>
+  <p class="section-sub">Finans, üretim ve tedarik zinciri için en kritik KPI hesaplama formülleri.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-name">Stok Devir Hızı</div>
+      <div class="kpi-formula">Satılan Malın Maliyeti ÷ Ortalama Stok</div>
+      <div class="kpi-desc">Stokların ne sıklıkla yenilendiğini gösterir. Yüksek değer daha iyidir.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Brüt Kar Marjı</div>
+      <div class="kpi-formula">(Net Satış - SMM) ÷ Net Satış × 100</div>
+      <div class="kpi-desc">Üretim maliyeti çıkarıldıktan sonra kalan kar yüzdesi.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">OEE (Genel Ekipman Etkinliği)</div>
+      <div class="kpi-formula">Kullanılabilirlik × Performans × Kalite</div>
+      <div class="kpi-desc">Üretim ekipmanlarının toplam etkinlik skoru. Hedef: %85+</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Günlük Satış Alacak (DSO)</div>
+      <div class="kpi-formula">Alacaklar ÷ Günlük Ortalama Satış</div>
+      <div class="kpi-desc">Faturaların kaç günde tahsil edildiğini gösterir.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Zamanında Teslimat Oranı</div>
+      <div class="kpi-formula">Zamanında Teslimat ÷ Toplam Sipariş × 100</div>
+      <div class="kpi-desc">Tedarik zinciri güvenilirliğinin temel göstergesi.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Fiili vs Bütçe Sapması</div>
+      <div class="kpi-formula">(Fiili - Bütçe) ÷ Bütçe × 100</div>
+      <div class="kpi-desc">Gerçekleşen harcamanın plandan ne kadar saptığını gösterir.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section" id="araclar">
+  <div class="section-tag">// online araçlar</div>
+  <h2>Ücretsiz ERP Araçları</h2>
+  <p class="section-sub">Hesapla, dönüştür, analiz et. Tarayıcında çalışır, kayıt gerekmez.</p>
+
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">KPI Hesaplayıcı</div>
+      <div class="tool-desc">Stok devir hızı, brüt kar marjı ve DSO'yu anında hesapla. Sonuçları PDF olarak indir.</div>
+      <a href="#hesaplayici" class="tool-link">Hesaplayıcıyı Aç</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">🔄</div>
+      <div class="tool-name">SQL Formatter</div>
+      <div class="tool-desc">Karmaşık SQL sorgularını otomatik formatla, okunabilir hale getir.</div>
+      <a href="#" class="tool-link">Formatla</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">📋</div>
+      <div class="tool-name">ERP Geçiş Kontrol Listesi</div>
+      <div class="tool-desc">Logo'dan SAP'a, IFS'den başka sisteme geçerken kontrol etmen gereken 80 madde.</div>
+      <a href="#" class="tool-link">Listeyi İndir</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">Raporlama Süresi Hesaplayıcı</div>
+      <div class="tool-desc">Mevcut raporlama sürecindeki kayıpları hesapla, otomasyon potansiyelini gör.</div>
+      <a href="#" class="tool-link">Hesapla</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">🗄️</div>
+      <div class="tool-name">Tablo Yapısı Sorgulayıcı</div>
+      <div class="tool-desc">Logo ve IFS tablo adlarını yazarak sütun yapısını ve açıklamalarını öğren.</div>
+      <a href="#" class="tool-link">Sorgula</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">📈</div>
+      <div class="tool-name">Dashboard Şablon Üreteci</div>
+      <div class="tool-desc">Sektörünü ve ERP sistemini seç, hazır KPI dashboard yapısı oluştur.</div>
+      <a href="#" class="tool-link">Şablon Üret</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section-no-top" id="hesaplayici">
+  <div class="section-tag">// canlı hesaplayıcı</div>
+  <h2>KPI Hesaplayıcı</h2>
+  <p class="section-sub">Değerleri gir, sonucu anında gör.</p>
+
+  <div class="calc-layout">
+    <div class="calc-panel">
+      <div class="calc-switches">
+        <button class="copy-btn calc-switch-btn" onclick="setCalc('stok')">Stok Devir Hızı</button>
+        <button class="copy-btn calc-switch-btn" onclick="setCalc('kar')">Brüt Kar Marjı</button>
+        <button class="copy-btn calc-switch-btn" onclick="setCalc('dso')">DSO</button>
+      </div>
+      <div class="calc-box">
+        <div id="calc-fields"></div>
+        <div class="calc-result">
+          <span class="calc-result-label" id="calc-label">Sonuç</span>
+          <span class="calc-result-val" id="calc-val">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section" id="karsilastir">
+  <div class="section-tag">// erp karşılaştırma</div>
+  <h2>ERP Sistem Karşılaştırması</h2>
+  <p class="section-sub">Hangi ERP sistemi hangi özelliği daha iyi yapıyor?</p>
+
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Özellik</th>
+          <th>Logo Tiger</th>
+          <th>SAP B1</th>
+          <th>IFS Cloud</th>
+          <th>Netsis</th>
+          <th>Mikro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SQL Erişimi</td>
+          <td class="check">✓ Tam</td>
+          <td class="check">✓ Tam</td>
+          <td class="partial">~ Kısıtlı</td>
+          <td class="check">✓ Tam</td>
+          <td class="check">✓ Tam</td>
+        </tr>
+        <tr>
+          <td>Özel Dashboard</td>
+          <td class="partial">~ Eklenti</td>
+          <td class="check">✓ Dahili</td>
+          <td class="check">✓ Gelişmiş</td>
+          <td class="cross">✗ Yok</td>
+          <td class="cross">✗ Yok</td>
+        </tr>
+        <tr>
+          <td>API Entegrasyonu</td>
+          <td class="check">✓ REST</td>
+          <td class="check">✓ REST/SOAP</td>
+          <td class="check">✓ REST</td>
+          <td class="partial">~ Sınırlı</td>
+          <td class="cross">✗ Yok</td>
+        </tr>
+        <tr>
+          <td>Üretim Modülü</td>
+          <td class="partial">~ Temel</td>
+          <td class="partial">~ Orta</td>
+          <td class="check">✓ Güçlü</td>
+          <td class="partial">~ Temel</td>
+          <td class="cross">✗ Yok</td>
+        </tr>
+        <tr>
+          <td>KOBİ Uygunluğu</td>
+          <td class="check">✓ İdeal</td>
+          <td class="check">✓ Uygun</td>
+          <td class="cross">✗ Büyük firma</td>
+          <td class="check">✓ İdeal</td>
+          <td class="check">✓ İdeal</td>
+        </tr>
+        <tr>
+          <td>Türkçe Destek</td>
+          <td class="check">✓ Tam</td>
+          <td class="partial">~ Kısmi</td>
+          <td class="partial">~ Kısmi</td>
+          <td class="check">✓ Tam</td>
+          <td class="check">✓ Tam</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<div class="newsletter" id="iletisim">
+  <div class="newsletter-inner">
+    <div class="section-tag section-tag-center">// haftalık bülten</div>
+    <h2>Yeni SQL Sorguları, Ücretsiz</h2>
+    <p class="newsletter-text">Her hafta yeni ERP ipuçları, SQL sorguları ve araçlar. Spam yok.</p>
+    <div class="nl-form">
+  <input type="email" class="nl-input" id="newsletterEmail" placeholder="email@firma.com">
+  <input type="text" id="newsletterWebsite" style="display:none;" tabindex="-1" autocomplete="off">
+  <button class="btn-primary nl-btn" id="newsletterBtn">Abone Ol</button>
+</div>
+<p id="newsletterResult" class="newsletter-result"></p>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-links">
+    <a href="#sql">SQL</a> &nbsp;·&nbsp;
+    <a href="#kpi">KPI</a> &nbsp;·&nbsp;
+    <a href="#araclar">Araçlar</a> &nbsp;·&nbsp;
+    <a href="#karsilastir">Karşılaştır</a> &nbsp;·&nbsp;
+    <a href="#iletisim">İletişim</a>
+  </p>
+<p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="js/security.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

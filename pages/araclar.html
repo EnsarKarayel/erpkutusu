@@ -1,0 +1,179 @@
+ 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Araçları | ERP Kutusu</title>
+    <meta name="description" content="ERP, üretim, finans ve operasyon ekipleri için ücretsiz online araçlar ve yardımcı hesaplamalar.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<header>
+    <h1>ERP Araçları</h1>
+    <nav>
+        <a href="../index.html">Ana Sayfa</a>
+        <a href="sql.html">SQL</a>
+        <a href="kpi.html">KPI</a>
+        <a href="araclar.html">Araçlar</a>
+        <a href="iletisim.html">İletişim</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🧰 ERP ve Operasyon Araçları</h2>
+        <p>Günlük işlerde hızlı hesaplama ve dönüşüm yapabilmen için pratik araçlar.</p>
+    </div>
+
+    <div class="card">
+        <h2>📦 KDV Hesaplayıcı</h2>
+
+        <div class="input-group">
+            <label>Tutar</label>
+            <input type="number" id="kdvTutar" placeholder="Örn: 1000">
+        </div>
+
+        <div class="input-group">
+            <label>KDV Oranı (%)</label>
+            <input type="number" id="kdvOran" placeholder="Örn: 20">
+        </div>
+
+        <button onclick="hesaplaKDV()">Hesapla</button>
+        <div class="kpi-box" id="kdvResult">Sonuç burada görünecek.</div>
+    </div>
+
+    <div class="card">
+        <h2>🏭 OEE Hızlı Hesaplama</h2>
+
+        <div class="input-group">
+            <label>Kullanılabilirlik (%)</label>
+            <input type="number" id="oeeA" placeholder="Örn: 90">
+        </div>
+
+        <div class="input-group">
+            <label>Performans (%)</label>
+            <input type="number" id="oeeP" placeholder="Örn: 85">
+        </div>
+
+        <div class="input-group">
+            <label>Kalite (%)</label>
+            <input type="number" id="oeeQ" placeholder="Örn: 95">
+        </div>
+
+        <button onclick="hesaplaOEE()">Hesapla</button>
+        <div class="kpi-box" id="oeeResult">Sonuç burada görünecek.</div>
+    </div>
+
+    <div class="card">
+        <h2>📅 Gün Farkı Hesaplayıcı</h2>
+
+        <div class="input-group">
+            <label>Başlangıç Tarihi</label>
+            <input type="date" id="dateStart">
+        </div>
+
+        <div class="input-group">
+            <label>Bitiş Tarihi</label>
+            <input type="date" id="dateEnd">
+        </div>
+
+        <button onclick="hesaplaGunFarki()">Hesapla</button>
+        <div class="kpi-box" id="dateResult">Sonuç burada görünecek.</div>
+    </div>
+
+    <div class="card">
+        <h2>💱 Kur Çevirici</h2>
+
+        <div class="input-group">
+            <label>Tutar</label>
+            <input type="number" id="kurTutar" placeholder="Örn: 100">
+        </div>
+
+        <div class="input-group">
+            <label>Kur</label>
+            <input type="number" id="kurOran" placeholder="Örn: 38.50">
+        </div>
+
+        <button onclick="hesaplaKur()">Hesapla</button>
+        <div class="kpi-box" id="kurResult">Sonuç burada görünecek.</div>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 ERP Kutusu
+</footer>
+
+<script src="../js/security.js"></script>
+<script>
+function hesaplaKDV() {
+    const tutar = parseFloat(document.getElementById("kdvTutar").value);
+    const oran = parseFloat(document.getElementById("kdvOran").value);
+    const result = document.getElementById("kdvResult");
+
+    if (isNaN(tutar) || isNaN(oran)) {
+        result.innerText = "Lütfen tüm alanları doldurun.";
+        return;
+    }
+
+    const kdv = tutar * oran / 100;
+    const toplam = tutar + kdv;
+
+    result.innerText = `KDV: ${kdv.toFixed(2)} | KDV Dahil Toplam: ${toplam.toFixed(2)}`;
+}
+
+function hesaplaOEE() {
+    const a = parseFloat(document.getElementById("oeeA").value);
+    const p = parseFloat(document.getElementById("oeeP").value);
+    const q = parseFloat(document.getElementById("oeeQ").value);
+    const result = document.getElementById("oeeResult");
+
+    if (isNaN(a) || isNaN(p) || isNaN(q)) {
+        result.innerText = "Lütfen tüm alanları doldurun.";
+        return;
+    }
+
+    const oee = (a * p * q) / 10000;
+    result.innerText = `OEE: ${oee.toFixed(2)}%`;
+}
+
+function hesaplaGunFarki() {
+    const start = document.getElementById("dateStart").value;
+    const end = document.getElementById("dateEnd").value;
+    const result = document.getElementById("dateResult");
+
+    if (!start || !end) {
+        result.innerText = "Lütfen iki tarihi de seçin.";
+        return;
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    const diffTime = endDate - startDate;
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    result.innerText = `Tarih farkı: ${diffDays} gün`;
+}
+
+function hesaplaKur() {
+    const tutar = parseFloat(document.getElementById("kurTutar").value);
+    const kur = parseFloat(document.getElementById("kurOran").value);
+    const result = document.getElementById("kurResult");
+
+    if (isNaN(tutar) || isNaN(kur)) {
+        result.innerText = "Lütfen tüm alanları doldurun.";
+        return;
+    }
+
+    const toplam = tutar * kur;
+    result.innerText = `Çevrilen tutar: ${toplam.toFixed(2)}`;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ensarkarayel.github.io/erpkutusu/sitemap.xml

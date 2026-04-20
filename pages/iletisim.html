@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim | ERP Kutusu</title>
+    <meta name="description" content="ERP Kutusu ile iletişime geçin. SQL, ERP raporlama, KPI danışmanlığı ve özel çözümler için form gönderin.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<header>
+    <h1>İletişim</h1>
+    <nav>
+        <a href="../index.html">Ana Sayfa</a>
+        <a href="sql.html">SQL</a>
+        <a href="kpi.html">KPI</a>
+        <a href="araclar.html">Araçlar</a>
+        <a href="iletisim.html">İletişim</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>📩 Bizimle İletişime Geçin</h2>
+        <p>ERP, SQL sorguları, KPI raporları ve özel geliştirme talepleriniz için mesaj gönderebilirsiniz.</p>
+    </div>
+
+    <div class="card">
+        <form id="contactForm">
+            <div class="input-group">
+                <label for="name">Ad Soyad</label>
+                <input type="text" id="name" name="name" maxlength="100" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-posta</label>
+                <input type="email" id="email" name="email" maxlength="150" required>
+            </div>
+
+            <div class="input-group">
+                <label for="phone">Telefon</label>
+                <input type="text" id="phone" name="phone" maxlength="20">
+            </div>
+
+            <div class="input-group">
+                <label for="subject">Konu</label>
+                <input type="text" id="subject" name="subject" maxlength="150" required>
+            </div>
+
+            <div class="input-group">
+                <label for="message">Mesaj</label>
+                <textarea id="message" name="message" rows="6" maxlength="2000" required></textarea>
+            </div>
+
+            <div class="input-group" style="display:none;">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website">
+            </div>
+
+            <button type="submit">Gönder</button>
+            <div class="kpi-box" id="formResult">Form hazır.</div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>🧭 Hizmet Alanları</h2>
+        <ul>
+            <li>ERP SQL sorguları</li>
+            <li>OEE ve KPI raporlamaları</li>
+            <li>Dashboard geliştirme</li>
+            <li>Rapor ve veri analizi danışmanlığı</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 ERP Kutusu
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm");
+    const resultBox = document.getElementById("formResult");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (!Security.rateLimiter.check("contactForm")) {
+            resultBox.textContent = "Çok sık deneme yapıldı. Lütfen biraz sonra tekrar deneyin.";
+            return;
+        }
+
+        const honeypotValue = document.getElementById("website").value;
+        if (!Security.checkHoneypot(honeypotValue)) {
+            resultBox.textContent = "Gönderim başarısız.";
+            return;
+        }
+
+        const fields = [
+            {
+                name: "Ad Soyad",
+                value: document.getElementById("name").value,
+                required: true,
+                max: 100
+            },
+            {
+                name: "E-posta",
+                value: document.getElementById("email").value,
+                required: true,
+                type: "email",
+                max: 150
+            },
+            {
+                name: "Telefon",
+                value: document.getElementById("phone").value,
+                required: false,
+                type: "phone",
+                max: 20
+            },
+            {
+                name: "Konu",
+                value: document.getElementById("subject").value,
+                required: true,
+                max: 150
+            },
+            {
+                name: "Mesaj",
+                value: document.getElementById("message").value,
+                required: true,
+                max: 2000
+            }
+        ];
+
+        const errors = Security.validateForm(fields);
+
+        if (errors.length > 0) {
+            resultBox.innerHTML = errors.join("<br>");
+            return;
+        }
+
+        const formData = {
+            name: Security.sanitize(document.getElementById("name").value),
+            email: Security.sanitize(document.getElementById("email").value),
+            phone: Security.sanitize(document.getElementById("phone").value),
+            subject: Security.sanitize(document.getElementById("subject").value),
+            message: Security.sanitize(document.getElementById("message").value)
+        };
+
+        console.log("Form verisi:", formData);
+
+        resultBox.textContent = "Form doğrulandı. Sonraki adımda bunu Formspree veya EmailJS ile bağlayacağız.";
+        form.reset();
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI ve OEE Hesaplayıcıları | ERP Kutusu</title>
+    <meta name="description" content="OEE, stok devir hızı, brüt kar marjı, DSO ve diğer KPI hesaplamaları için ücretsiz ERP araçları.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<header>
+    <h1>ERP KPI ve OEE Hesaplayıcıları</h1>
+    <nav>
+        <a href="../index.html">Ana Sayfa</a>
+        <a href="sql.html">SQL</a>
+        <a href="kpi.html">KPI</a>
+        <a href="araclar.html">Araçlar</a>
+        <a href="iletisim.html">İletişim</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>📈 KPI Kütüphanesi</h2>
+        <p>Üretim, finans, lojistik ve ERP süreçleri için temel KPI hesaplamaları.</p>
+    </div>
+
+    <div class="card">
+        <input type="text" id="kpiSearch" placeholder="KPI ara...">
+    </div>
+
+    <div id="kpiList"></div>
+</div>
+
+<footer>
+    © 2026 ERP Kutusu
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/kpi-data.js"></script>
+
+<script>
+const kpiContainer = document.getElementById("kpiList");
+const kpiSearch = document.getElementById("kpiSearch");
+
+function safeValue(val, fallback = "") {
+    return val !== undefined && val !== null ? val : fallback;
+}
+
+function renderKPIs(list) {
+    kpiContainer.innerHTML = "";
+
+    if (!Array.isArray(list) || list.length === 0) {
+        kpiContainer.innerHTML = `
+            <div class="card">
+                <h3>Sonuç bulunamadı</h3>
+                <p>Arama kriterine uygun KPI bulunamadı.</p>
+            </div>
+        `;
+        return;
+    }
+
+    list.forEach((item, index) => {
+        const title = safeValue(item.title, "Başlıksız KPI");
+        const category = safeValue(item.category, "Genel");
+        const description = safeValue(item.description, "");
+        const inputs = Array.isArray(item.inputs) ? item.inputs : [];
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        let inputsHtml = "";
+
+        inputs.forEach((input, i) => {
+            const label = safeValue(input.label, `Alan ${i + 1}`);
+            const placeholder = safeValue(input.placeholder, "");
+            inputsHtml += `
+                <div class="input-group">
+                    <label>${label}</label>
+                    <input type="number" id="input-${index}-${i}" placeholder="${placeholder}">
+                </div>
+            `;
+        });
+
+        card.innerHTML = `
+            <h3>${title}</h3>
+            <p><strong>Kategori:</strong> ${category}</p>
+            <p>${description}</p>
+            ${inputsHtml}
+            <button onclick="calculateKPI(${index})">Hesapla</button>
+            <div class="kpi-box" id="result-${index}">Sonuç burada görünecek.</div>
+        `;
+
+        kpiContainer.appendChild(card);
+    });
+}
+
+function calculateKPI(index) {
+    const item = filteredKpiData[index] || kpiData[index];
+
+    if (!item) return;
+
+    const inputs = Array.isArray(item.inputs) ? item.inputs : [];
+    const values = [];
+
+    for (let i = 0; i < inputs.length; i++) {
+        const inputEl = document.getElementById(`input-${index}-${i}`);
+        const val = parseFloat(inputEl.value);
+
+        if (isNaN(val)) {
+            document.getElementById(`result-${index}`).innerText = "Lütfen tüm alanları doldurun.";
+            return;
+        }
+
+        values.push(val);
+    }
+
+    try {
+        let result;
+
+        if (typeof item.calculate === "function") {
+            result = item.calculate(...values);
+        } else if (typeof item.formula === "function") {
+            result = item.formula(...values);
+        } else {
+            result = "Bu KPI için hesaplama fonksiyonu tanımlı değil.";
+        }
+
+        document.getElementById(`result-${index}`).innerText = `Sonuç: ${result}`;
+    } catch (e) {
+        document.getElementById(`result-${index}`).innerText = "Hesaplama sırasında hata oluştu.";
+    }
+}
+
+let filteredKpiData = Array.isArray(kpiData) ? [...kpiData] : [];
+
+kpiSearch.addEventListener("input", () => {
+    const val = kpiSearch.value.toLowerCase();
+
+    filteredKpiData = (Array.isArray(kpiData) ? kpiData : []).filter(item => {
+        const title = safeValue(item.title, "").toLowerCase();
+        const category = safeValue(item.category, "").toLowerCase();
+        const description = safeValue(item.description, "").toLowerCase();
+
+        return title.includes(val) || category.includes(val) || description.includes(val);
+    });
+
+    renderKPIs(filteredKpiData);
+});
+
+renderKPIs(filteredKpiData);
+</script>
+
+</body>
+</html>

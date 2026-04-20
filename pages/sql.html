@@ -1,0 +1,106 @@
+ 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ERP SQL Sorguları | Logo, SAP, Odoo SQL Örnekleri</title>
+    <meta name="description" content="Logo, SAP, Odoo, IFS, Minerva ve Plantum ERP sistemleri için hazır SQL sorguları. Ücretsiz indir ve kullan.">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+
+<body>
+
+<header>
+    <h1>ERP SQL Kütüphanesi</h1>
+    <nav>
+        <a href="../index.html">Ana Sayfa</a>
+        <a href="sql.html">SQL</a>
+        <a href="kpi.html">KPI</a>
+        <a href="araclar.html">Araçlar</a>
+        <a href="iletisim.html">İletişim</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>📊 ERP SQL Sorguları</h2>
+        <p>Logo, SAP, Odoo, IFS, Minerva ve Plantum sistemleri için hazır sorgular.</p>
+    </div>
+
+    <div class="card">
+        <input type="text" id="search" placeholder="Sorgu ara...">
+    </div>
+
+    <div id="sqlList"></div>
+
+</div>
+
+<footer>
+    © 2026 ERP Kutusu
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/sql-data.js"></script>
+
+<script>
+const container = document.getElementById("sqlList");
+const searchInput = document.getElementById("search");
+
+function renderSQL(list) {
+    container.innerHTML = "";
+
+    list.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "card";
+
+        const safeTitle = Security.sanitize(item.title || "");
+        const safeErp = Security.sanitize(item.erp || "");
+        const safeQuery = Security.sanitize(item.query || "");
+
+        div.innerHTML = `
+            <h3>${safeTitle}</h3>
+            <p>${safeErp}</p>
+            <div class="sql-box">${safeQuery}</div>
+            <button class="copy-btn">Kopyala</button>
+        `;
+
+        const btn = div.querySelector(".copy-btn");
+        btn.addEventListener("click", () => {
+            Security.safeCopy(item.query || "", btn);
+        });
+
+        container.appendChild(div);
+    });
+}
+
+searchInput.addEventListener("input", () => {
+    const val = searchInput.value.toLowerCase();
+
+    if (Security.hasSQLInjection(val)) {
+        container.innerHTML = `
+            <div class="card">
+                <h3>Geçersiz arama</h3>
+                <p>Arama alanında geçersiz karakter veya ifade tespit edildi.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const filtered = sqlData.filter(x =>
+        (x.title || "").toLowerCase().includes(val) ||
+        (x.erp || "").toLowerCase().includes(val)
+    );
+
+    renderSQL(filtered);
+});
+
+renderSQL(sqlData);
+</script>
+
+</body>
+</html>
