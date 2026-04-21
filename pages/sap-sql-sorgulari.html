@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP SQL Sorguları | Hazır SAP SQL ve ABAP Raporlama Örnekleri</title>
+    <meta name="description" content="SAP için hazır SQL sorguları. Satış, stok, finans, satın alma ve raporlama örnekleri. SAP SQL ve ABAP kullanım alanları hakkında pratik rehber.">
+    <meta name="keywords" content="sap sql sorguları, sap sql, sap raporlama, sap abap, sap stok sorguları, sap satış sorguları">
+    <link rel="canonical" href="https://erpkutusu.com/pages/sap-sql-sorgulari.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SAP SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="SAP için hazır SQL sorguları, raporlama örnekleri ve ABAP ile SQL kullanım rehberi.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/sap-sql-sorgulari.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">SAP SQL ve ABAP Rehberi</div>
+    <h1>SAP SQL Sorguları</h1>
+    <p>
+        SAP kullanıcıları için hazır SQL sorguları, temel raporlama örnekleri ve
+        hangi durumlarda ABAP tercih edilmesi gerektiğine dair pratik notlar.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// rehber</div>
+    <h2>SAP SQL Sorguları Ne İşe Yarar?</h2>
+    <p class="section-sub">
+        SAP verileri üzerinden satış, stok, finans, satın alma ve operasyonel raporları analiz etmek için
+        SQL tabanlı sorgular sıkça kullanılır. Hazır sorgular, standart ekranların ötesine geçmek isteyen
+        ekipler için hızlı raporlama ve kontrol imkanı sağlar.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// hazır sorgular</div>
+    <h2>Hazır SAP SQL Örnekleri</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular SAP raporlama süreçlerinde sık kullanılan örneklerdendir.
+    </p>
+
+    <div class="sql-grid">
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Müşteri Bazlı Satış Özeti</div>
+                <span class="erp-tag tag-sap">SAP</span>
+            </div>
+            <div class="sql-code">SELECT
+  T0.CardCode            AS MUSTERI_KODU,
+  T0.CardName            AS MUSTERI,
+  COUNT(T0.DocEntry)     AS BELGE_SAYISI,
+  SUM(T0.DocTotal)       AS TOPLAM_SATIS
+FROM OINV T0
+WHERE T0.CANCELED = 'N'
+GROUP BY T0.CardCode, T0.CardName
+ORDER BY TOPLAM_SATIS DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Müşteri bazında toplam satış ve belge sayısı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Depo Bazlı Stok Durumu</div>
+                <span class="erp-tag tag-sap">SAP</span>
+            </div>
+            <div class="sql-code">SELECT
+  T0.ItemCode            AS STOK_KODU,
+  T0.ItemName            AS STOK_ADI,
+  T1.WhsCode             AS DEPO,
+  T1.OnHand              AS MEVCUT_STOK
+FROM OITM T0
+JOIN OITW T1 ON T0.ItemCode = T1.ItemCode
+WHERE T1.OnHand > 0
+ORDER BY T1.OnHand DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Depo bazında elde bulunan stok miktarı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Vadesi Geçmiş Cari Alacaklar</div>
+                <span class="erp-tag tag-sap">SAP</span>
+            </div>
+            <div class="sql-code">SELECT
+  T0.DocNum              AS FATURA_NO,
+  T0.CardCode            AS MUSTERI_KODU,
+  T0.CardName            AS MUSTERI,
+  T0.DocDate             AS FATURA_TARIHI,
+  T0.DocDueDate          AS VADE_TARIHI,
+  T0.DocTotal            AS FATURA_TUTARI,
+  DATEDIFF(day, T0.DocDueDate, GETDATE()) AS GECIKME_GUN
+FROM OINV T0
+WHERE T0.DocStatus = 'O'
+  AND T0.CANCELED = 'N'
+  AND T0.DocDueDate < GETDATE()
+ORDER BY GECIKME_GUN DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Ödenmemiş ve gecikmiş müşteri faturaları</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Açık Satın Alma Siparişleri</div>
+                <span class="erp-tag tag-sap">SAP</span>
+            </div>
+            <div class="sql-code">SELECT
+  T0.DocNum              AS SIPARIS_NO,
+  T0.CardName            AS TEDARIKCI,
+  T0.DocDate             AS SIPARIS_TARIHI,
+  T0.DocDueDate          AS BEKLENEN_TESLIMAT,
+  T0.DocTotal            AS TOPLAM_TUTAR
+FROM OPOR T0
+WHERE T0.DocStatus = 'O'
+  AND T0.CANCELED = 'N'
+ORDER BY T0.DocDueDate ASC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Kapanmamış satın alma siparişleri</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">En Çok Satan Ürünler</div>
+                <span class="erp-tag tag-sap">SAP</span>
+            </div>
+            <div class="sql-code">SELECT TOP 20
+  T1.ItemCode            AS STOK_KODU,
+  T1.Dscription          AS STOK_ADI,
+  SUM(T1.Quantity)       AS TOPLAM_MIKTAR,
+  SUM(T1.LineTotal)      AS TOPLAM_TUTAR
+FROM OINV T0
+JOIN INV1 T1 ON T0.DocEntry = T1.DocEntry
+WHERE T0.CANCELED = 'N'
+GROUP BY T1.ItemCode, T1.Dscription
+ORDER BY TOPLAM_TUTAR DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Satış performansına göre en güçlü ürünler</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// sap abap notları</div>
+    <h2>Ne Zaman SQL, Ne Zaman ABAP?</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">SQL ne zaman uygundur?</div>
+            <div class="kpi-desc">
+                Hızlı raporlama, veri kontrolü, dashboard besleme ve ad-hoc analiz ihtiyaçlarında SQL daha pratik olabilir.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">ABAP ne zaman gerekir?</div>
+            <div class="kpi-desc">
+                SAP ekran geliştirme, işlem mantığı, özel çıktı, onay akışı ve sistem içi süreç geliştirmelerinde ABAP daha doğru tercihtir.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Birlikte kullanım</div>
+            <div class="kpi-desc">
+                Birçok projede SQL veri analizi için, ABAP ise kullanıcıya gösterilecek kalıcı çözüm ve ekranlar için birlikte kullanılır.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// kullanım notları</div>
+    <h2>SAP SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Canlı sistem riski</div>
+            <div class="kpi-desc">Yoğun sistemlerde sorguları önce test ortamında doğrulamak daha güvenlidir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Yetki ve erişim</div>
+            <div class="kpi-desc">SAP veritabanı yapısı ve tablo erişimleri kuruma göre değişebilir; yetki kontrolleri önemlidir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Versiyon farkları</div>
+            <div class="kpi-desc">Kullanılan SAP sürümüne ve veritabanı yapısına göre küçük uyarlamalar gerekebilir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Tüm SQL Kütüphanesi</div>
+            <div class="tool-desc">Farklı ERP sistemleri için tüm SQL sorgularını görüntüleyin.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Logo SQL Sorguları</div>
+            <div class="tool-desc">Logo ERP için hazırlanmış hazır sorgulara göz atın.</div>
+            <a href="logo-sql-sorgulari.html" class="tool-link">Logo Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">Özel SAP raporları ve SQL/ABAP ihtiyaçları için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
