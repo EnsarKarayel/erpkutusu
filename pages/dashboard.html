@@ -2,33 +2,73 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Generator | ERP Kutusu</title>
+
 <link rel="stylesheet" href="../css/main.css">
+
+<!-- CHART.JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
-<body style="padding:40px;">
+<body style="padding:40px; max-width:900px; margin:auto;">
 
 <h1>Dashboard Generator</h1>
+<p>Satış ve maliyet verilerinizi girerek grafik oluşturun.</p>
 
-<label>Satış:</label>
-<input type="number" id="sales"><br><br>
+<br>
 
-<label>Maliyet:</label>
-<input type="number" id="cost"><br><br>
+<label>Satış (₺)</label><br>
+<input type="number" id="sales" style="width:100%; padding:10px;"><br><br>
 
-<button onclick="calc()">Hesapla</button>
+<label>Maliyet (₺)</label><br>
+<input type="number" id="cost" style="width:100%; padding:10px;"><br><br>
+
+<button onclick="createChart()">Grafik Oluştur</button>
 
 <h2 id="result"></h2>
 
-<script>
-function calc(){
-    let s = document.getElementById("sales").value;
-    let c = document.getElementById("cost").value;
+<canvas id="myChart" style="margin-top:30px;"></canvas>
 
-    let profit = s - c;
+<script>
+let chart;
+
+function createChart(){
+
+    let sales = Number(document.getElementById("sales").value);
+    let cost = Number(document.getElementById("cost").value);
+
+    if(!sales || !cost){
+        alert("Lütfen tüm alanları doldurun");
+        return;
+    }
+
+    let profit = sales - cost;
 
     document.getElementById("result").innerText =
-        "Kar: " + profit;
+        "Kar: " + profit + " ₺";
+
+    let ctx = document.getElementById("myChart");
+
+    if(chart){
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Satış', 'Maliyet', 'Kar'],
+            datasets: [{
+                label: 'Finansal Durum',
+                data: [sales, cost, profit],
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
 }
 </script>
 
