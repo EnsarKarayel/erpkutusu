@@ -2,34 +2,82 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SQL Formatter | ERP Kutusu</title>
+<meta name="description" content="SQL sorgularınızı online olarak düzenleyin, formatlayın ve kopyalayın. Ücretsiz SQL Formatter aracı.">
+
 <link rel="stylesheet" href="../css/main.css">
+
+<!-- SQL FORMATTER LIB -->
+<script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.3.0/dist/sql-formatter.min.js"></script>
 </head>
 
-<body style="padding:40px; max-width:900px; margin:auto;">
+<body style="padding:40px; max-width:1000px; margin:auto;">
 
 <h1>SQL Formatter</h1>
-<p>SQL sorgularınızı düzenleyin ve okunabilir hale getirin.</p>
+<p>SQL sorgularınızı profesyonel şekilde düzenleyin.</p>
 
-<textarea id="sqlInput" style="width:100%; height:200px;"></textarea>
+<!-- INPUT -->
+<textarea id="sqlInput" placeholder="SQL sorgunuzu buraya yazın..."
+style="width:100%; height:200px; padding:10px;"></textarea>
 
-<button onclick="formatSQL()" style="margin-top:10px;">Formatla</button>
+<br><br>
 
-<pre id="output" style="margin-top:20px; background:#111; padding:20px;"></pre>
+<!-- BUTTONS -->
+<button onclick="formatSQL()">Formatla</button>
+<button onclick="copySQL()">Kopyala</button>
+<button onclick="clearSQL()">Temizle</button>
+<button onclick="example()">Örnek Doldur</button>
+
+<!-- OUTPUT -->
+<pre id="output" style="margin-top:20px; background:#111; padding:20px; color:#0f0;"></pre>
 
 <script>
 function formatSQL() {
     let sql = document.getElementById("sqlInput").value;
 
-    sql = sql
-        .replace(/select/gi, "\nSELECT")
-        .replace(/from/gi, "\nFROM")
-        .replace(/where/gi, "\nWHERE")
-        .replace(/and/gi, "\nAND")
-        .replace(/order by/gi, "\nORDER BY")
-        .replace(/group by/gi, "\nGROUP BY");
+    if (!sql.trim()) {
+        alert("Lütfen SQL girin");
+        return;
+    }
 
-    document.getElementById("output").innerText = sql;
+    try {
+        let formatted = window.sqlFormatter.format(sql, {
+            language: "sql",
+            indent: "  "
+        });
+
+        document.getElementById("output").innerText = formatted;
+    } catch (e) {
+        document.getElementById("output").innerText = "Hata: SQL formatlanamadı";
+    }
+}
+
+function copySQL(){
+    let text = document.getElementById("output").innerText;
+
+    if (!text.trim()) {
+        alert("Kopyalanacak içerik yok");
+        return;
+    }
+
+    navigator.clipboard.writeText(text);
+    alert("Kopyalandı!");
+}
+
+function clearSQL(){
+    document.getElementById("sqlInput").value = "";
+    document.getElementById("output").innerText = "";
+}
+
+function example(){
+    document.getElementById("sqlInput").value =
+`select c.name, o.total_amount, o.date
+from customers c
+join orders o on c.id = o.customer_id
+where c.city = 'Istanbul' and o.status = 1
+order by o.date desc`;
 }
 </script>
 

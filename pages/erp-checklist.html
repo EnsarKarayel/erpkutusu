@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ERP Geçiş Checklist</title>
+
 <link rel="stylesheet" href="../css/main.css">
+
+<!-- PDF LIB -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body style="padding:40px;">
@@ -17,6 +21,31 @@
 <li><input type="checkbox"> Test ortamı kurulumu</li>
 <li><input type="checkbox"> Canlıya geçiş</li>
 </ul>
+
+<br>
+
+<button onclick="downloadPDF()">PDF İndir</button>
+
+<script>
+async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let items = document.querySelectorAll("#list li");
+    let y = 10;
+
+    doc.text("ERP Geçiş Checklist", 10, y);
+    y += 10;
+
+    items.forEach((item, i) => {
+        let text = item.innerText;
+        doc.text((i+1) + ". " + text, 10, y);
+        y += 10;
+    });
+
+    doc.save("erp-checklist.pdf");
+}
+</script>
 
 </body>
 </html>
