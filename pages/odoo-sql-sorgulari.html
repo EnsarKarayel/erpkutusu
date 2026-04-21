@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odoo SQL Sorguları | Hazır Odoo PostgreSQL Örnekleri</title>
+    <meta name="description" content="Odoo için hazır SQL sorguları. PostgreSQL tabanlı satış, stok, müşteri, fatura ve raporlama örnekleri.">
+    <meta name="keywords" content="odoo sql sorguları, odoo postgresql, odoo raporlama, odoo stok sorguları, odoo satış sorguları">
+    <link rel="canonical" href="https://erpkutusu.com/pages/odoo-sql-sorgulari.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Odoo SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="Odoo için hazır PostgreSQL sorguları ve raporlama örnekleri.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/odoo-sql-sorgulari.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">Odoo PostgreSQL Rehberi</div>
+    <h1>Odoo SQL Sorguları</h1>
+    <p>
+        Odoo kullanıcıları için PostgreSQL tabanlı hazır SQL sorguları, satış,
+        stok, müşteri, fatura ve raporlama örnekleri.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// rehber</div>
+    <h2>Odoo SQL Sorguları Ne İşe Yarar?</h2>
+    <p class="section-sub">
+        Odoo verileri PostgreSQL üzerinde tutulduğu için satış siparişleri, stok hareketleri,
+        müşteri kayıtları, faturalar ve operasyonel raporlar SQL ile hızlı şekilde analiz edilebilir.
+        Hazır Odoo SQL sorguları, dashboard, kontrol raporu ve veri doğrulama ihtiyaçlarında güçlü bir başlangıç sağlar.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// hazır sorgular</div>
+    <h2>Hazır Odoo SQL Örnekleri</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular Odoo raporlama süreçlerinde sık kullanılan temel örneklerdir.
+    </p>
+
+    <div class="sql-grid">
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Satış Siparişi Özeti</div>
+                <span class="erp-tag tag-genel">Odoo</span>
+            </div>
+            <div class="sql-code">SELECT
+  so.name                AS SIPARIS_NO,
+  rp.name                AS MUSTERI,
+  so.date_order::date    AS SIPARIS_TARIHI,
+  so.amount_total        AS TOPLAM_TUTAR,
+  so.state               AS DURUM
+FROM sale_order so
+JOIN res_partner rp ON so.partner_id = rp.id
+WHERE so.state IN ('sale', 'done')
+ORDER BY so.date_order DESC;</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Onaylı satış siparişlerini müşteri bazında listeler</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Ürün Stok Listesi</div>
+                <span class="erp-tag tag-genel">Odoo</span>
+            </div>
+            <div class="sql-code">SELECT
+  pt.name                AS URUN,
+  pp.default_code        AS STOK_KODU,
+  sq.quantity            AS MIKTAR
+FROM stock_quant sq
+JOIN product_product pp ON sq.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id
+WHERE sq.quantity > 0
+ORDER BY sq.quantity DESC;</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Pozitif miktardaki stokları listeler</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Müşteri Listesi</div>
+                <span class="erp-tag tag-genel">Odoo</span>
+            </div>
+            <div class="sql-code">SELECT
+  name,
+  email,
+  phone,
+  city
+FROM res_partner
+WHERE customer_rank > 0
+ORDER BY name;</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Aktif müşteri kayıtlarını getirir</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Vadesi Geçmiş Faturalar</div>
+                <span class="erp-tag tag-genel">Odoo</span>
+            </div>
+            <div class="sql-code">SELECT
+  ai.name                AS FATURA_NO,
+  rp.name                AS MUSTERI,
+  ai.invoice_date        AS FATURA_TARIHI,
+  ai.invoice_date_due    AS VADE_TARIHI,
+  ai.amount_residual     AS KALAN_TUTAR
+FROM account_move ai
+JOIN res_partner rp ON ai.partner_id = rp.id
+WHERE ai.move_type = 'out_invoice'
+  AND ai.state = 'posted'
+  AND ai.payment_state != 'paid'
+  AND ai.invoice_date_due < NOW()
+ORDER BY ai.invoice_date_due ASC;</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Ödenmemiş ve gecikmiş müşteri faturaları</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Son 30 Günlük Satış Toplamı</div>
+                <span class="erp-tag tag-genel">Odoo</span>
+            </div>
+            <div class="sql-code">SELECT
+  DATE(so.date_order)    AS TARIH,
+  COUNT(*)               AS SIPARIS_SAYISI,
+  SUM(so.amount_total)   AS TOPLAM_TUTAR
+FROM sale_order so
+WHERE so.state IN ('sale', 'done')
+  AND so.date_order >= NOW() - INTERVAL '30 days'
+GROUP BY DATE(so.date_order)
+ORDER BY TARIH DESC;</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Son 30 günün günlük satış özetini verir</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// postgresql notları</div>
+    <h2>Odoo ve PostgreSQL</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Doğrudan veri erişimi</div>
+            <div class="kpi-desc">
+                Odoo verileri PostgreSQL üzerinde tutulduğu için raporlama ve veri doğrulama süreçlerinde SQL güçlü bir araçtır.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Model yapısı önemli</div>
+            <div class="kpi-desc">
+                Odoo’da tablo isimleri ve ilişkiler Python modelleriyle bağlantılıdır; bu yüzden sorgu yazarken veri modelini anlamak önemlidir.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Canlı sistem dikkat</div>
+            <div class="kpi-desc">
+                Yoğun üretim veya satış sistemlerinde sorguları önce raporlama ortamında test etmek daha güvenlidir.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// kullanım notları</div>
+    <h2>Odoo SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Tablo ilişkileri</div>
+            <div class="kpi-desc">Birçok veri doğrudan tek tabloda değil, ilişki tabloları ve model yapısı üzerinden okunur.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Durum alanları</div>
+            <div class="kpi-desc">Sipariş, fatura ve stok tablolarında state alanları raporun doğruluğunu doğrudan etkiler.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Özelleştirme farkları</div>
+            <div class="kpi-desc">Kuruma özel modüller ve alanlar eklendiyse sorgulara küçük uyarlamalar gerekebilir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Tüm SQL Kütüphanesi</div>
+            <div class="tool-desc">Farklı ERP sistemleri için tüm SQL sorgularını görüntüleyin.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Logo SQL Sorguları</div>
+            <div class="tool-desc">Logo ERP için hazırlanmış hazır sorgulara göz atın.</div>
+            <a href="logo-sql-sorgulari.html" class="tool-link">Logo Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">Özel Odoo raporları ve PostgreSQL ihtiyaçları için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
