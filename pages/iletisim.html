@@ -84,14 +84,19 @@
 
     <div class="calc-box" style="max-width:760px;">
         <form id="contactForm">
+            <input type="hidden" name="access_key" value="3768f14f-4dfb-4888-818f-e9ab1af3a962">
+            <input type="hidden" name="from_name" value="ERP Kutusu">
+            <input type="hidden" name="subject" value="ERP Kutusu - Yeni İletişim Mesajı">
+            <input type="hidden" name="botcheck" value="">
+
             <div style="margin-bottom:12px;">
                 <div class="calc-label">Ad Soyad</div>
-                <input class="calc-input" type="text" id="name" name="name" maxlength="100" placeholder="Adınız ve soyadınız">
+                <input class="calc-input" type="text" id="name" name="name" maxlength="100" placeholder="Adınız ve soyadınız" required>
             </div>
 
             <div style="margin-bottom:12px;">
                 <div class="calc-label">E-posta</div>
-                <input class="calc-input" type="email" id="email" name="email" maxlength="150" placeholder="ornek@firma.com">
+                <input class="calc-input" type="email" id="email" name="email" maxlength="150" placeholder="ornek@firma.com" required>
             </div>
 
             <div style="margin-bottom:12px;">
@@ -101,7 +106,7 @@
 
             <div style="margin-bottom:12px;">
                 <div class="calc-label">Konu</div>
-                <input class="calc-input" type="text" id="subject" name="subject" maxlength="150" placeholder="Örn: Logo SQL raporu ihtiyacı">
+                <input class="calc-input" type="text" id="subject" name="custom_subject" maxlength="150" placeholder="Örn: Logo SQL raporu ihtiyacı" required>
             </div>
 
             <div style="margin-bottom:12px;">
@@ -120,12 +125,12 @@
 
             <div style="margin-bottom:12px;">
                 <div class="calc-label">Mesaj</div>
-                <textarea class="calc-input" id="message" name="message" rows="7" maxlength="2000" placeholder="İhtiyacınızı, hedef raporu ve varsa örnek beklentinizi yazın."></textarea>
+                <textarea class="calc-input" id="message" name="message" rows="7" maxlength="2000" placeholder="İhtiyacınızı, hedef raporu ve varsa örnek beklentinizi yazın." required></textarea>
             </div>
 
-            <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+            <input type="text" id="website" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
-            <button type="submit" class="btn-primary">Mesajı Gönder</button>
+            <button type="submit" class="btn-primary" id="contactSubmit">Mesajı Gönder</button>
 
             <div class="calc-result" style="margin-top:16px;">
                 <span class="calc-result-label">Durum</span>
@@ -174,7 +179,7 @@
         </div>
         <div class="kpi-card">
             <div class="kpi-name">Form verileri güvenli mi?</div>
-            <div class="kpi-desc">Form alanlarında basit güvenlik kontrolleri uygulanır. Gerçek gönderim servisi bağlandığında ek korumalar da aktif edilir.</div>
+            <div class="kpi-desc">Form gönderimleri Web3Forms üzerinden iletilir ve basit spam koruma alanları da kullanılır.</div>
         </div>
     </div>
 </section>
@@ -191,86 +196,6 @@
 </footer>
 
 <script src="../js/security.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contactForm");
-    const resultBox = document.getElementById("formResult");
-
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        if (typeof Security !== "undefined" && !Security.rateLimiter.check("contactForm")) {
-            resultBox.textContent = "Çok sık deneme";
-            return;
-        }
-
-        const honeypotValue = document.getElementById("website").value;
-        if (typeof Security !== "undefined" && !Security.checkHoneypot(honeypotValue)) {
-            resultBox.textContent = "Gönderim başarısız";
-            return;
-        }
-
-        const fields = [
-            {
-                name: "Ad Soyad",
-                value: document.getElementById("name").value,
-                required: true,
-                max: 100
-            },
-            {
-                name: "E-posta",
-                value: document.getElementById("email").value,
-                required: true,
-                type: "email",
-                max: 150
-            },
-            {
-                name: "Telefon",
-                value: document.getElementById("phone").value,
-                required: false,
-                type: "phone",
-                max: 20
-            },
-            {
-                name: "Konu",
-                value: document.getElementById("subject").value,
-                required: true,
-                max: 150
-            },
-            {
-                name: "Mesaj",
-                value: document.getElementById("message").value,
-                required: true,
-                max: 2000
-            }
-        ];
-
-        const errors = typeof Security !== "undefined" ? Security.validateForm(fields) : [];
-
-        if (errors.length > 0) {
-            resultBox.textContent = errors[0];
-            return;
-        }
-
-        const formData = {
-            name: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("name").value) : document.getElementById("name").value,
-            email: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("email").value) : document.getElementById("email").value,
-            phone: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("phone").value) : document.getElementById("phone").value,
-            subject: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("subject").value) : document.getElementById("subject").value,
-            erpSystem: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("erpSystem").value) : document.getElementById("erpSystem").value,
-            message: typeof Security !== "undefined" ? Security.sanitize(document.getElementById("message").value) : document.getElementById("message").value
-        };
-
-        console.log("İletişim formu verisi:", formData);
-
-        resultBox.textContent = "Form doğrulandı";
-        form.reset();
-
-        setTimeout(() => {
-            resultBox.textContent = "Form hazır";
-        }, 2500);
-    });
-});
-</script>
+<script src="../js/main.js"></script>
 </body>
 </html>
