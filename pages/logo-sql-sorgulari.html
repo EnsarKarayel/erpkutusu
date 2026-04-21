@@ -136,6 +136,101 @@ ORDER BY YIL DESC, AY DESC</div>
             </div>
         </div>
 
+        <div class="sql-card">
+  <div class="sql-card-head">
+    <div class="sql-card-title">Kritik Stok Seviyesi</div>
+    <span class="erp-tag tag-logo">Logo</span>
+  </div>
+  <div class="sql-code">SELECT
+  STOKKODU,
+  STOKADI,
+  BAKIYE,
+  MINSTOK
+FROM LG_STOK
+WHERE BAKIYE < MINSTOK
+ORDER BY (MINSTOK - BAKIYE) DESC</div>
+  <div class="sql-card-foot">
+    <span class="sql-desc">Minimum stok altındaki ürünleri listeler</span>
+    <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+  </div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head">
+    <div class="sql-card-title">Günlük Satış Özeti</div>
+    <span class="erp-tag tag-logo">Logo</span>
+  </div>
+  <div class="sql-code">SELECT
+  CONVERT(date, DATE_) AS TARIH,
+  COUNT(*) AS FATURA_SAYISI,
+  SUM(TOTALDISCOUNTED) AS TOPLAM_SATIS
+FROM LG_INVOICE
+WHERE TRCODE = 8 AND CANCELLED = 0
+GROUP BY CONVERT(date, DATE_)
+ORDER BY TARIH DESC</div>
+  <div class="sql-card-foot">
+    <span class="sql-desc">Gün bazında satış analizi</span>
+    <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+  </div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head">
+    <div class="sql-card-title">En Karlı Ürünler</div>
+    <span class="erp-tag tag-logo">Logo</span>
+  </div>
+  <div class="sql-code">SELECT
+  STOKKODU,
+  STOKADI,
+  SUM(SATIS_TUTAR - MALIYET) AS KAR
+FROM LG_SATIS_ANALIZ
+GROUP BY STOKKODU, STOKADI
+ORDER BY KAR DESC</div>
+  <div class="sql-card-foot">
+    <span class="sql-desc">Ürün bazlı karlılık analizi</span>
+    <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+  </div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head">
+    <div class="sql-card-title">Cari Risk Analizi</div>
+    <span class="erp-tag tag-logo">Logo</span>
+  </div>
+  <div class="sql-code">SELECT
+  c.CODE,
+  c.DEFINITION_,
+  SUM(DEBIT - CREDIT) AS BAKIYE
+FROM LG_CLFLINE cl
+JOIN LG_CLCARD c ON cl.CLIENTREF = c.LOGICALREF
+GROUP BY c.CODE, c.DEFINITION_
+HAVING SUM(DEBIT - CREDIT) > 0
+ORDER BY BAKIYE DESC</div>
+  <div class="sql-card-foot">
+    <span class="sql-desc">Borçlu müşterileri listeler</span>
+    <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+  </div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head">
+    <div class="sql-card-title">Hareketsiz Stoklar</div>
+    <span class="erp-tag tag-logo">Logo</span>
+  </div>
+  <div class="sql-code">SELECT
+  s.STOKKODU,
+  s.STOKADI,
+  MAX(h.DATE_) AS SON_HAREKET
+FROM LG_STOK s
+LEFT JOIN LG_HAREKET h ON s.LOGICALREF = h.STOCKREF
+GROUP BY s.STOKKODU, s.STOKADI
+HAVING MAX(h.DATE_) < DATEADD(month, -3, GETDATE())</div>
+  <div class="sql-card-foot">
+    <span class="sql-desc">3 aydır hareket görmeyen stoklar</span>
+    <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+  </div>
+</div>
+
     </div>
 </section>
 
