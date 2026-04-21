@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genel SQL Sorguları | MSSQL, PostgreSQL ve Yardımcı SQL Örnekleri</title>
+    <meta name="description" content="Genel amaçlı SQL sorguları. MSSQL ve PostgreSQL için tablo boyutu, log analizi, hata kayıtları ve performans odaklı yardımcı SQL örnekleri.">
+    <meta name="keywords" content="genel sql sorguları, mssql sql örnekleri, postgresql sql örnekleri, sql performans sorguları, sql yardımcı sorgular">
+    <link rel="canonical" href="https://erpkutusu.com/pages/genel-sql-sorgulari.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Genel SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="Genel amaçlı SQL sorguları ve sistem raporlama örnekleri.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/genel-sql-sorgulari.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">Genel SQL Rehberi</div>
+    <h1>Genel SQL Sorguları</h1>
+    <p>
+        MSSQL, PostgreSQL ve genel veritabanı operasyonlarında kullanılabilecek
+        yardımcı SQL sorguları, performans kontrolleri ve raporlama örnekleri.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// rehber</div>
+    <h2>Genel SQL Sorguları Ne İşe Yarar?</h2>
+    <p class="section-sub">
+        Genel SQL sorguları; tablo boyutu analizi, hata kayıtları, performans incelemeleri,
+        veri kalite kontrolleri ve sistem log raporları gibi konularda hızlı görünürlük sağlar.
+        Bu sorgular, ERP bağımsız olarak birçok projede işe yarayan pratik yardımcı araçlardır.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// hazır sorgular</div>
+    <h2>Hazır Genel SQL Örnekleri</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular sistem analizi, performans takibi ve yardımcı raporlama için kullanılabilir.
+    </p>
+
+    <div class="sql-grid">
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">En Büyük Tablolar</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT TOP 20
+  t.NAME                 AS TABLO_ADI,
+  SUM(p.rows)            AS SATIR_SAYISI,
+  CAST(ROUND((SUM(a.total_pages) * 8) / 1024.0, 2) AS DECIMAL(18,2)) AS TOPLAM_MB
+FROM sys.tables t
+JOIN sys.indexes i       ON t.object_id = i.object_id
+JOIN sys.partitions p    ON i.object_id = p.object_id AND i.index_id = p.index_id
+JOIN sys.allocation_units a ON p.partition_id = a.container_id
+WHERE t.is_ms_shipped = 0
+GROUP BY t.NAME
+ORDER BY TOPLAM_MB DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Veritabanında en çok alan kaplayan tablolar</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Son 7 Günlük Hata Kayıtları</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT
+  LOG_TARIHI,
+  MODUL,
+  HATA_KODU,
+  HATA_MESAJI
+FROM APP_ERROR_LOG
+WHERE LOG_TARIHI >= DATEADD(day, -7, GETDATE())
+ORDER BY LOG_TARIHI DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Son 7 gün içinde oluşan hata kayıtlarını listeler</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Yavaş Sorguları Tespit Et</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT TOP 20
+  SUBSTRING(qt.TEXT,
+    (qs.statement_start_offset/2) + 1,
+    ((CASE qs.statement_end_offset
+      WHEN -1 THEN DATALENGTH(qt.TEXT)
+      ELSE qs.statement_end_offset
+      END - qs.statement_start_offset)/2) + 1
+  )                      AS SORGU_METNI,
+  qs.execution_count     AS CALISMA_SAYISI,
+  qs.total_elapsed_time / qs.execution_count AS ORT_SURE_MS
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) qt
+ORDER BY ORT_SURE_MS DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">En yavaş çalışan sorguları listeler</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Boş veya Null E-Postalar</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT
+  ID,
+  AD_SOYAD,
+  EMAIL
+FROM MUSTERILER
+WHERE EMAIL IS NULL
+   OR LTRIM(RTRIM(EMAIL)) = ''</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Eksik e-posta bilgisi olan kayıtları bulur</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Günlük Kayıt Artış Özeti</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT
+  CONVERT(date, CREATED_AT) AS TARIH,
+  COUNT(*)                  AS KAYIT_SAYISI
+FROM KAYITLAR
+WHERE CREATED_AT >= DATEADD(day, -30, GETDATE())
+GROUP BY CONVERT(date, CREATED_AT)
+ORDER BY TARIH DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Son 30 günlük kayıt artışını gün bazında gösterir</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// kullanım notları</div>
+    <h2>Genel SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Canlı veride dikkat</div>
+            <div class="kpi-desc">Ağır sorguları önce test ortamında denemek performans riski açısından daha güvenlidir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Veritabanı farkları</div>
+            <div class="kpi-desc">MSSQL, PostgreSQL ve diğer sistemlerde fonksiyon ve tarih işlemleri farklılık gösterebilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Örnek sorgu mantığı</div>
+            <div class="kpi-desc">Bu sorgular çoğu zaman başlangıç noktasıdır; tablo ve alan adlarını kendi yapına göre uyarlaman gerekir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Tüm SQL Kütüphanesi</div>
+            <div class="tool-desc">Farklı ERP sistemleri için tüm SQL sorgularını görüntüleyin.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Odoo SQL Sorguları</div>
+            <div class="tool-desc">Odoo ve PostgreSQL tabanlı örnek sorgulara göz atın.</div>
+            <a href="odoo-sql-sorgulari.html" class="tool-link">Odoo Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">Özel raporlama ve SQL ihtiyaçları için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

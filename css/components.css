@@ -323,3 +323,10 @@
   color: var(--text2);
   min-height: 20px;
 }
+
+
+.tag-odoo {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
