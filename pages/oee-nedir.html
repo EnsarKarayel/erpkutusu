@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OEE Nedir? | OEE Hesaplama, Formül ve Örnekler</title>
+    <meta name="description" content="OEE nedir, nasıl hesaplanır? Kullanılabilirlik, performans ve kalite bileşenleriyle OEE formülü, örnek hesaplama ve üretim için pratik açıklamalar.">
+    <meta name="keywords" content="oee nedir, oee hesaplama, oee formülü, overall equipment effectiveness, üretim verimliliği">
+    <link rel="canonical" href="https://erpkutusu.com/pages/oee-nedir.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OEE Nedir? | ERP Kutusu">
+    <meta property="og:description" content="OEE formülü, hesaplama mantığı ve üretim ekipleri için pratik örnekler.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/oee-nedir.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">Üretim KPI Rehberi</div>
+    <h1>OEE Nedir?</h1>
+    <p>
+        OEE, üretim ekipmanlarının ne kadar verimli kullanıldığını gösteren en önemli
+        performans göstergelerinden biridir. Kullanılabilirlik, performans ve kalite
+        bileşenlerinden oluşur.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// temel tanım</div>
+    <h2>OEE Açılımı Nedir?</h2>
+    <p class="section-sub">
+        OEE, “Overall Equipment Effectiveness” ifadesinin kısaltmasıdır. Türkçede
+        genellikle “Toplam Ekipman Etkinliği” veya “Genel Ekipman Etkinliği” olarak
+        kullanılır. Üretim hattında bir makinenin ya da istasyonun planlanan süre içinde
+        ne kadar verimli çalıştığını ölçmeye yardımcı olur.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// formül</div>
+    <h2>OEE Formülü</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">OEE</div>
+            <div class="kpi-formula">Kullanılabilirlik × Performans × Kalite</div>
+            <div class="kpi-desc">OEE üç temel bileşenin çarpımıyla hesaplanır.</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-name">Kullanılabilirlik</div>
+            <div class="kpi-formula">Çalışma Süresi ÷ Planlanan Süre</div>
+            <div class="kpi-desc">Duruşların üretime etkisini gösterir.</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-name">Performans</div>
+            <div class="kpi-formula">Fiili Üretim Hızı ÷ Teorik Üretim Hızı</div>
+            <div class="kpi-desc">Makinenin hedeflenen hızda çalışıp çalışmadığını ölçer.</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-name">Kalite</div>
+            <div class="kpi-formula">Sağlam Ürün ÷ Toplam Ürün</div>
+            <div class="kpi-desc">Hatalı ürünlerin toplam üretime etkisini gösterir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// örnek hesaplama</div>
+    <h2>OEE Nasıl Hesaplanır?</h2>
+    <p class="section-sub">
+        Aşağıdaki örnekte bir üretim hattı için basit bir OEE hesabı gösterilmiştir.
+    </p>
+
+    <div class="calc-box">
+        <div class="calc-row">
+            <div>
+                <div class="calc-label">Planlanan Süre</div>
+                <input class="calc-input" value="480 dakika" readonly>
+            </div>
+            <div>
+                <div class="calc-label">Çalışma Süresi</div>
+                <input class="calc-input" value="420 dakika" readonly>
+            </div>
+        </div>
+
+        <div class="calc-row">
+            <div>
+                <div class="calc-label">Toplam Üretim</div>
+                <input class="calc-input" value="400 adet" readonly>
+            </div>
+            <div>
+                <div class="calc-label">Sağlam Ürün</div>
+                <input class="calc-input" value="380 adet" readonly>
+            </div>
+        </div>
+
+        <div class="kpi-grid" style="margin-top:1rem;">
+            <div class="kpi-card">
+                <div class="kpi-name">Kullanılabilirlik</div>
+                <div class="kpi-formula">420 ÷ 480 = %87,5</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-name">Performans</div>
+                <div class="kpi-formula">%90</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-name">Kalite</div>
+                <div class="kpi-formula">380 ÷ 400 = %95</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-name">Sonuç</div>
+                <div class="kpi-formula">%87,5 × %90 × %95 = %74,8</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// yorumlama</div>
+    <h2>İyi Bir OEE Kaç Olmalı?</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">%60 altı</div>
+            <div class="kpi-desc">İyileştirme ihtiyacı yüksektir. Duruş, hız kaybı veya kalite problemi belirgindir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">%60 - %75</div>
+            <div class="kpi-desc">Birçok işletmede görülen orta seviye performanstır. İyileştirme fırsatı vardır.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">%75 - %85</div>
+            <div class="kpi-desc">Güçlü ve kontrollü bir üretim performansına işaret eder.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">%85 üzeri</div>
+            <div class="kpi-desc">Genellikle dünya standartlarına yakın, çok iyi bir seviye olarak görülür.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// üretim analizi</div>
+    <h2>OEE Neden Düşer?</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Plansız Duruşlar</div>
+            <div class="tool-desc">Arıza, setup gecikmesi veya operatör bekleme süreleri kullanılabilirliği düşürür.</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-name">Hız Kayıpları</div>
+            <div class="tool-desc">Makinenin teorik kapasitesinin altında çalışması performans skorunu azaltır.</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-name">Kalite Problemleri</div>
+            <div class="tool-desc">Fire, yeniden işleme ve hatalı ürünler kalite bileşenini aşağı çeker.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// sql örneği</div>
+    <h2>OEE SQL ile Nasıl Takip Edilir?</h2>
+    <p class="section-sub">
+        OEE çoğu zaman ERP veya MES verileriyle SQL üzerinden hesaplanır. Aşağıdaki örnek mantık,
+        duruş süresi, üretim miktarı ve sağlam ürün bilgilerini birleştirmeyi gösterir.
+    </p>
+
+    <div class="sql-grid">
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Basit OEE Hesaplama Mantığı</div>
+                <span class="erp-tag tag-genel">Genel</span>
+            </div>
+            <div class="sql-code">SELECT
+  HAT_KODU,
+  PLANLANAN_SURE_DK,
+  CALISMA_SURESI_DK,
+  TOPLAM_URETIM,
+  SAGLAM_URUN,
+  ROUND(CALISMA_SURESI_DK * 100.0 / NULLIF(PLANLANAN_SURE_DK, 0), 2) AS KULLANILABILIRLIK,
+  ROUND(FIILI_HIZ * 100.0 / NULLIF(TEORIK_HIZ, 0), 2) AS PERFORMANS,
+  ROUND(SAGLAM_URUN * 100.0 / NULLIF(TOPLAM_URETIM, 0), 2) AS KALITE
+FROM URETIM_OEE_VERISI</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">OEE bileşenlerini üretim verisi üzerinden hesaplama mantığı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">KPI Formülleri</div>
+            <div class="tool-desc">Diğer KPI metriklerini ve hesaplama mantıklarını inceleyin.</div>
+            <a href="kpi.html" class="tool-link">KPI Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">SQL Kütüphanesi</div>
+            <div class="tool-desc">ERP sistemleri için hazır SQL sorgularına göz atın.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">OEE raporlama, KPI tasarımı ve üretim verisi analizi için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
