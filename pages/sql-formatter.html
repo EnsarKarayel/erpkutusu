@@ -9,14 +9,32 @@
 
 <link rel="stylesheet" href="../css/main.css">
 
-<!-- SQL FORMATTER LIB -->
+<!-- SQL FORMATTER -->
 <script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.3.0/dist/sql-formatter.min.js"></script>
+
+<!-- PRISM (SYNTAX) -->
+<link id="prismTheme" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+
 </head>
 
 <body style="padding:40px; max-width:1000px; margin:auto;">
 
 <h1>SQL Formatter</h1>
 <p>SQL sorgularınızı profesyonel şekilde düzenleyin.</p>
+
+<!-- DB SELECT -->
+<select id="dbSelect" onchange="changeDB()">
+  <option value="sql">Standart SQL</option>
+  <option value="mysql">MySQL</option>
+  <option value="postgresql">PostgreSQL</option>
+  <option value="tsql">SQL Server</option>
+</select>
+
+<button onclick="toggleTheme()">Tema</button>
+
+<br><br>
 
 <!-- INPUT -->
 <textarea id="sqlInput" placeholder="SQL sorgunuzu buraya yazın..."
@@ -28,35 +46,45 @@ style="width:100%; height:200px; padding:10px;"></textarea>
 <button onclick="formatSQL()">Formatla</button>
 <button onclick="copySQL()">Kopyala</button>
 <button onclick="clearSQL()">Temizle</button>
-<button onclick="example()">Örnek Doldur</button>
+<button onclick="example()">Örnek</button>
 <button onclick="downloadSQL()">İndir (.sql)</button>
+<button onclick="minifySQL()">Minify</button>
 
 <!-- OUTPUT -->
-<pre id="output" style="margin-top:20px; background:#111; padding:20px; color:#0f0;"></pre>
+<pre class="language-sql"><code id="output"></code></pre>
 
 <script>
+
+let currentDB = "sql";
+
+function changeDB(){
+    currentDB = document.getElementById("dbSelect").value;
+}
+
 function formatSQL() {
     let sql = document.getElementById("sqlInput").value;
 
     if (!sql.trim()) {
-        alert("Lütfen SQL girin");
+        alert("SQL gir");
         return;
     }
 
     try {
         let formatted = window.sqlFormatter.format(sql, {
-            language: "sql",
+            language: currentDB,
             indent: "  "
         });
 
-        document.getElementById("output").innerText = formatted;
+        document.getElementById("output").textContent = formatted;
+        Prism.highlightElement(document.getElementById("output"));
+
     } catch (e) {
-        document.getElementById("output").innerText = "Hata: SQL formatlanamadı";
+        document.getElementById("output").textContent = "Hata oluştu";
     }
 }
 
 function copySQL(){
-    let text = document.getElementById("output").innerText;
+    let text = document.getElementById("output").textContent;
 
     if (!text.trim()) {
         alert("Kopyalanacak içerik yok");
@@ -69,19 +97,20 @@ function copySQL(){
 
 function clearSQL(){
     document.getElementById("sqlInput").value = "";
-    document.getElementById("output").innerText = "";
+    document.getElementById("output").textContent = "";
 }
 
 function example(){
-    document.getElementById("sqlInput").value =
+document.getElementById("sqlInput").value =
 `select c.name, o.total_amount, o.date
 from customers c
 join orders o on c.id = o.customer_id
 where c.city = 'Istanbul' and o.status = 1
 order by o.date desc`;
 }
+
 function downloadSQL() {
-    let text = document.getElementById("output").innerText;
+    let text = document.getElementById("output").textContent;
 
     if (!text.trim()) {
         alert("İndirilecek içerik yok");
@@ -94,14 +123,32 @@ function downloadSQL() {
     let a = document.createElement("a");
     a.href = url;
 
-    // 👉 BURAYA EKLEDİK
-    let date = new Date().toISOString().slice(0,10);
-    a.download = "sql-" + date + ".sql";
+    let now = new Date();
+    let date = now.toISOString().slice(0,10);
+    let time = now.toTimeString().slice(0,5).replace(":", "-");
+
+    a.download = "sql-" + date + "-" + time + ".sql";
 
     a.click();
-
     URL.revokeObjectURL(url);
 }
+
+function minifySQL(){
+    let sql = document.getElementById("sqlInput").value;
+    document.getElementById("output").textContent =
+        sql.replace(/\s+/g, " ");
+}
+
+function toggleTheme(){
+    let link = document.getElementById("prismTheme");
+
+    if(link.href.includes("tomorrow")){
+        link.href = "https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css";
+    } else {
+        link.href = "https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css";
+    }
+}
+
 </script>
 
 </body>
