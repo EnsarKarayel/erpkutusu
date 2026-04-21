@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Generator</title>
+<link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body style="padding:40px;">
+
+<h1>Dashboard Generator</h1>
+
+<label>Satış:</label>
+<input type="number" id="sales"><br><br>
+
+<label>Maliyet:</label>
+<input type="number" id="cost"><br><br>
+
+<button onclick="calc()">Hesapla</button>
+
+<h2 id="result"></h2>
+
+<script>
+function calc(){
+    let s = document.getElementById("sales").value;
+    let c = document.getElementById("cost").value;
+
+    let profit = s - c;
+
+    document.getElementById("result").innerText =
+        "Kar: " + profit;
+}
+</script>
+
+</body>
+</html>

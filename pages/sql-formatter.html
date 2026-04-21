@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>SQL Formatter | ERP Kutusu</title>
+<link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body style="padding:40px; max-width:900px; margin:auto;">
+
+<h1>SQL Formatter</h1>
+<p>SQL sorgularınızı düzenleyin ve okunabilir hale getirin.</p>
+
+<textarea id="sqlInput" style="width:100%; height:200px;"></textarea>
+
+<button onclick="formatSQL()" style="margin-top:10px;">Formatla</button>
+
+<pre id="output" style="margin-top:20px; background:#111; padding:20px;"></pre>
+
+<script>
+function formatSQL() {
+    let sql = document.getElementById("sqlInput").value;
+
+    sql = sql
+        .replace(/select/gi, "\nSELECT")
+        .replace(/from/gi, "\nFROM")
+        .replace(/where/gi, "\nWHERE")
+        .replace(/and/gi, "\nAND")
+        .replace(/order by/gi, "\nORDER BY")
+        .replace(/group by/gi, "\nGROUP BY");
+
+    document.getElementById("output").innerText = sql;
+}
+</script>
+
+</body>
+</html>
