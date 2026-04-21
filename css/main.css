@@ -481,3 +481,10 @@ footer a:hover { color: var(--accent); }
   margin-bottom: 10px;
   letter-spacing: 1px;
 }
+
+
+.ad-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
