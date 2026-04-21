@@ -461,5 +461,6 @@ ORDER BY SATIR_SAYISI DESC`
 FROM sys.dm_exec_query_stats qs
 CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) qt
 ORDER BY ORT_SURE_MS DESC`
-  }
+  },
+  
 ];
