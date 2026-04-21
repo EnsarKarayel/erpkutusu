@@ -61,7 +61,7 @@
         <div class="sql-card">
             <div class="sql-card-head">
                 <div class="sql-card-title">Satış Siparişi Özeti</div>
-                <span class="erp-tag tag-genel">Odoo</span>
+                <span class="erp-tag tag-odoo">Odoo</span>
             </div>
             <div class="sql-code">SELECT
   so.name                AS SIPARIS_NO,
@@ -82,7 +82,7 @@ ORDER BY so.date_order DESC;</div>
         <div class="sql-card">
             <div class="sql-card-head">
                 <div class="sql-card-title">Ürün Stok Listesi</div>
-                <span class="erp-tag tag-genel">Odoo</span>
+                <span class="erp-tag tag-odoo">Odoo</span>
             </div>
             <div class="sql-code">SELECT
   pt.name                AS URUN,
@@ -102,7 +102,7 @@ ORDER BY sq.quantity DESC;</div>
         <div class="sql-card">
             <div class="sql-card-head">
                 <div class="sql-card-title">Müşteri Listesi</div>
-                <span class="erp-tag tag-genel">Odoo</span>
+                <span class="erp-tag tag-odoo">Odoo</span>
             </div>
             <div class="sql-code">SELECT
   name,
@@ -121,7 +121,7 @@ ORDER BY name;</div>
         <div class="sql-card">
             <div class="sql-card-head">
                 <div class="sql-card-title">Vadesi Geçmiş Faturalar</div>
-                <span class="erp-tag tag-genel">Odoo</span>
+                <span class="erp-tag tag-odoo">Odoo</span>
             </div>
             <div class="sql-code">SELECT
   ai.name                AS FATURA_NO,
@@ -145,7 +145,7 @@ ORDER BY ai.invoice_date_due ASC;</div>
         <div class="sql-card">
             <div class="sql-card-head">
                 <div class="sql-card-title">Son 30 Günlük Satış Toplamı</div>
-                <span class="erp-tag tag-genel">Odoo</span>
+                <span class="erp-tag tag-odoo">Odoo</span>
             </div>
             <div class="sql-code">SELECT
   DATE(so.date_order)    AS TARIH,
