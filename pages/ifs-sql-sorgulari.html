@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS SQL Sorguları | Hazır IFS SQL Örnekleri</title>
+    <meta name="description" content="IFS için hazır SQL sorguları. Üretim, stok, satın alma, iş emri ve raporlama odaklı IFS SQL örnekleri.">
+    <meta name="keywords" content="ifs sql sorguları, ifs sql, ifs raporlama, ifs iş emri sorguları, ifs stok sorguları">
+    <link rel="canonical" href="https://erpkutusu.com/pages/ifs-sql-sorgulari.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="IFS SQL Sorguları | ERP Kutusu">
+    <meta property="og:description" content="IFS için hazır SQL sorguları ve raporlama örnekleri.">
+    <meta property="og:url" content="https://erpkutusu.com/pages/ifs-sql-sorgulari.html">
+    <meta property="og:site_name" content="ERP Kutusu">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+    <ul>
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="sql.html">SQL</a></li>
+        <li><a href="kpi.html">KPI</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">IFS SQL Rehberi</div>
+    <h1>IFS SQL Sorguları</h1>
+    <p>
+        IFS kullanıcıları için hazır SQL sorguları, üretim, stok, satın alma ve iş emri
+        raporlamasında kullanılabilecek pratik örnekler.
+    </p>
+</section>
+
+<section class="section section-no-top">
+    <div class="section-tag">// rehber</div>
+    <h2>IFS SQL Sorguları Ne İşe Yarar?</h2>
+    <p class="section-sub">
+        IFS üzerinde iş emri takibi, tamamlanma oranı, stok görünürlüğü, satın alma gecikmeleri
+        ve operasyonel raporlar için SQL sorguları oldukça faydalıdır. Hazır IFS SQL örnekleri,
+        standart ekranların ötesinde analiz üretmek isteyen ekipler için hızlı bir başlangıç sağlar.
+    </p>
+</section>
+
+<section class="section">
+    <div class="section-tag">// hazır sorgular</div>
+    <h2>Hazır IFS SQL Örnekleri</h2>
+    <p class="section-sub">
+        Aşağıdaki sorgular IFS raporlama süreçlerinde sık kullanılan temel örneklerdir.
+    </p>
+
+    <div class="sql-grid">
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Üretim Fiili vs Planlanan</div>
+                <span class="erp-tag tag-ifs">IFS</span>
+            </div>
+            <div class="sql-code">SELECT
+  wo.WO_NO,
+  wo.PART_NO,
+  wo.QTY_DEMAND          AS PLANLANAN,
+  wo.QTY_COMPLETE        AS TAMAMLANAN,
+  ROUND(
+    wo.QTY_COMPLETE * 100.0
+    / NULLIF(wo.QTY_DEMAND, 0), 1
+  )                      AS TAMAMLANMA_PCT,
+  wo.PLAN_FINISH         AS PLANLANAN_BITIS
+FROM SHOP_ORD wo
+WHERE wo.OBJSTATE = 'Released'
+ORDER BY wo.PLAN_FINISH ASC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Açık iş emirlerinde planlanan ve fiili karşılaştırması</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Açık İş Emirleri</div>
+                <span class="erp-tag tag-ifs">IFS</span>
+            </div>
+            <div class="sql-code">SELECT
+  wo.WO_NO,
+  wo.PART_NO,
+  wo.QTY_DEMAND          AS PLANLANAN,
+  wo.QTY_COMPLETE        AS TAMAMLANAN,
+  wo.OBJSTATE            AS DURUM
+FROM SHOP_ORD wo
+WHERE wo.OBJSTATE IN ('Released', 'Started')
+ORDER BY wo.WO_NO</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Devam eden ve kapanmamış iş emirleri</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Geciken Satın Alma Siparişleri</div>
+                <span class="erp-tag tag-ifs">IFS</span>
+            </div>
+            <div class="sql-code">SELECT
+  ORDER_NO,
+  LINE_NO,
+  VENDOR_NO,
+  PART_NO,
+  WANTED_RECEIPT_DATE
+FROM PURCHASE_ORDER_LINE
+WHERE WANTED_RECEIPT_DATE < TRUNC(SYSDATE)
+  AND LINE_STATE <> 'Closed'
+ORDER BY WANTED_RECEIPT_DATE</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Teslim tarihi geçmiş açık satın alma siparişleri</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Parça Bazlı Mevcut Stok</div>
+                <span class="erp-tag tag-ifs">IFS</span>
+            </div>
+            <div class="sql-code">SELECT
+  PART_NO,
+  LOCATION_NO,
+  QTY_ONHAND             AS MEVCUT_STOK
+FROM INVENTORY_PART_IN_STOCK
+WHERE QTY_ONHAND > 0
+ORDER BY QTY_ONHAND DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Parça ve lokasyon bazında mevcut stok miktarı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+        <div class="sql-card">
+            <div class="sql-card-head">
+                <div class="sql-card-title">Eksik Malzeme İhtiyacı</div>
+                <span class="erp-tag tag-ifs">IFS</span>
+            </div>
+            <div class="sql-code">SELECT
+  mr.PART_NO,
+  mr.DESCRIPTION,
+  SUM(mr.QTY_REQUIRED)   AS IHTIYAC,
+  SUM(mr.QTY_ON_HAND)    AS MEVCUT_STOK,
+  SUM(mr.QTY_REQUIRED) - SUM(mr.QTY_ON_HAND) AS EKSIK_MIKTAR
+FROM MANUF_STRUCT mr
+JOIN SHOP_ORD so ON mr.WO_NO = so.WO_NO
+WHERE so.OBJSTATE = 'Released'
+  AND mr.QTY_REQUIRED > mr.QTY_ON_HAND
+GROUP BY mr.PART_NO, mr.DESCRIPTION
+ORDER BY EKSIK_MIKTAR DESC</div>
+            <div class="sql-card-foot">
+                <span class="sql-desc">Açık iş emirlerine göre eksik malzeme ihtiyacı</span>
+                <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// teknik notlar</div>
+    <h2>IFS Verileri Nasıl Raporlanır?</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Doğrudan SQL</div>
+            <div class="kpi-desc">
+                İş emri, stok, satın alma ve temel operasyonel kontroller için doğrudan SQL sorguları hızlı sonuç verebilir.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Veri ambarı kullanımı</div>
+            <div class="kpi-desc">
+                Bazı kurumlarda IFS verileri PostgreSQL, SQL Server veya başka bir veri ambarına aktarılıp raporlama orada yapılabilir.
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Kuruma özel farklılık</div>
+            <div class="kpi-desc">
+                IFS sürümü, tablo yapısı ve entegrasyon mimarisi kuruma göre değişebilir; sorgular çoğu zaman küçük uyarlama ister.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// kullanım notları</div>
+    <h2>IFS SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-name">Canlı ortam dikkat</div>
+            <div class="kpi-desc">Yoğun operasyonel sistemlerde önce test veya raporlama ortamında çalışmak daha güvenlidir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Tablo ve view farkları</div>
+            <div class="kpi-desc">IFS sürümüne göre tablo, görünüm ve alan isimlerinde farklılıklar olabilir.</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-name">Raporlama mimarisi</div>
+            <div class="kpi-desc">Bazı şirketler doğrudan IFS DB yerine veri ambarı üzerinden raporlama yapar; bu yüzden sorgu dili değişebilir.</div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-tag">// ilgili bağlantılar</div>
+    <h2>İlgili Sayfalar</h2>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Tüm SQL Kütüphanesi</div>
+            <div class="tool-desc">Farklı ERP sistemleri için tüm SQL sorgularını görüntüleyin.</div>
+            <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">Logo SQL Sorguları</div>
+            <div class="tool-desc">Logo ERP için hazırlanmış hazır sorgulara göz atın.</div>
+            <a href="logo-sql-sorgulari.html" class="tool-link">Logo Sayfasına Git</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-name">İletişim ve Danışmanlık</div>
+            <div class="tool-desc">Özel IFS raporları ve SQL ihtiyaçları için iletişime geçin.</div>
+            <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p class="footer-links">
+        <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+        <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+        <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+        <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+        <a href="iletisim.html">İletişim</a>
+    </p>
+    <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
