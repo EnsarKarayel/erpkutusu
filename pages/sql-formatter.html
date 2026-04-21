@@ -4,29 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SQL Formatter | ERP Kutusu</title>
-<meta name="description" content="SQL sorgularınızı online olarak düzenleyin, formatlayın ve kopyalayın. Ücretsiz SQL Formatter aracı.">
+<title>SQL Tool | ERP Kutusu</title>
 
 <link rel="stylesheet" href="../css/main.css">
 
 <!-- SQL FORMATTER -->
 <script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.3.0/dist/sql-formatter.min.js"></script>
 
-<!-- PRISM (SYNTAX) -->
+<!-- PRISM -->
 <link id="prismTheme" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+
+<style>
+button { margin:5px; padding:8px 12px; }
+</style>
 
 </head>
 
 <body style="padding:40px; max-width:1000px; margin:auto;">
 
-<h1>SQL Formatter</h1>
-<p>SQL sorgularınızı profesyonel şekilde düzenleyin.</p>
+<h1>SQL Tool</h1>
 
-<!-- DB SELECT -->
 <select id="dbSelect" onchange="changeDB()">
-  <option value="sql">Standart SQL</option>
+  <option value="sql">SQL</option>
   <option value="mysql">MySQL</option>
   <option value="postgresql">PostgreSQL</option>
   <option value="tsql">SQL Server</option>
@@ -36,86 +37,104 @@
 
 <br><br>
 
-<!-- INPUT -->
-<textarea id="sqlInput" placeholder="SQL sorgunuzu buraya yazın..."
-style="width:100%; height:200px; padding:10px;"></textarea>
+<textarea id="sqlInput" style="width:100%; height:200px;"></textarea>
 
-<br><br>
+<br>
 
-<!-- BUTTONS -->
-<button onclick="formatSQL()">Formatla</button>
-<button onclick="copySQL()">Kopyala</button>
-<button onclick="clearSQL()">Temizle</button>
-<button onclick="example()">Örnek</button>
-<button onclick="downloadSQL()">İndir (.sql)</button>
+<button onclick="formatSQL()">Format</button>
+<button onclick="validateSQL()">Validate</button>
+<button onclick="runSQL()">Run</button>
+<button onclick="copySQL()">Copy</button>
+<button onclick="downloadSQL()">Export</button>
 <button onclick="minifySQL()">Minify</button>
+<button onclick="clearSQL()">Clear</button>
+<button onclick="example()">Example</button>
 
-<!-- OUTPUT -->
 <pre class="language-sql"><code id="output"></code></pre>
+
+<div id="tableResult"></div>
 
 <script>
 
 let currentDB = "sql";
 
+const fakeDB = [
+    { name: "Ahmet", city: "Istanbul", total: 1000 },
+    { name: "Mehmet", city: "Ankara", total: 2000 },
+    { name: "Ayşe", city: "Istanbul", total: 1500 }
+];
+
 function changeDB(){
     currentDB = document.getElementById("dbSelect").value;
 }
 
-function formatSQL() {
+function formatSQL(){
     let sql = document.getElementById("sqlInput").value;
 
-    if (!sql.trim()) {
-        alert("SQL gir");
+    if(!sql.trim()) return alert("SQL boş");
+
+    let formatted = window.sqlFormatter.format(sql, { language: currentDB });
+
+    document.getElementById("output").textContent = formatted;
+    Prism.highlightElement(document.getElementById("output"));
+}
+
+function validateSQL(){
+    let sql = document.getElementById("sqlInput").value.toLowerCase();
+
+    if(!sql.includes("select")) return alert("SELECT yok");
+    if(!sql.includes("from")) return alert("FROM yok");
+
+    document.getElementById("output").textContent = "✔ SQL valid";
+}
+
+function runSQL(){
+
+    let sql = document.getElementById("sqlInput").value.toLowerCase();
+
+    if(!sql.includes("select") || !sql.includes("from")){
+        alert("Geçerli SQL gir");
         return;
     }
 
-    try {
-        let formatted = window.sqlFormatter.format(sql, {
-            language: currentDB,
-            indent: "  "
-        });
+    let result = fakeDB;
 
-        document.getElementById("output").textContent = formatted;
-        Prism.highlightElement(document.getElementById("output"));
-
-    } catch (e) {
-        document.getElementById("output").textContent = "Hata oluştu";
+    if(sql.includes("where city='istanbul'")){
+        result = fakeDB.filter(x => x.city.toLowerCase() === "istanbul");
     }
+
+    renderTable(result);
+}
+
+function renderTable(data){
+    let html = "<table border='1' style='margin-top:20px; width:100%'><tr>";
+
+    Object.keys(data[0]).forEach(key => {
+        html += "<th>"+key+"</th>";
+    });
+
+    html += "</tr>";
+
+    data.forEach(row => {
+        html += "<tr>";
+        Object.values(row).forEach(val => {
+            html += "<td>"+val+"</td>";
+        });
+        html += "</tr>";
+    });
+
+    html += "</table>";
+
+    document.getElementById("tableResult").innerHTML = html;
 }
 
 function copySQL(){
+    navigator.clipboard.writeText(document.getElementById("output").textContent);
+    alert("Kopyalandı");
+}
+
+function downloadSQL(){
     let text = document.getElementById("output").textContent;
-
-    if (!text.trim()) {
-        alert("Kopyalanacak içerik yok");
-        return;
-    }
-
-    navigator.clipboard.writeText(text);
-    alert("Kopyalandı!");
-}
-
-function clearSQL(){
-    document.getElementById("sqlInput").value = "";
-    document.getElementById("output").textContent = "";
-}
-
-function example(){
-document.getElementById("sqlInput").value =
-`select c.name, o.total_amount, o.date
-from customers c
-join orders o on c.id = o.customer_id
-where c.city = 'Istanbul' and o.status = 1
-order by o.date desc`;
-}
-
-function downloadSQL() {
-    let text = document.getElementById("output").textContent;
-
-    if (!text.trim()) {
-        alert("İndirilecek içerik yok");
-        return;
-    }
 
     let blob = new Blob([text], { type: "text/sql" });
     let url = URL.createObjectURL(blob);
@@ -123,30 +142,34 @@ function downloadSQL() {
     let a = document.createElement("a");
     a.href = url;
 
-    let now = new Date();
-    let date = now.toISOString().slice(0,10);
-    let time = now.toTimeString().slice(0,5).replace(":", "-");
-
-    a.download = "sql-" + date + "-" + time + ".sql";
+    let date = new Date().toISOString().slice(0,10);
+    a.download = "sql-"+date+".sql";
 
     a.click();
-    URL.revokeObjectURL(url);
 }
 
 function minifySQL(){
     let sql = document.getElementById("sqlInput").value;
-    document.getElementById("output").textContent =
-        sql.replace(/\s+/g, " ");
+    document.getElementById("output").textContent = sql.replace(/\s+/g," ");
+}
+
+function clearSQL(){
+    document.getElementById("sqlInput").value = "";
+    document.getElementById("output").textContent = "";
+    document.getElementById("tableResult").innerHTML = "";
+}
+
+function example(){
+    document.getElementById("sqlInput").value =
+    "select * from customers where city='Istanbul'";
 }
 
 function toggleTheme(){
     let link = document.getElementById("prismTheme");
 
-    if(link.href.includes("tomorrow")){
-        link.href = "https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css";
-    } else {
-        link.href = "https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css";
-    }
+    link.href = link.href.includes("tomorrow")
+    ? "https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css"
+    : "https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css";
 }
 
 </script>
