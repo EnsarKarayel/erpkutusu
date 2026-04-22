@@ -2,49 +2,416 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>ERP Geçiş Checklist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ERP Geçiş Checklist | ERP Kutusu</title>
+<meta name="description" content="ERP geçiş sürecinde veri, eğitim, test, entegrasyon ve canlıya geçiş adımlarını takip etmek için kapsamlı ERP geçiş checklist aracı.">
+<meta name="keywords" content="erp geçiş checklist, erp geçiş kontrol listesi, erp migration checklist, erp proje planı">
 
 <link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
 
-<!-- PDF LIB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  padding: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.checklist-intro {
+  margin-bottom: 24px;
+}
+
+.checklist-toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0 24px;
+}
+
+.checklist-progress-wrap {
+  margin: 20px 0 30px;
+}
+
+.checklist-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.checklist-progress-text {
+  font-size: 14px;
+  color: var(--text2);
+}
+
+.checklist-progress-bar {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+}
+
+.checklist-progress-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.25s ease;
+  background: var(--accent);
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.check-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.check-group h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.check-group p {
+  color: var(--text2);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.check-items {
+  display: grid;
+  gap: 12px;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+}
+
+.check-item input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+
+.check-item-text {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.check-item-text small {
+  display: block;
+  color: var(--text2);
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.checklist-note {
+  margin-top: 28px;
+  color: var(--text2);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 20px;
+  }
+}
+</style>
 </head>
 
-<body style="padding:40px;">
+<body>
 
-<h1>ERP Geçiş Checklist</h1>
+<nav>
+  <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+  <ul>
+    <li><a href="../index.html">Ana Sayfa</a></li>
+    <li><a href="sql.html">SQL</a></li>
+    <li><a href="kpi.html">KPI</a></li>
+    <li><a href="araclar.html">Araçlar</a></li>
+    <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
 
-<ul id="list">
-<li><input type="checkbox"> Mevcut sistem analizi</li>
-<li><input type="checkbox"> Veri temizliği</li>
-<li><input type="checkbox"> Kullanıcı eğitimi</li>
-<li><input type="checkbox"> Test ortamı kurulumu</li>
-<li><input type="checkbox"> Canlıya geçiş</li>
-</ul>
+<section class="hero">
+  <div class="hero-badge">ERP Geçiş Aracı</div>
+  <h1>ERP Geçiş Checklist</h1>
+  <p>
+    ERP geçiş projelerinde veri hazırlığı, test, eğitim, entegrasyon ve canlıya geçiş adımlarını
+    sistematik biçimde takip etmek için hazırlanmış kapsamlı kontrol listesi.
+  </p>
+</section>
 
-<br>
+<section class="section section-no-top">
+  <div class="section-tag">// kontrol listesi</div>
+  <h2>ERP Geçişini Adım Adım Yönetin</h2>
+  <p class="section-sub checklist-intro">
+    Bu kontrol listesi; ERP değişimi, yeni sistem kurulumu veya mevcut ERP modernizasyonu yapan ekipler için hazırlanmıştır.
+    Maddeleri işaretledikçe ilerleme oranınız güncellenir. İsterseniz listeyi PDF olarak da indirebilirsiniz.
+  </p>
 
-<button onclick="downloadPDF()">PDF İndir</button>
+  <div class="checklist-toolbar">
+    <button class="btn-primary" onclick="downloadPDF()">PDF İndir</button>
+    <button class="btn-secondary" onclick="markAll()">Tümünü İşaretle</button>
+    <button class="btn-secondary" onclick="clearAll()">Temizle</button>
+  </div>
+
+  <div class="checklist-progress-wrap">
+    <div class="checklist-progress-top">
+      <div class="checklist-progress-text">Tamamlanma Oranı</div>
+      <div class="checklist-progress-text" id="progressText">%0 tamamlandı</div>
+    </div>
+    <div class="checklist-progress-bar">
+      <div class="checklist-progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="checklist-grid" id="checklistRoot">
+
+    <div class="check-group">
+      <h2>1. Ön Analiz ve Proje Hazırlığı</h2>
+      <p>Mevcut yapıyı anlamadan ERP geçişine başlamak, sonraki tüm adımlarda risk yaratır.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Mevcut ERP sistemi ve kullanılan modüller analiz edildi<small>Satış, stok, muhasebe, üretim, satın alma, bordro gibi modüller tek tek çıkarıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Departman bazlı süreç akışları dokümante edildi<small>Her birimin mevcut iş yapış şekli ve ekran bağımlılıkları yazıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Mevcut rapor ve dashboard ihtiyacı listelendi<small>Yönetim raporları, operasyon raporları ve manuel Excel çıktıları toplandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Kritik kullanıcılar ve süreç sahipleri belirlendi<small>Karar vericiler, ana kullanıcılar ve proje sponsorları netleştirildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Geçiş hedefi ve proje kapsamı yazılı hale getirildi<small>Bu proje neden yapılıyor, hangi problemleri çözecek soruları cevaplandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Başarı kriterleri ve KPI’lar tanımlandı<small>Geçiş sonrası ölçülecek teslimat, hız, doğruluk, verimlilik metrikleri belirlendi.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>2. Veri Hazırlığı ve Temizleme</h2>
+      <p>ERP geçiş projelerinde en çok zaman alan ve en kritik bölüm veri hazırlığıdır.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Ana veri listeleri çıkarıldı<small>Cari kartlar, ürünler, depolar, personel, tedarikçiler ve sabit tanımlar ayrıştırıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Mükerrer kayıtlar tespit edildi ve temizlendi<small>Çift müşteri, çift ürün veya bozuk tanım kayıtları ayıklandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Eksik zorunlu alanlar tamamlandı<small>Kod, vergi no, birim, grup, durum alanları gibi kritik alanlar dolduruldu.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Eski ve pasif kayıtlar arşivlenme kararı ile ayrıldı<small>Taşınacak veri ile taşınmayacak veri net şekilde ayrıştırıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Yeni ERP veri alanlarına mapping hazırlandı<small>Eski sistem alanları ile yeni sistem alanları eşleştirildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Test veri seti hazırlandı<small>Küçük ama anlamlı örnek veriyle ilk geçiş denemesi için set oluşturuldu.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Geçmiş hareket verileri için taşıma kararı verildi<small>Sadece açılış bakiyeleri mi yoksa geçmiş yıllar da mı taşınacak netleştirildi.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>3. Sistem Kurulum ve Altyapı</h2>
+      <p>Teknik hazırlık eksikse canlıya geçişte performans ve erişim problemleri yaşanır.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Test ortamı kuruldu<small>İlk denemeler için ayrı ve güvenli bir test ortamı hazırlandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Canlı ortam kurulum planı yapıldı<small>Sunucu, veritabanı, yedekleme ve erişim yapısı belirlendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Kullanıcı ve rol yapısı tanımlandı<small>Hangi kullanıcı hangi modüle ve hangi yetkiyle erişecek planlandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Lisans ve modül aktivasyonları doğrulandı<small>Canlıya geçiş öncesi lisans eksikleri temizlendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Yedekleme ve geri dönüş planı hazırlandı<small>Geçiş başarısız olursa eski duruma dönme senaryosu yazıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Performans ve kapasite ihtiyacı kontrol edildi<small>Eşzamanlı kullanıcı ve veri hacmine göre altyapı yeterliliği incelendi.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>4. Entegrasyon ve Bağlantılar</h2>
+      <p>ERP tek başına çalışmaz; diğer sistemlerle doğru entegrasyon planı gerekir.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Harici sistemler listelendi<small>E-ticaret, WMS, MES, muhasebe, e-fatura, CRM ve banka bağlantıları çıkarıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">API veya dosya entegrasyon gereksinimleri dokümante edildi<small>Veri giriş/çıkış frekansları ve veri sahipliği yazıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Entegrasyon test senaryoları hazırlandı<small>Başarılı / başarısız veri akışı örnekleri üzerinden test planı yapıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Kimlik doğrulama ve erişim bilgileri doğrulandı<small>API key, kullanıcı, parola ve izin gereksinimleri tamamlandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Entegrasyon log takibi planlandı<small>Hatalı veri akışlarını izlemek için loglama yöntemi belirlendi.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>5. Test Süreci</h2>
+      <p>Test yapılmadan canlıya çıkmak, üretim ortamında hata aramak anlamına gelir.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Fonksiyonel test senaryoları yazıldı<small>Satış, stok, üretim, satın alma ve finans süreçleri tek tek test edildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Veri doğrulama testleri yapıldı<small>Eski ve yeni sistem arasında tutarlılık kontrolü sağlandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Rapor ve dashboard testleri tamamlandı<small>Kritik çıktıların ve KPI ekranlarının doğruluğu kontrol edildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Kullanıcı kabul testi (UAT) yapıldı<small>Ana kullanıcılar gerçek süreçler üzerinde sistemi denedi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Test bulguları ve açık aksiyonlar kapatıldı<small>Hata listesi çıkarıldı ve kapanış onayı alındı.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>6. Eğitim ve Dokümantasyon</h2>
+      <p>Kullanıcı eğitimi zayıfsa en iyi ERP bile sahada başarısız görünür.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Departman bazlı eğitim planı oluşturuldu<small>Satış, depo, muhasebe, üretim gibi ekipler için ayrı plan yapıldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Kullanım kılavuzları ve kısa eğitim notları hazırlandı<small>Sık yapılan işlemler için kullanıcı dostu doküman üretildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Ana kullanıcı eğitimleri tamamlandı<small>İlk seviye destek verecek kullanıcılar derin eğitim aldı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">SSS ve hata çözüm notları hazırlandı<small>Geçiş sonrası ilk hafta için hızlı cevap rehberi oluşturuldu.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>7. Canlıya Geçiş (Go-Live)</h2>
+      <p>Canlıya geçiş anı, tüm planın en görünür ve en riskli kısmıdır.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Cutover planı yazılı hale getirildi<small>Saat saat ne yapılacağı, kimlerin sorumlu olduğu belirlendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Final veri taşıma tarihi netleştirildi<small>Eski sistem kapanış ve yeni sistem açılış anı planlandı.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Eski sistem read-only veya erişim kısıtlı moda alındı<small>Geçiş sonrası veri çakışmasını önlemek için eski sistem kontrol edildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">İlk gün destek ekibi hazırlandı<small>Canlı kullanım sırasında hızlı müdahale edecek ekip belirlendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Canlı kontrol raporları ilk gün çalıştırıldı<small>Fatura, stok, sipariş, bakiye ve temel operasyonlar ilk saatlerde kontrol edildi.</small></span></label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <h2>8. Geçiş Sonrası İzleme ve İyileştirme</h2>
+      <p>Go-live bir son değil; asıl verimlilik takibi sonrasında başlar.</p>
+
+      <div class="check-items">
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">İlk hafta kullanıcı geri bildirimleri toplandı<small>Sahadaki aksaklıklar ve eğitim ihtiyaçları izlendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Performans ve hata logları incelendi<small>Sistem cevap süreleri ve entegrasyon hataları takip edildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">İlk KPI sonuçları ölçüldü<small>Geçişin gerçekten fayda üretip üretmediği kontrol edildi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">İyileştirme backlog’u oluşturuldu<small>İkinci faz geliştirmeler ve kullanıcı talepleri listelendi.</small></span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-item-text">Proje kapanış değerlendirmesi yapıldı<small>Öğrenilen dersler ve tekrar kullanılacak proje notları çıkarıldı.</small></span></label>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="checklist-note">
+    Not: Bu checklist genel ERP geçiş projeleri için hazırlanmıştır. Kurumunuzun sektörü, veri hacmi,
+    entegrasyon yapısı ve ERP kapsamına göre ilave maddeler gerekebilir.
+  </p>
+</section>
+
+<footer>
+  <p class="footer-links">
+    <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+    <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+    <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+    <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+    <a href="iletisim.html">İletişim</a>
+  </p>
+  <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
 
 <script>
+function getCheckboxes() {
+  return Array.from(document.querySelectorAll('#checklistRoot input[type="checkbox"]'));
+}
+
+function updateProgress() {
+  const boxes = getCheckboxes();
+  const total = boxes.length;
+  const checked = boxes.filter(x => x.checked).length;
+  const percent = total ? Math.round((checked / total) * 100) : 0;
+
+  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressText').textContent = `%${percent} tamamlandı`;
+
+  localStorage.setItem('erpChecklistState', JSON.stringify(boxes.map(x => x.checked)));
+}
+
+function loadProgress() {
+  const saved = localStorage.getItem('erpChecklistState');
+  if (!saved) {
+    updateProgress();
+    return;
+  }
+
+  try {
+    const values = JSON.parse(saved);
+    const boxes = getCheckboxes();
+    boxes.forEach((box, i) => {
+      box.checked = !!values[i];
+    });
+  } catch (e) {}
+
+  updateProgress();
+}
+
+function markAll() {
+  getCheckboxes().forEach(box => box.checked = true);
+  updateProgress();
+}
+
+function clearAll() {
+  getCheckboxes().forEach(box => box.checked = false);
+  updateProgress();
+}
+
 async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    let items = document.querySelectorAll("#list li");
-    let y = 10;
+  let y = 12;
+  doc.setFontSize(16);
+  doc.text("ERP Gecis Checklist", 10, y);
+  y += 10;
 
-    doc.text("ERP Geçiş Checklist", 10, y);
-    y += 10;
+  doc.setFontSize(10);
 
-    items.forEach((item, i) => {
-        let text = item.innerText;
-        doc.text((i+1) + ". " + text, 10, y);
-        y += 10;
+  const groups = document.querySelectorAll(".check-group");
+
+  groups.forEach((group) => {
+    const title = group.querySelector("h2").innerText;
+    const items = group.querySelectorAll(".check-item");
+
+    if (y > 260) {
+      doc.addPage();
+      y = 12;
+    }
+
+    doc.setFont(undefined, "bold");
+    doc.text(title, 10, y);
+    y += 7;
+
+    doc.setFont(undefined, "normal");
+
+    items.forEach((item) => {
+      const checked = item.querySelector('input[type="checkbox"]').checked ? "[x]" : "[ ]";
+      const text = item.querySelector(".check-item-text").childNodes[0].textContent.trim();
+      const lines = doc.splitTextToSize(`${checked} ${text}`, 180);
+
+      if (y > 270) {
+        doc.addPage();
+        y = 12;
+      }
+
+      doc.text(lines, 12, y);
+      y += lines.length * 5 + 2;
     });
 
-    doc.save("erp-checklist.pdf");
+    y += 4;
+  });
+
+  const now = new Date().toISOString().slice(0, 10);
+  doc.save(`erp-gecis-checklist-${now}.pdf`);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  getCheckboxes().forEach(box => {
+    box.addEventListener("change", updateProgress);
+  });
+
+  loadProgress();
+});
 </script>
 
 </body>
