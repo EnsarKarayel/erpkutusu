@@ -3,227 +3,438 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SQL Formatter | ERP Kutusu</title>
-<meta name="description" content="SQL sorgularınızı online olarak düzenleyin, formatlayın ve çalıştırın. Ücretsiz SQL formatter aracı.">
-
+<title>SQL Formatter Online | ERP Kutusu</title>
+<meta name="description" content="Ücretsiz online SQL formatter aracı. SQL Server, MySQL, PostgreSQL sorgularını formatla, validate et ve .sql dosyası olarak indir.">
+<meta name="keywords" content="sql formatter online, sql düzenleyici, sql formatlama, sql validator, sql server formatter, postgresql formatter">
+<link rel="canonical" href="https://erpkutusu.com/pages/sql-formatter.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SQL Formatter Online | ERP Kutusu">
+<meta property="og:description" content="SQL sorgularınızı online olarak formatla, validate et, minify et ve indir. Ücretsiz araç.">
+<meta property="og:url" content="https://erpkutusu.com/pages/sql-formatter.html">
+<meta property="og:site_name" content="ERP Kutusu">
+<meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SQL Formatter Online | ERP Kutusu">
+<meta name="twitter:description" content="SQL sorgularınızı formatla, validate et ve indir.">
+<meta name="twitter:image" content="https://erpkutusu.com/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SQL Formatter",
+  "url": "https://erpkutusu.com/pages/sql-formatter.html",
+  "description": "Online SQL formatlama, validate ve minify aracı",
+  "applicationCategory": "DeveloperApplication",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ERP Kutusu",
+    "url": "https://erpkutusu.com"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/components.css">
-
-<!-- SQL FORMATTER -->
-<script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.3.0/dist/sql-formatter.min.js"></script>
-
-<!-- PRISM -->
 <link id="prismTheme" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.3.0/dist/sql-formatter.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
-
 <style>
-.tool-area { margin-top:20px; }
-textarea { width:100%; height:200px; padding:12px; }
-button { margin:5px; }
+.formatter-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 1.5rem;
+}
+@media(max-width:700px){ .formatter-wrap { grid-template-columns: 1fr; } }
+.formatter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.formatter-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+.sql-textarea {
+  width: 100%;
+  height: 280px;
+  background: #0d130d;
+  border: 1px solid var(--border2);
+  color: #86efac;
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s;
+  line-height: 1.7;
+}
+.sql-textarea:focus { border-color: var(--accent); }
+.output-box {
+  min-height: 280px;
+  background: #0d130d;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.output-box code { background: transparent !important; }
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.tool-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tool-btn:hover { background: rgba(74,222,128,0.2); }
+.tool-btn.primary {
+  background: var(--accent);
+  color: #0a0f0a;
+  font-weight: 600;
+  border-color: var(--accent);
+}
+.tool-btn.primary:hover { background: #6ee79b; }
+.tool-btn.danger {
+  background: rgba(239,68,68,0.12);
+  color: #fca5a5;
+  border-color: rgba(239,68,68,0.25);
+}
+.db-select {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.db-select:focus { border-color: var(--accent); }
+.status-bar {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text2);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.status-item { display: flex; gap: 6px; align-items: center; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: var(--mono);
+  margin-top: 12px;
+}
+.result-table th {
+  background: var(--bg3);
+  color: var(--accent);
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+.result-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+.result-table tr:hover td { background: var(--bg3); }
 </style>
-
 </head>
-
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
   <ul>
-    <li><a href="../index.html#sql">SQL</a></li>
-    <li><a href="../index.html#kpi">KPI</a></li>
-    <li><a href="../index.html#araclar">Araçlar</a></li>
+    <li><a href="../index.html">Ana Sayfa</a></li>
+    <li><a href="sql.html">SQL</a></li>
+    <li><a href="kpi.html">KPI</a></li>
+    <li><a href="araclar.html">Araçlar</a></li>
     <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">SQL Tool</div>
+  <div class="hero-badge">Ücretsiz Online Araç</div>
   <h1>SQL Formatter</h1>
-  <p>SQL sorgularınızı formatlayın, validate edin ve çalıştırın.</p>
+  <p>SQL sorgularınızı formatla, validate et, minify et ve .sql dosyası olarak indir. SQL Server, MySQL, PostgreSQL desteği.</p>
 </section>
 
-<!-- TOOL -->
 <section class="section section-no-top">
+  <div class="section-tag">// sql formatter</div>
+  <h2>SQL Aracı</h2>
+  <p class="section-sub">Sol tarafa SQL yazın, butonlara tıklayın — sonuç sağda görünsün.</p>
 
-<div class="section-tag">// sql tool</div>
-<h2>SQL Formatter Aracı</h2>
-<p class="section-sub">
-SQL sorgularınızı düzenleyin, test edin ve export edin.
-</p>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">
+    <select class="db-select" id="dbSelect" onchange="changeDB()">
+      <option value="sql">SQL (Genel)</option>
+      <option value="tsql">SQL Server (T-SQL)</option>
+      <option value="mysql">MySQL</option>
+      <option value="postgresql">PostgreSQL</option>
+    </select>
+    <button class="tool-btn" onclick="toggleTheme()">Tema Değiştir</button>
+    <button class="tool-btn" onclick="example()">Örnek Yükle</button>
+  </div>
 
-<div class="tool-area">
+  <div class="formatter-wrap">
+    <div class="formatter-panel">
+      <div class="formatter-label">// giriş — sql yaz veya yapıştır</div>
+      <textarea class="sql-textarea" id="sqlInput" placeholder="SELECT * FROM tablo WHERE koşul ORDER BY alan DESC"></textarea>
+    </div>
+    <div class="formatter-panel">
+      <div class="formatter-label">// çıktı — formatlanan sonuç</div>
+      <div class="output-box">
+        <pre class="language-sql" style="margin:0;background:transparent;padding:0;"><code id="output" style="background:transparent;"></code></pre>
+      </div>
+    </div>
+  </div>
 
-<select id="dbSelect" onchange="changeDB()">
-  <option value="sql">SQL</option>
-  <option value="mysql">MySQL</option>
-  <option value="postgresql">PostgreSQL</option>
-  <option value="tsql">SQL Server</option>
-</select>
+  <div class="btn-row">
+    <button class="tool-btn primary" onclick="formatSQL()">Formatla</button>
+    <button class="tool-btn" onclick="validateSQL()">Validate</button>
+    <button class="tool-btn" onclick="minifySQL()">Minify</button>
+    <button class="tool-btn" onclick="runSQL()">Örnek Çalıştır</button>
+    <button class="tool-btn" onclick="copySQL()">Kopyala</button>
+    <button class="tool-btn" onclick="downloadSQL()">İndir (.sql)</button>
+    <button class="tool-btn danger" onclick="clearSQL()">Temizle</button>
+  </div>
 
-<button onclick="toggleTheme()">Tema</button>
+  <div class="status-bar" id="statusBar">
+    <div class="status-item"><div class="status-dot"></div><span id="statusText">Hazır</span></div>
+    <div class="status-item"><span id="charCount">0 karakter</span></div>
+    <div class="status-item"><span id="lineCount">0 satır</span></div>
+  </div>
 
-<textarea id="sqlInput" placeholder="SQL yaz..."></textarea>
-
-<br>
-
-<button onclick="formatSQL()">Format</button>
-<button onclick="validateSQL()">Validate</button>
-<button onclick="runSQL()">Run</button>
-<button onclick="copySQL()">Copy</button>
-<button onclick="downloadSQL()">Export</button>
-<button onclick="minifySQL()">Minify</button>
-<button onclick="clearSQL()">Clear</button>
-<button onclick="example()">Example</button>
-
-<pre class="language-sql"><code id="output"></code></pre>
-
-<div id="tableResult"></div>
-
-</div>
-
-<h3>Diğer Araçlar</h3>
-
-<a href="erp-checklist.html" class="tool-link">ERP Checklist</a>
-<a href="dashboard.html" class="tool-link">Dashboard Tool</a>
+  <div id="tableResult"></div>
 
 </section>
 
-<!-- FOOTER -->
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// nasıl kullanılır</div>
+  <h2>SQL Formatter Nasıl Kullanılır?</h2>
+  <p class="section-sub">Üç adımda SQL sorgunuzu düzenleyin.</p>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-name">1. SQL yazın veya yapıştırın</div>
+      <div class="kpi-desc">Sol alana ham SQL sorgunuzu yapıştırın. Girintisiz, dağınık halde olması sorun değil.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">2. Dil seçin ve formatla</div>
+      <div class="kpi-desc">SQL Server, MySQL veya PostgreSQL seçip "Formatla" butonuna tıklayın. Sözdizimi otomatik düzenlenir.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">3. Kopyalayın veya indirin</div>
+      <div class="kpi-desc">Formatlanmış sorguyu kopyalayın ya da .sql dosyası olarak indirin. ERP raporlarınıza yapıştırın.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// diğer araçlar</div>
+  <h2>Diğer ERP Araçları</h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">ERP Geçiş Checklist</div>
+      <div class="tool-desc">ERP geçiş sürecinizi adım adım takip edin. PDF olarak indirin.</div>
+      <a href="erp-checklist.html" class="tool-link">Checklist'e Git</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">KPI Hesaplayıcı</div>
+      <div class="tool-desc">OEE, DSO, brüt kar ve stok devir hızını anında hesaplayın.</div>
+      <a href="kpi.html" class="tool-link">Hesaplayıcıya Git</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">SQL Kütüphanesi</div>
+      <div class="tool-desc">Logo, SAP, IFS, Odoo için 120+ hazır SQL sorgusu.</div>
+      <a href="sql.html" class="tool-link">SQL Sayfasına Git</a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p class="footer-links">
-    <a href="../index.html#sql">SQL</a> ·
-    <a href="../index.html#kpi">KPI</a> ·
-    <a href="../index.html#araclar">Araçlar</a> ·
+    <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+    <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+    <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+    <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
     <a href="iletisim.html">İletişim</a>
   </p>
-
-  <p class="footer-copy">
-    © 2026 ERP Kutusu — Ensar Karayel
-  </p>
+  <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
 </footer>
 
+<script src="../js/security.js"></script>
 <script>
-
-let currentDB = "sql";
+let currentDB = 'sql';
 
 const fakeDB = [
-    { name: "Ahmet", city: "Istanbul", total: 1000 },
-    { name: "Mehmet", city: "Ankara", total: 2000 },
-    { name: "Ayşe", city: "Istanbul", total: 1500 }
+  { MUSTERI: 'Ahmet Yılmaz', SEHIR: 'İstanbul', TOPLAM: 15000 },
+  { MUSTERI: 'Mehmet Kaya',  SEHIR: 'Ankara',   TOPLAM: 22000 },
+  { MUSTERI: 'Ayşe Demir',  SEHIR: 'İstanbul',  TOPLAM: 18500 },
+  { MUSTERI: 'Fatma Çelik', SEHIR: 'İzmir',     TOPLAM: 9800  }
 ];
 
-function changeDB(){
-    currentDB = document.getElementById("dbSelect").value;
+const sqlInput = document.getElementById('sqlInput');
+
+sqlInput.addEventListener('input', updateStatus);
+
+function updateStatus() {
+  const val = sqlInput.value;
+  document.getElementById('charCount').textContent = val.length + ' karakter';
+  document.getElementById('lineCount').textContent = (val.split('\n').length) + ' satır';
 }
 
-function formatSQL(){
-    let sql = document.getElementById("sqlInput").value;
-    if(!sql.trim()) return alert("SQL boş");
-
-    let formatted = window.sqlFormatter.format(sql, { language: currentDB });
-
-    document.getElementById("output").textContent = formatted;
-    Prism.highlightElement(document.getElementById("output"));
+function setStatus(msg, color) {
+  const el = document.getElementById('statusText');
+  el.textContent = msg;
+  el.style.color = color || 'var(--text2)';
 }
 
-function validateSQL(){
-    let sql = document.getElementById("sqlInput").value.toLowerCase();
-
-    if(!sql.includes("select")) return alert("SELECT yok");
-    if(!sql.includes("from")) return alert("FROM yok");
-
-    document.getElementById("output").textContent = "✔ SQL valid";
+function changeDB() {
+  currentDB = document.getElementById('dbSelect').value;
+  setStatus(currentDB.toUpperCase() + ' modu seçildi');
 }
 
-function runSQL(){
-
-    let sql = document.getElementById("sqlInput").value.toLowerCase();
-
-    if(!sql.includes("select") || !sql.includes("from")){
-        alert("Geçerli SQL gir");
-        return;
-    }
-
-    let result = fakeDB;
-
-    if(sql.includes("where city='istanbul'")){
-        result = fakeDB.filter(x => x.city.toLowerCase() === "istanbul");
-    }
-
-    renderTable(result);
+function formatSQL() {
+  const sql = sqlInput.value;
+  if (!sql.trim()) { setStatus('SQL boş!', '#fca5a5'); return; }
+  try {
+    const formatted = window.sqlFormatter.format(sql, { language: currentDB, tabWidth: 2, keywordCase: 'upper' });
+    document.getElementById('output').textContent = formatted;
+    Prism.highlightElement(document.getElementById('output'));
+    setStatus('Formatlama tamamlandı ✓', '#86efac');
+  } catch(e) {
+    setStatus('Format hatası: ' + e.message, '#fca5a5');
+  }
 }
 
-function renderTable(data){
-    let html = "<table border='1' style='margin-top:20px; width:100%'><tr>";
-
-    Object.keys(data[0]).forEach(key => {
-        html += "<th>"+key+"</th>";
-    });
-
-    html += "</tr>";
-
-    data.forEach(row => {
-        html += "<tr>";
-        Object.values(row).forEach(val => {
-            html += "<td>"+val+"</td>";
-        });
-        html += "</tr>";
-    });
-
-    html += "</table>";
-
-    document.getElementById("tableResult").innerHTML = html;
+function validateSQL() {
+  const sql = sqlInput.value.toLowerCase().trim();
+  if (!sql) { setStatus('SQL boş!', '#fca5a5'); return; }
+  const checks = [
+    { test: sql.includes('select'), msg: 'SELECT bulunamadı' },
+    { test: sql.includes('from'),   msg: 'FROM bulunamadı' }
+  ];
+  const failed = checks.find(c => !c.test);
+  if (failed) {
+    document.getElementById('output').textContent = '✗ ' + failed.msg;
+    setStatus(failed.msg, '#fca5a5');
+  } else {
+    document.getElementById('output').textContent = '✓ SQL geçerli görünüyor';
+    setStatus('Validation başarılı ✓', '#86efac');
+  }
 }
 
-function copySQL(){
-    navigator.clipboard.writeText(document.getElementById("output").textContent);
-    alert("Kopyalandı");
+function minifySQL() {
+  const sql = sqlInput.value;
+  if (!sql.trim()) { setStatus('SQL boş!', '#fca5a5'); return; }
+  const minified = sql.replace(/\s+/g, ' ').trim();
+  document.getElementById('output').textContent = minified;
+  setStatus('Minify tamamlandı ✓', '#86efac');
 }
 
-function downloadSQL(){
-    let text = document.getElementById("output").textContent;
-
-    let blob = new Blob([text], { type: "text/sql" });
-    let url = URL.createObjectURL(blob);
-
-    let a = document.createElement("a");
-    a.href = url;
-
-    let date = new Date().toISOString().slice(0,10);
-    a.download = "sql-"+date+".sql";
-
-    a.click();
+function runSQL() {
+  const sql = sqlInput.value.toLowerCase();
+  if (!sql.includes('select') || !sql.includes('from')) {
+    setStatus('SELECT ve FROM içeren geçerli bir sorgu girin', '#fca5a5');
+    return;
+  }
+  let result = [...fakeDB];
+  if (sql.includes("istanbul")) result = result.filter(x => x.SEHIR === 'İstanbul');
+  renderTable(result);
+  setStatus(result.length + ' satır döndürüldü (örnek veri)', '#86efac');
 }
 
-function minifySQL(){
-    let sql = document.getElementById("sqlInput").value;
-    document.getElementById("output").textContent = sql.replace(/\s+/g," ");
+function renderTable(data) {
+  if (!data.length) { document.getElementById('tableResult').innerHTML = '<p style="color:var(--text2);margin-top:12px;">Sonuç yok</p>'; return; }
+  let html = '<table class="result-table"><thead><tr>';
+  Object.keys(data[0]).forEach(k => { html += '<th>' + k + '</th>'; });
+  html += '</tr></thead><tbody>';
+  data.forEach(row => {
+    html += '<tr>';
+    Object.values(row).forEach(v => { html += '<td>' + v + '</td>'; });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('tableResult').innerHTML = html;
 }
 
-function clearSQL(){
-    document.getElementById("sqlInput").value = "";
-    document.getElementById("output").textContent = "";
-    document.getElementById("tableResult").innerHTML = "";
+function copySQL() {
+  const text = document.getElementById('output').textContent;
+  if (!text.trim()) { setStatus('Kopyalanacak içerik yok', '#fca5a5'); return; }
+  navigator.clipboard.writeText(text).then(() => setStatus('Kopyalandı ✓', '#86efac'));
 }
 
-function example(){
-    document.getElementById("sqlInput").value =
-    "select * from customers where city='Istanbul'";
+function downloadSQL() {
+  const text = document.getElementById('output').textContent;
+  if (!text.trim()) { setStatus('İndirilecek içerik yok', '#fca5a5'); return; }
+  const blob = new Blob([text], { type: 'text/sql' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'erpkutusu-' + new Date().toISOString().slice(0,10) + '.sql';
+  a.click();
+  URL.revokeObjectURL(url);
+  setStatus('Dosya indirildi ✓', '#86efac');
 }
 
-function toggleTheme(){
-    let link = document.getElementById("prismTheme");
-
-    link.href = link.href.includes("tomorrow")
-    ? "https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css"
-    : "https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css";
+function clearSQL() {
+  sqlInput.value = '';
+  document.getElementById('output').textContent = '';
+  document.getElementById('tableResult').innerHTML = '';
+  updateStatus();
+  setStatus('Temizlendi');
 }
 
+function example() {
+  sqlInput.value = `select s.stokkodu, s.stokadi, sum(h.miktar) as toplam_satis, avg(s.bakiye) as ort_stok, round(sum(h.miktar)/nullif(avg(s.bakiye),0),2) as devir_hizi from lg_stok s left join lg_hareket h on s.logicalref=h.stockref where h.date_>=dateadd(month,-3,getdate()) group by s.stokkodu,s.stokadi order by devir_hizi desc`;
+  updateStatus();
+  setStatus('Örnek Logo SQL yüklendi');
+}
+
+function toggleTheme() {
+  const link = document.getElementById('prismTheme');
+  const isTomorrow = link.href.includes('tomorrow');
+  link.href = isTomorrow
+    ? 'https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css'
+    : 'https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css';
+  setStatus(isTomorrow ? 'Açık tema' : 'Koyu tema');
+}
+
+updateStatus();
 </script>
-
 </body>
 </html>
