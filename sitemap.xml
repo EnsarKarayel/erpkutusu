@@ -64,4 +64,11 @@
     <priority>0.6</priority>
   </url>
 
+  <url>
+  <loc>https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html</loc>
+  <lastmod>2026-04-22</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
 </urlset>

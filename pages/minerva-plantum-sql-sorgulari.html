@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minerva Plantum SQL Sorguları | Hazır Plantum ERP SQL Örnekleri</title>
+<meta name="description" content="Minerva Plantum ERP için hazır SQL sorguları. Stok, satış, lojistik, muhasebe ve İK modülleri için örnek Plantum SQL sorguları ve raporlama rehberi.">
+<meta name="keywords" content="minerva plantum sql, plantum erp sql sorguları, plantumweb sql, minerva erp sql, plantum stok sorgusu, plantum muhasebe raporu">
+<link rel="canonical" href="https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Minerva Plantum SQL Sorguları | ERP Kutusu">
+<meta property="og:description" content="Minerva Plantum ERP için hazır SQL sorguları. Stok, satış, lojistik, muhasebe ve İK modülleri.">
+<meta property="og:url" content="https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html">
+<meta property="og:site_name" content="ERP Kutusu">
+<meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Minerva Plantum SQL Sorguları | ERP Kutusu">
+<meta name="twitter:image" content="https://erpkutusu.com/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Minerva Plantum SQL Sorguları",
+  "url": "https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html",
+  "description": "Minerva Plantum ERP için hazır SQL sorguları ve raporlama örnekleri",
+  "image": "https://erpkutusu.com/assets/og-image.png",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ERP Kutusu",
+    "url": "https://erpkutusu.com"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+  <ul>
+    <li><a href="../index.html">Ana Sayfa</a></li>
+    <li><a href="sql.html">SQL</a></li>
+    <li><a href="kpi.html">KPI</a></li>
+    <li><a href="araclar.html">Araçlar</a></li>
+    <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Minerva Plantum SQL Rehberi</div>
+  <h1>Minerva Plantum SQL Sorguları</h1>
+  <p>
+    Minerva Yazılım'ın Plantum ERP sistemi için hazır SQL sorguları.
+    Stok, satış, lojistik, muhasebe ve İK modülleri için pratik raporlama örnekleri.
+  </p>
+</section>
+
+<section class="section section-no-top">
+  <div class="section-tag">// plantum hakkında</div>
+  <h2>Minerva Plantum Nedir?</h2>
+  <p class="section-sub">
+    Plantum, Minerva Yazılım A.Ş. tarafından geliştirilen Türkiye'nin köklü ERP yazılımlarından biridir.
+    Web tabanlı mimarisi ve modüler yapısıyla üretim, lojistik, ticaret ve hizmet sektörlerine çözüm sunar.
+    Plantum'un veritabanı SQL tabanlıdır ve doğru sorgularla güçlü raporlar üretmek mümkündür.
+  </p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-name">Web Tabanlı Mimari</div>
+      <div class="kpi-desc">Plantum, internet bağlantısı olan her cihazdan erişilebilen web tabanlı bir ERP platformudur.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Modüler Yapı</div>
+      <div class="kpi-desc">Satış, stok, lojistik, muhasebe, İK ve üretim modülleri birbirine entegre çalışır.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">SQL Raporlama</div>
+      <div class="kpi-desc">Plantum veritabanına doğrudan SQL ile bağlanarak özel raporlar ve analizler üretilebilir.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// stok modülü</div>
+  <h2>Stok Sorguları</h2>
+  <p class="section-sub">Plantum stok modülü için envanter takibi, stok hareketi ve devir hızı sorguları.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Anlık Stok Bakiye Listesi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  s.STK_KOD         AS STOK_KODU,
+  s.STK_ADI         AS STOK_ADI,
+  s.STK_BRM         AS BIRIM,
+  s.STK_BAK         AS MEVCUT_BAKIYE,
+  s.STK_GRP         AS GRUP,
+  s.STK_LOK         AS LOKASYON
+FROM STK_STOK s
+WHERE s.STK_BAK > 0
+  AND s.STK_AKT = 1
+ORDER BY s.STK_BAK DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Pozitif bakiyeli aktif stok kalemleri</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Stok Hareket Özeti</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  h.STK_KOD         AS STOK_KODU,
+  s.STK_ADI         AS STOK_ADI,
+  SUM(CASE WHEN h.HRK_TIP = 'G'
+           THEN h.HRK_MKT END) AS TOPLAM_GIRIS,
+  SUM(CASE WHEN h.HRK_TIP = 'C'
+           THEN h.HRK_MKT END) AS TOPLAM_CIKIS,
+  SUM(CASE WHEN h.HRK_TIP = 'G'
+           THEN h.HRK_MKT
+           ELSE -h.HRK_MKT END) AS NET_HAREKET
+FROM STK_HRKT h
+JOIN STK_STOK s ON h.STK_KOD = s.STK_KOD
+WHERE h.HRK_TAR >= DATEADD(month, -1, GETDATE())
+GROUP BY h.STK_KOD, s.STK_ADI
+ORDER BY NET_HAREKET DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 1 ay giriş/çıkış ve net hareket</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Kritik Stok Seviyesi Uyarısı</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  s.STK_KOD         AS STOK_KODU,
+  s.STK_ADI         AS STOK_ADI,
+  s.STK_BAK         AS MEVCUT,
+  s.STK_MIN         AS MINIMUM_SEVIYE,
+  s.STK_BAK
+    - s.STK_MIN     AS FARK,
+  s.STK_LOK         AS DEPO
+FROM STK_STOK s
+WHERE s.STK_BAK < s.STK_MIN
+  AND s.STK_AKT = 1
+  AND s.STK_MIN > 0
+ORDER BY FARK ASC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Minimum seviyenin altına düşen stoklar</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Stok Devir Hızı Analizi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  s.STK_KOD,
+  s.STK_ADI,
+  SUM(h.HRK_MKT)         AS TOPLAM_CIKIS,
+  AVG(s.STK_BAK)          AS ORT_STOK,
+  ROUND(
+    SUM(h.HRK_MKT)
+    / NULLIF(AVG(s.STK_BAK), 0), 2
+  )                       AS DEVIR_HIZI
+FROM STK_STOK s
+JOIN STK_HRKT h ON s.STK_KOD = h.STK_KOD
+WHERE h.HRK_TIP = 'C'
+  AND h.HRK_TAR >= DATEADD(month, -3, GETDATE())
+GROUP BY s.STK_KOD, s.STK_ADI
+HAVING AVG(s.STK_BAK) > 0
+ORDER BY DEVIR_HIZI DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 3 ay ürün bazında devir hızı</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// satış modülü</div>
+  <h2>Satış Sorguları</h2>
+  <p class="section-sub">Sipariş takibi, müşteri bazlı ciro analizi ve satış performansı raporları.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Müşteri Bazlı Ciro Raporu</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  c.CRI_KOD         AS CARI_KOD,
+  c.CRI_ADI         AS MUSTERI_ADI,
+  COUNT(f.FAT_NO)   AS FATURA_ADET,
+  SUM(f.FAT_NET)    AS NET_TUTAR,
+  SUM(f.FAT_KDV)    AS KDV_TUTARI,
+  SUM(f.FAT_TOP)    AS GENEL_TOPLAM
+FROM SAT_FATURA f
+JOIN CRI_CARI c ON f.CRI_KOD = c.CRI_KOD
+WHERE f.FAT_TAR >= DATEADD(month, -3, GETDATE())
+  AND f.FAT_TIP = 'S'
+  AND f.FAT_IPT = 0
+GROUP BY c.CRI_KOD, c.CRI_ADI
+ORDER BY GENEL_TOPLAM DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 3 ay müşteri ciro sıralaması</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Açık Sipariş Takibi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  sp.SIP_NO         AS SIPARIS_NO,
+  c.CRI_ADI         AS MUSTERI,
+  sp.SIP_TAR        AS SIPARIS_TARIHI,
+  sp.SIP_TES        AS TESLIM_TARIHI,
+  sp.SIP_TOT        AS SIPARIS_TUTARI,
+  sp.SIP_KAL        AS KALAN_MIKTAR,
+  DATEDIFF(day,
+    sp.SIP_TES,
+    GETDATE())      AS GECIKME_GUN
+FROM SAT_SIPARIS sp
+JOIN CRI_CARI c ON sp.CRI_KOD = c.CRI_KOD
+WHERE sp.SIP_DRM = 'A'
+  AND sp.SIP_KAL > 0
+ORDER BY GECIKME_GUN DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Teslim edilmemiş açık siparişler</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Aylık Satış Trendi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  YEAR(f.FAT_TAR)   AS YIL,
+  MONTH(f.FAT_TAR)  AS AY,
+  COUNT(*)          AS FATURA_SAYISI,
+  SUM(f.FAT_NET)    AS NET_SATIS,
+  SUM(f.FAT_TOP)    AS BRUT_SATIS,
+  AVG(f.FAT_NET)    AS ORT_FATURA
+FROM SAT_FATURA f
+WHERE f.FAT_TIP = 'S'
+  AND f.FAT_IPT = 0
+  AND f.FAT_TAR >= DATEADD(year, -1, GETDATE())
+GROUP BY
+  YEAR(f.FAT_TAR),
+  MONTH(f.FAT_TAR)
+ORDER BY YIL DESC, AY DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 12 ay aylık satış trendi</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// lojistik modülü</div>
+  <h2>Lojistik Sorguları</h2>
+  <p class="section-sub">Sevkiyat takibi, araç ve taşıma maliyeti raporları.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Sevkiyat Durum Raporu</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  sv.SVK_NO         AS SEVKIYAT_NO,
+  c.CRI_ADI         AS MUSTERI,
+  sv.SVK_TAR        AS SEVKIYAT_TARIHI,
+  sv.SVK_ADR        AS TESLIMAT_ADRESI,
+  sv.SVK_DRM        AS DURUM,
+  sv.SVK_ARC        AS ARAC_PLAKA,
+  sv.SVK_SRC        AS SURUC
+FROM LOJ_SEVKIYAT sv
+JOIN CRI_CARI c ON sv.CRI_KOD = c.CRI_KOD
+WHERE sv.SVK_TAR >= DATEADD(day, -7, GETDATE())
+ORDER BY sv.SVK_TAR DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Son 7 günlük sevkiyat listesi</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Taşıma Maliyet Analizi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  sv.SVK_ARC        AS ARAC_PLAKA,
+  COUNT(*)          AS SEFER_SAYISI,
+  SUM(sv.SVK_KM)    AS TOPLAM_KM,
+  SUM(sv.SVK_MLY)   AS TOPLAM_MALIYET,
+  ROUND(
+    SUM(sv.SVK_MLY)
+    / NULLIF(SUM(sv.SVK_KM), 0), 2
+  )                 AS KM_BASINA_MALIYET
+FROM LOJ_SEVKIYAT sv
+WHERE sv.SVK_TAR >= DATEADD(month, -1, GETDATE())
+  AND sv.SVK_DRM = 'T'
+GROUP BY sv.SVK_ARC
+ORDER BY TOPLAM_MALIYET DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Araç bazında km başına maliyet</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// muhasebe modülü</div>
+  <h2>Muhasebe Sorguları</h2>
+  <p class="section-sub">Cari hesap bakiyeleri, vadesi geçen alacaklar ve KDV raporları.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Cari Hesap Bakiye Listesi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  c.CRI_KOD         AS CARI_KOD,
+  c.CRI_ADI         AS CARI_ADI,
+  c.CRI_TIP         AS TIP,
+  SUM(CASE WHEN h.MUH_TIP = 'B'
+           THEN h.MUH_TUT END) AS TOPLAM_BORC,
+  SUM(CASE WHEN h.MUH_TIP = 'A'
+           THEN h.MUH_TUT END) AS TOPLAM_ALACAK,
+  SUM(CASE WHEN h.MUH_TIP = 'B'
+           THEN h.MUH_TUT
+           ELSE -h.MUH_TUT END) AS BAKIYE
+FROM CRI_CARI c
+JOIN MUH_HRKT h ON c.CRI_KOD = h.CRI_KOD
+WHERE h.MUH_TAR <= GETDATE()
+  AND c.CRI_AKT = 1
+GROUP BY c.CRI_KOD, c.CRI_ADI, c.CRI_TIP
+HAVING
+  SUM(CASE WHEN h.MUH_TIP = 'B'
+           THEN h.MUH_TUT
+           ELSE -h.MUH_TUT END) <> 0
+ORDER BY ABS(BAKIYE) DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Sıfır olmayan cari hesap bakiyeleri</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Vadesi Geçen Alacaklar</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  c.CRI_ADI         AS MUSTERI,
+  f.FAT_NO          AS FATURA_NO,
+  f.FAT_TAR         AS FATURA_TARIHI,
+  f.FAT_VDE         AS VADE_TARIHI,
+  f.FAT_BAK         AS KALAN_TUTAR,
+  DATEDIFF(day,
+    f.FAT_VDE,
+    GETDATE())      AS GECIKME_GUN
+FROM SAT_FATURA f
+JOIN CRI_CARI c ON f.CRI_KOD = c.CRI_KOD
+WHERE f.FAT_BAK > 0
+  AND f.FAT_VDE < GETDATE()
+  AND f.FAT_TIP = 'S'
+  AND f.FAT_IPT = 0
+ORDER BY GECIKME_GUN DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Vadesi geçmiş tahsilatsız faturalar</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">KDV Beyan Özeti</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  MONTH(f.FAT_TAR)  AS AY,
+  YEAR(f.FAT_TAR)   AS YIL,
+  f.FAT_TIP         AS ISLEM_TIPI,
+  SUM(f.FAT_NET)    AS MATRAH,
+  SUM(f.FAT_KDV)    AS KDV_TUTARI,
+  SUM(f.FAT_TOP)    AS TOPLAM,
+  COUNT(*)          AS BELGE_SAYISI
+FROM SAT_FATURA f
+WHERE f.FAT_IPT = 0
+  AND f.FAT_TAR BETWEEN
+    DATEFROMPARTS(YEAR(GETDATE()),
+                  MONTH(GETDATE()), 1)
+    AND GETDATE()
+GROUP BY
+  MONTH(f.FAT_TAR),
+  YEAR(f.FAT_TAR),
+  f.FAT_TIP
+ORDER BY YIL, AY, f.FAT_TIP</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Dönem KDV beyanname özeti</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// insan kaynakları modülü</div>
+  <h2>İK Sorguları</h2>
+  <p class="section-sub">Personel listesi, devam takibi ve bordro özet raporları.</p>
+
+  <div class="sql-grid">
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Aktif Personel Listesi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  p.PRS_KOD         AS PERSONEL_NO,
+  p.PRS_ADI         AS AD_SOYAD,
+  p.PRS_DEP         AS DEPARTMAN,
+  p.PRS_POZ         AS POZISYON,
+  p.PRS_GRS         AS GIRIS_TARIHI,
+  DATEDIFF(year,
+    p.PRS_GRS,
+    GETDATE())      AS KDEM_YIL
+FROM IK_PERSONEL p
+WHERE p.PRS_DRM = 'A'
+ORDER BY p.PRS_DEP, p.PRS_ADI</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Aktif personel ve kıdem bilgisi</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">Departman Bazlı Personel Sayısı</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  p.PRS_DEP         AS DEPARTMAN,
+  COUNT(*)          AS PERSONEL_SAYISI,
+  SUM(CASE WHEN p.PRS_CIN = 'E'
+           THEN 1 END) AS ERKEK,
+  SUM(CASE WHEN p.PRS_CIN = 'K'
+           THEN 1 END) AS KADIN,
+  ROUND(AVG(
+    DATEDIFF(year, p.PRS_GRS, GETDATE())
+  ), 1)             AS ORT_KDEM
+FROM IK_PERSONEL p
+WHERE p.PRS_DRM = 'A'
+GROUP BY p.PRS_DEP
+ORDER BY PERSONEL_SAYISI DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Departman bazlı personel dağılımı</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+    <div class="sql-card">
+      <div class="sql-card-head">
+        <div class="sql-card-title">İzin Bakiye Listesi</div>
+        <span class="erp-tag tag-plantum">Plantum</span>
+      </div>
+      <div class="sql-code">SELECT
+  p.PRS_ADI         AS PERSONEL,
+  p.PRS_DEP         AS DEPARTMAN,
+  i.IZN_HKK         AS HAKKEDILEN_GUN,
+  i.IZN_KUL         AS KULLANILAN_GUN,
+  i.IZN_HKK
+    - i.IZN_KUL     AS KALAN_IZIN,
+  i.IZN_YIL         AS IZIN_YILI
+FROM IK_PERSONEL p
+JOIN IK_IZIN i ON p.PRS_KOD = i.PRS_KOD
+WHERE p.PRS_DRM = 'A'
+  AND i.IZN_YIL = YEAR(GETDATE())
+ORDER BY KALAN_IZIN DESC</div>
+      <div class="sql-card-foot">
+        <span class="sql-desc">Cari yıl personel izin bakiyeleri</span>
+        <button class="copy-btn" onclick="copySQL(this)">Kopyala</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// kullanım notları</div>
+  <h2>Plantum SQL Kullanırken Dikkat Edilmesi Gerekenler</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-name">Tablo adları kuruma göre değişebilir</div>
+      <div class="kpi-desc">
+        Plantum kurulumları parametrik yapıdadır. Bazı kurumlarda tablo ve alan adları
+        özelleştirilmiş olabilir. Sorgular çalıştırmadan önce tablo yapısını doğrulayın.
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Durum alanlarını kontrol edin</div>
+      <div class="kpi-desc">
+        FAT_IPT (iptal), PRS_DRM (durum), STK_AKT (aktif) gibi alanlar raporun
+        doğruluğunu doğrudan etkiler. Filtreleri kendi sisteminize göre uyarlayın.
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Önce test ortamında deneyin</div>
+      <div class="kpi-desc">
+        Yoğun kullanılan üretim sistemlerinde büyük sorguları önce raporlama
+        ortamında veya mesai saatleri dışında test etmek daha güvenlidir.
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Özel danışmanlık için iletişime geçin</div>
+      <div class="kpi-desc">
+        Plantum'unuza özel tablo yapısına göre SQL sorguları ve raporlar
+        geliştirmek için iletişim formumuzu kullanabilirsiniz.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// ilgili sayfalar</div>
+  <h2>Diğer ERP SQL Sayfaları</h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">Logo SQL Sorguları</div>
+      <div class="tool-desc">Logo Tiger ve Go için hazır SQL sorguları.</div>
+      <a href="logo-sql-sorgulari.html" class="tool-link">Logo Sayfasına Git</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">IFS SQL Sorguları</div>
+      <div class="tool-desc">IFS Cloud ve IFS Apps için raporlama sorguları.</div>
+      <a href="ifs-sql-sorgulari.html" class="tool-link">IFS Sayfasına Git</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">SAP SQL Sorguları</div>
+      <div class="tool-desc">SAP B1 ve SAP HANA için hazır sorgular.</div>
+      <a href="sap-sql-sorgulari.html" class="tool-link">SAP Sayfasına Git</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Danışmanlık Talebi</div>
+      <div class="tool-desc">Plantum'a özel SQL ve raporlama desteği için iletişime geçin.</div>
+      <a href="iletisim.html" class="tool-link">İletişime Geç</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-links">
+    <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+    <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+    <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+    <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+    <a href="iletisim.html">İletişim</a>
+  </p>
+  <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
