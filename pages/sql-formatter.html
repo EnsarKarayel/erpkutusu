@@ -172,6 +172,21 @@
   color: var(--text2);
 }
 .result-table tr:hover td { background: var(--bg3); }
+.analysis-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.analysis-item {
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.analysis-item strong { color: var(--text); }
 </style>
 
 <!-- GOOGLE ANALYTICS -->
@@ -234,6 +249,7 @@
   <div class="btn-row">
     <button class="tool-btn primary" onclick="formatSQL()">Formatla</button>
     <button class="tool-btn" onclick="validateSQL()">Validate</button>
+    <button class="tool-btn" onclick="analyzeERPQualitySQL()">ERP Kontrol</button>
     <button class="tool-btn" onclick="minifySQL()">Minify</button>
     <button class="tool-btn" onclick="runSQL()">Örnek Çalıştır</button>
     <button class="tool-btn" onclick="copySQL()">Kopyala</button>
@@ -269,6 +285,36 @@
     <div class="kpi-card">
       <div class="kpi-name">3. Kopyalayın veya indirin</div>
       <div class="kpi-desc">Formatlanmış sorguyu kopyalayın ya da .sql dosyası olarak indirin. ERP raporlarınıza yapıştırın.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-tag">// erp kalite sql kontrolü</div>
+  <h2>ERP ve Kalite Raporları İçin SQL Kontrolü</h2>
+  <p class="section-sub">
+    ERP rapor sorguları sadece çalışır durumda olmakla kalmamalı; denetlenebilir, okunabilir ve güvenli de olmalıdır.
+    AS9100, ISO 9001 ve benzeri kalite yönetimi pratiklerinde uygunsuzluk, CAPA, hurda, yeniden işleme,
+    tedarikçi kabul ret oranı ve müşteri şikayeti gibi veriler çoğu zaman ERP veya kalite modülünden SQL ile raporlanır.
+    Bu nedenle sorgularda açık kolon listesi, tarih filtresi, durum bilgisi, firma/dönem kırılımı ve veri değiştiren
+    komutlarda güvenli WHERE kullanımı önemlidir. ERP Kontrol butonu, sorgudaki yaygın riskleri hızlıca işaretlemek
+    için hazırlanmış pratik bir ön kontroldür; canlı sistemde çalıştırmadan önce test ortamında yürütme süresi ve kayıt
+    sayısı ayrıca doğrulanmalıdır.
+  </p>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-name">Kalite Sorguları</div>
+      <div class="kpi-desc">NCR, CAPA, hurda ve şikayet raporlarında durum, açılış tarihi, kapanış tarihi, sorumlu birim ve kök neden alanları rapor yorumunu güçlendirir.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Performans Sorguları</div>
+      <div class="kpi-desc">Stok, satış ve üretim raporlarında tarih, firma, depo ve ürün grubu filtresi kullanmak hem performansı hem de sonuç doğruluğunu iyileştirir.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-name">Güvenli Çalıştırma</div>
+      <div class="kpi-desc">UPDATE ve DELETE sorguları canlı ERP verisini etkileyebilir. Bu tür sorgularda WHERE koşulu, yedek ve test ortamı kontrolü zorunlu kabul edilmelidir.</div>
     </div>
   </div>
 </section>
@@ -368,6 +414,55 @@ function validateSQL() {
     document.getElementById('output').textContent = '✓ SQL geçerli görünüyor';
     setStatus('Validation başarılı ✓', '#86efac');
   }
+}
+
+function analyzeERPQualitySQL() {
+  const raw = sqlInput.value.trim();
+  const sql = raw.toLowerCase();
+  const output = document.getElementById('output');
+  const tableResult = document.getElementById('tableResult');
+
+  if (!raw) {
+    setStatus('Kontrol edilecek SQL yok', '#fca5a5');
+    return;
+  }
+
+  const checks = [];
+  const add = (level, title, detail) => checks.push({ level, title, detail });
+  const hasWhere = /\bwhere\b/i.test(raw);
+  const isUpdateOrDelete = /\b(update|delete)\b/i.test(raw);
+  const hasLargeERPTable = /(lg_|shop_ord|invoice|stock|order|cari|stok|quality|ncr|capa)/i.test(raw);
+
+  if (/select\s+\*/i.test(raw)) {
+    add('Uyarı', 'SELECT * kullanımı', 'ERP raporlarında açık kolon listesi kullanmak performans, bakım ve denetim izlenebilirliği için daha sağlıklıdır.');
+  }
+  if (isUpdateOrDelete && !hasWhere) {
+    add('Kritik', 'UPDATE/DELETE için WHERE yok', 'Veri değiştiren sorgularda WHERE olmaması canlı ERP verisi için yüksek risk taşır.');
+  }
+  if (/^\s*select/i.test(raw) && hasLargeERPTable && !hasWhere) {
+    add('Uyarı', 'Filtre eksik olabilir', 'Büyük ERP tablolarında tarih, firma, dönem veya durum filtresi olmadan rapor çalıştırmak yavaş sonuç verebilir.');
+  }
+  if (!/\b(order by|group by|where|join)\b/i.test(raw)) {
+    add('Bilgi', 'Rapor bağlamı zayıf', 'Yönetim raporlarında dönem, kategori, müşteri, tedarikçi veya süreç kırılımı eklemek yorumu güçlendirir.');
+  }
+  if (/\bnolock\b/i.test(raw)) {
+    add('Bilgi', 'NOLOCK kullanımı', 'NOLOCK bazı raporlarda hız sağlar; ancak kirli okuma riski nedeniyle finans ve kalite kararlarında dikkatli kullanılmalıdır.');
+  }
+  if (/\bformat\s*\(/i.test(raw)) {
+    add('Uyarı', 'FORMAT fonksiyonu', 'SQL Server üzerinde FORMAT büyük veri setlerinde yavaş olabilir; sunum formatını raporlama katmanında yapmak daha iyi olabilir.');
+  }
+  if (/(ncr|capa|quality|kalite|uygunsuz|reject|scrap|hurda)/i.test(raw) && !/\b(status|durum|closed|open|date|tarih)\b/i.test(raw)) {
+    add('Bilgi', 'Kalite raporu alanları', 'AS9100/ISO odaklı kalite raporlarında durum, açılış tarihi, kapanış tarihi, kök neden ve sorumlu alanları faydalıdır.');
+  }
+  if (!checks.length) {
+    add('İyi', 'Temel kontrol temiz', 'Belirgin risk bulunamadı. Yine de sorguyu test ortamında çalıştırıp kayıt sayısı ve yürütme süresini kontrol edin.');
+  }
+
+  output.textContent = checks.map(item => `${item.level}: ${item.title} - ${item.detail}`).join('\n');
+  tableResult.innerHTML = '<div class="analysis-list">' + checks.map(item =>
+    `<div class="analysis-item"><strong>${item.level}: ${item.title}</strong><br>${item.detail}</div>`
+  ).join('') + '</div>';
+  setStatus(checks.length + ' ERP kontrol notu üretildi', '#86efac');
 }
 
 function minifySQL() {

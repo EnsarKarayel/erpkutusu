@@ -7,8 +7,8 @@
 <meta name="google-adsense-account" content="ca-pub-6534346834787678">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6534346834787678"
      crossorigin="anonymous"></script>
-    <meta name="description" content="KDV hesaplayıcı, OEE hesaplama, kur çevirici, gün farkı hesaplayıcı ve ERP süreçlerinde işe yarayan ücretsiz araçlar.">
-    <meta name="keywords" content="erp araçları, kdv hesaplayıcı, oee hesaplama, kur çevirici, gün farkı hesaplama, ücretsiz araçlar">
+    <meta name="description" content="KDV, OEE, kalite PPM, FPY, COPQ, CAPA kapanma oranı, kur çevirici ve ERP süreçlerinde işe yarayan ücretsiz hesaplayıcılar.">
+    <meta name="keywords" content="erp araçları, kalite ppm hesaplama, fpy hesaplama, copq hesaplama, capa kapanma oranı, oee hesaplama, kdv hesaplayıcı">
     <link rel="canonical" href="https://erpkutusu.com/pages/araclar.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="ERP Araçları ve Hesaplayıcılar | ERP Kutusu">
@@ -46,8 +46,8 @@
     <div class="hero-badge">Ücretsiz Online Araçlar</div>
     <h1>ERP, Finans ve Operasyon İçin Pratik Araçlar</h1>
     <p>
-        KDV hesaplayıcı, OEE hesaplama, kur çevirici, gün farkı hesaplama ve
-        operasyonel kararları hızlandıran ücretsiz araçlar.
+        KDV, OEE, kalite PPM, FPY, COPQ, CAPA kapanma oranı, kur çevirici ve
+        ERP operasyonlarını hızlandıran ücretsiz hesaplayıcılar.
     </p>
 </section>
 
@@ -56,7 +56,7 @@
     <h2>ERP Araçları Neden Faydalıdır?</h2>
     <p class="section-sub">
         ERP kullanıcıları çoğu zaman küçük ama sık tekrarlanan hesaplamalar yapar.
-        KDV toplamı, gün farkı, kur dönüşümü veya OEE gibi metrikler için hızlı araçlar,
+        KDV toplamı, gün farkı, kur dönüşümü, OEE, kalite PPM, FPY ve COPQ gibi metrikler için hızlı araçlar,
         hem zaman kazandırır hem de raporlama hatalarını azaltır.
     </p>
 </section>
@@ -109,6 +109,33 @@
             <div class="tool-name">Brüt Kar Marjı Hesaplayıcı</div>
             <div class="tool-desc">Net satış ve maliyet verileri ile brüt kar marjını hesaplar.</div>
             <a href="#brutkar" class="tool-link">Aracı Aç</a>
+        </div>
+        <div class="tool-card">
+            <div class="tool-icon">✓</div>
+            <div class="tool-name">Kalite PPM Hesaplayıcı</div>
+            <div class="tool-desc">Hatalı adet ve toplam kontrol adediyle milyon parça başına hata oranını hesaplar.</div>
+            <a href="#kaliteppm" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">Q</div>
+            <div class="tool-name">FPY Hesaplayıcı</div>
+            <div class="tool-desc">İlk seferde sağlam çıkan üretim adedinden First Pass Yield oranını verir.</div>
+            <a href="#fpy" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">₺</div>
+            <div class="tool-name">COPQ Hesaplayıcı</div>
+            <div class="tool-desc">Hurda, yeniden işleme, iade ve garanti maliyetlerinin satışa oranını hesaplar.</div>
+            <a href="#copq" class="tool-link">Aracı Aç</a>
+        </div>
+
+        <div class="tool-card">
+            <div class="tool-icon">↻</div>
+            <div class="tool-name">CAPA Kapanma Oranı</div>
+            <div class="tool-desc">Düzeltici ve önleyici faaliyetlerin kapanma ve gecikme oranını hızlıca ölçer.</div>
+            <a href="#capa" class="tool-link">Aracı Aç</a>
         </div>
     </div>
 </section>
@@ -256,6 +283,98 @@
     </div>
 </section>
 
+
+<section class="section" id="kaliteppm">
+    <div class="section-tag">// kalite</div>
+    <h2>Kalite PPM Hesaplayıcı</h2>
+    <p class="section-sub">AS9100 ve ISO 9001 odaklı kalite takiplerinde tedarikçi veya üretim hata oranını PPM olarak izleyin.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Hatalı Adet</div>
+            <input class="calc-input" type="number" id="ppmHata" placeholder="12" oninput="hesaplaPPM()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Toplam Kontrol Edilen Adet</div>
+            <input class="calc-input" type="number" id="ppmToplam" placeholder="50000" oninput="hesaplaPPM()">
+        </div>
+        <div class="calc-result">
+            <span class="calc-result-label">Kalite PPM</span>
+            <span class="calc-result-val" id="ppmResult">—</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="fpy">
+    <div class="section-tag">// first pass yield</div>
+    <h2>FPY Hesaplayıcı</h2>
+    <p class="section-sub">Yeniden işleme gerekmeden ilk geçişte sağlam çıkan üretim oranını hesaplayın.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">İlk Seferde Sağlam Adet</div>
+            <input class="calc-input" type="number" id="fpySaglam" placeholder="960" oninput="hesaplaFPY()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Toplam Üretim</div>
+            <input class="calc-input" type="number" id="fpyToplam" placeholder="1000" oninput="hesaplaFPY()">
+        </div>
+        <div class="calc-result">
+            <span class="calc-result-label">FPY Sonucu</span>
+            <span class="calc-result-val" id="fpyResult">—</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="copq">
+    <div class="section-tag">// kalite maliyeti</div>
+    <h2>COPQ Hesaplayıcı</h2>
+    <p class="section-sub">Kalitesizlik maliyetinin satışa oranını hesaplayarak hurda, yeniden işleme ve müşteri şikayeti etkisini görünür hale getirin.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Hurda + Yeniden İşleme Maliyeti</div>
+            <input class="calc-input" type="number" id="copqIc" placeholder="45000" oninput="hesaplaCOPQ()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Şikayet / Garanti / İade Maliyeti</div>
+            <input class="calc-input" type="number" id="copqDis" placeholder="20000" oninput="hesaplaCOPQ()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Toplam Satış</div>
+            <input class="calc-input" type="number" id="copqSatis" placeholder="2000000" oninput="hesaplaCOPQ()">
+        </div>
+        <div class="calc-result">
+            <span class="calc-result-label">COPQ Oranı</span>
+            <span class="calc-result-val" id="copqResult">—</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="capa">
+    <div class="section-tag">// capa</div>
+    <h2>CAPA Kapanma Oranı Hesaplayıcı</h2>
+    <p class="section-sub">Düzeltici ve önleyici faaliyetlerin kapanma oranını ve geciken aksiyon riskini takip edin.</p>
+
+    <div class="calc-box">
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Toplam CAPA</div>
+            <input class="calc-input" type="number" id="capaToplam" placeholder="40" oninput="hesaplaCAPA()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Kapanan CAPA</div>
+            <input class="calc-input" type="number" id="capaKapali" placeholder="34" oninput="hesaplaCAPA()">
+        </div>
+        <div style="margin-bottom:12px;">
+            <div class="calc-label">Geciken CAPA</div>
+            <input class="calc-input" type="number" id="capaGeciken" placeholder="3" oninput="hesaplaCAPA()">
+        </div>
+        <div class="calc-result">
+            <span class="calc-result-label">Kapanma / Gecikme</span>
+            <span class="calc-result-val" id="capaResult">—</span>
+        </div>
+    </div>
+</section>
 <section class="section">
     <div class="section-tag">// sık sorulanlar</div>
     <h2>Sık Sorulan Sorular</h2>
@@ -373,6 +492,61 @@ function hesaplaBrutKar() {
 
     const oran = ((satis - maliyet) / satis) * 100;
     result.textContent = oran.toFixed(2) + "%";
+}
+function hesaplaPPM() {
+    const hata = parseFloat(document.getElementById("ppmHata").value);
+    const toplam = parseFloat(document.getElementById("ppmToplam").value);
+    const result = document.getElementById("ppmResult");
+
+    if (!hata || !toplam) {
+        result.textContent = "—";
+        return;
+    }
+
+    result.textContent = Math.round((hata / toplam) * 1000000).toLocaleString("tr-TR") + " PPM";
+}
+
+function hesaplaFPY() {
+    const saglam = parseFloat(document.getElementById("fpySaglam").value);
+    const toplam = parseFloat(document.getElementById("fpyToplam").value);
+    const result = document.getElementById("fpyResult");
+
+    if (!saglam || !toplam) {
+        result.textContent = "—";
+        return;
+    }
+
+    result.textContent = ((saglam / toplam) * 100).toFixed(2) + "%";
+}
+
+function hesaplaCOPQ() {
+    const ic = parseFloat(document.getElementById("copqIc").value) || 0;
+    const dis = parseFloat(document.getElementById("copqDis").value) || 0;
+    const satis = parseFloat(document.getElementById("copqSatis").value);
+    const result = document.getElementById("copqResult");
+
+    if (!satis) {
+        result.textContent = "—";
+        return;
+    }
+
+    result.textContent = (((ic + dis) / satis) * 100).toFixed(2) + "%";
+}
+
+function hesaplaCAPA() {
+    const toplam = parseFloat(document.getElementById("capaToplam").value);
+    const kapali = parseFloat(document.getElementById("capaKapali").value) || 0;
+    const geciken = parseFloat(document.getElementById("capaGeciken").value) || 0;
+    const result = document.getElementById("capaResult");
+
+    if (!toplam) {
+        result.textContent = "—";
+        return;
+    }
+
+    const kapanma = (kapali / toplam) * 100;
+    const gecikme = (geciken / toplam) * 100;
+    result.textContent = "%" + kapanma.toFixed(1) + " / %" + gecikme.toFixed(1);
 }
 </script>
 </body>

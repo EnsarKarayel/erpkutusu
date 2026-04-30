@@ -7,8 +7,8 @@
 <meta name="google-adsense-account" content="ca-pub-6534346834787678">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6534346834787678"
      crossorigin="anonymous"></script>
-    <meta name="description" content="OEE, DSO, stok devir hızı, brüt kar marjı, cari oran ve daha fazlası için KPI formülleri ve ücretsiz hesaplayıcılar.">
-    <meta name="keywords" content="kpi formülleri, oee hesaplama, stok devir hızı, dso hesaplama, brüt kar marjı, erp kpi">
+    <meta name="description" content="OEE, DSO, stok devir hızı, kalite PPM, FPY, COPQ, CAPA kapanma oranı ve daha fazlası için ERP KPI formülleri ve hesaplayıcılar.">
+    <meta name="keywords" content="kpi formülleri, oee hesaplama, as9100 kpi, iso 9001 kpi, kalite ppm, fpy, copq, capa kapanma oranı, erp kpi">
     <link rel="canonical" href="https://erpkutusu.com/pages/kpi.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="KPI Formülleri ve Hesaplayıcılar | ERP Kutusu">
@@ -46,8 +46,8 @@
     <div class="hero-badge">KPI Kütüphanesi ve Hesaplayıcılar</div>
     <h1>ERP, Üretim ve Finans İçin KPI Formülleri</h1>
     <p>
-        OEE, DSO, cari oran, stok devir hızı, brüt kar marjı ve daha fazlası için
-        açıklamalı KPI formülleri ve ücretsiz hesaplayıcılar.
+        OEE, DSO, cari oran, stok devir hızı, brüt kar marjı, kalite PPM, FPY,
+        COPQ ve CAPA kapanma oranı için açıklamalı KPI formülleri ve ücretsiz hesaplayıcılar.
     </p>
 </section>
 
@@ -73,6 +73,7 @@
                 <option value="Lojistik">Lojistik</option>
                 <option value="Satış">Satış</option>
                 <option value="Operasyon">Operasyon</option>
+                <option value="Kalite">Kalite</option>
             </select>
         </div>
     </div>
@@ -84,11 +85,37 @@
     <p class="section-sub">
         KPI yani Key Performance Indicator, işletmelerin performansını ölçmek için kullandığı
         temel göstergelerdir. ERP sistemlerinden çekilen veriler KPI hesaplamalarında doğrudan
-        kullanılır. Üretimde OEE, finansta DSO ve cari oran, lojistikte OTIF gibi metrikler
-        karar alma süreçlerini hızlandırır.
+        kullanılır. Üretimde OEE, finansta DSO ve cari oran, lojistikte OTIF,
+        kalite yönetiminde ise PPM, FPY, uygunsuzluk oranı ve CAPA kapanma süresi gibi
+        metrikler karar alma süreçlerini hızlandırır.
     </p>
 </section>
 
+<section class="section section-no-top">
+    <div class="section-tag">// kalite yönetimi</div>
+    <h2>AS9100 ve ISO 9001 Bağlamında KPI Takibi</h2>
+    <p class="section-sub">
+        AS9100, ISO 9001 ve benzeri kalite yönetim yaklaşımlarında KPI'lar sadece performans raporu değildir;
+        proseslerin ölçülebilirliğini, uygunsuzlukların kapanma disiplinini, tedarikçi performansını
+        ve müşteri şikayetlerinin etkisini görünür hale getirir. ERP sistemindeki satın alma, kalite,
+        üretim, depo ve servis verileri doğru modellenirse denetim hazırlığında kullanılabilecek
+        izlenebilir KPI panoları oluşturulabilir.
+    </p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <div class="tool-name">Uygunsuzluk ve CAPA</div>
+            <div class="tool-desc">Açık uygunsuzluk sayısı, kök neden bekleyen aksiyonlar ve geç kapanan CAPA oranı kalite sisteminin aksiyon disiplinini gösterir.</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-name">Tedarikçi Kalitesi</div>
+            <div class="tool-desc">Tedarikçi PPM, zamanında teslimat ve kabul ret oranı birlikte izlenirse satın alma kararları daha veriye dayalı hale gelir.</div>
+        </div>
+        <div class="tool-card">
+            <div class="tool-name">Proses Verimliliği</div>
+            <div class="tool-desc">FPY, hurda oranı, yeniden işleme maliyeti ve OEE birlikte ele alındığında üretimde kalite kaynaklı kayıplar daha net görülür.</div>
+        </div>
+    </div>
+</section>
 <section class="section section-no-top">
     <div class="section-tag">// kpi listesi</div>
     <h2>KPI Formül Kartları</h2>
@@ -115,6 +142,9 @@
                 <button class="copy-btn calc-switch-btn" onclick="setCalc('kar')">Brüt Kar Marjı</button>
                 <button class="copy-btn calc-switch-btn" onclick="setCalc('dso')">DSO</button>
                 <button class="copy-btn calc-switch-btn" onclick="setCalc('otif')">OTIF</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('ppm')">Kalite PPM</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('fpy')">FPY</button>
+                <button class="copy-btn calc-switch-btn" onclick="setCalc('copq')">COPQ</button>
             </div>
 
             <div class="calc-box">
@@ -270,6 +300,30 @@ const kpiLibrary = [
         category: "Operasyon",
         formula: "Gerçek Teslim Süresi - Planlanan Teslim Süresi",
         description: "Plan ile gerçekleşen teslimat süreleri arasındaki farkı ölçer."
+    },
+    {
+        title: "Kalite PPM",
+        category: "Kalite",
+        formula: "Hatalı Adet ÷ Toplam Adet × 1.000.000",
+        description: "Üretim veya tedarikçi kalite performansını milyon parça başına hata olarak gösterir."
+    },
+    {
+        title: "FPY (First Pass Yield)",
+        category: "Kalite",
+        formula: "İlk Geçişte Sağlam Adet ÷ Toplam Üretim × 100",
+        description: "Yeniden işleme gerekmeden ilk seferde doğru üretilen parça oranını ölçer."
+    },
+    {
+        title: "COPQ",
+        category: "Kalite",
+        formula: "Kalitesizlik Maliyeti ÷ Satış × 100",
+        description: "Hurda, yeniden işleme, şikayet, garanti ve iade maliyetlerinin satışa oranını gösterir."
+    },
+    {
+        title: "CAPA Kapanma Oranı",
+        category: "Kalite",
+        formula: "Kapanan CAPA ÷ Toplam CAPA × 100",
+        description: "Düzeltici ve önleyici faaliyetlerin zamanında kapatılma disiplinini izler."
     }
 ];
 
@@ -385,6 +439,43 @@ const calcs = {
         calc: (v) => {
             if (!v.onTimeFull || !v.totalOrders) return "—";
             return ((v.onTimeFull / v.totalOrders) * 100).toFixed(2) + "%";
+        }
+    },
+    ppm: {
+        label: "Kalite PPM",
+        resultLabel: "PPM",
+        fields: [
+            { id: "defects", label: "Hatalı Adet", placeholder: "12" },
+            { id: "total", label: "Toplam Kontrol Edilen Adet", placeholder: "50000" }
+        ],
+        calc: (v) => {
+            if (!v.defects || !v.total) return "—";
+            return Math.round((v.defects / v.total) * 1000000).toLocaleString("tr-TR") + " PPM";
+        }
+    },
+    fpy: {
+        label: "FPY",
+        resultLabel: "İlk Geçiş Verimi",
+        fields: [
+            { id: "goodFirst", label: "İlk Seferde Sağlam Adet", placeholder: "960" },
+            { id: "produced", label: "Toplam Üretim", placeholder: "1000" }
+        ],
+        calc: (v) => {
+            if (!v.goodFirst || !v.produced) return "—";
+            return ((v.goodFirst / v.produced) * 100).toFixed(2) + "%";
+        }
+    },
+    copq: {
+        label: "COPQ",
+        resultLabel: "Kalitesizlik Maliyeti",
+        fields: [
+            { id: "scrap", label: "Hurda + Yeniden İşleme Maliyeti", placeholder: "45000" },
+            { id: "external", label: "Şikayet / Garanti / İade Maliyeti", placeholder: "20000" },
+            { id: "sales", label: "Toplam Satış", placeholder: "2000000" }
+        ],
+        calc: (v) => {
+            if (!v.sales) return "—";
+            return (((v.scrap + v.external) / v.sales) * 100).toFixed(2) + "%";
         }
     }
 };
