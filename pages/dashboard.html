@@ -4,34 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard Generator | ERP Kutusu</title>
+<title>ERP Dashboard Generator | KPI Grafik ve Rapor Şablonu</title>
 <meta name="google-adsense-account" content="ca-pub-6534346834787678">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6534346834787678"
      crossorigin="anonymous"></script>
-<meta name="description" content="Satış, maliyet ve kar verileriyle hızlı grafik oluşturmak için ücretsiz ERP dashboard generator aracı.">
-<meta name="keywords" content="dashboard generator, erp dashboard, kpi dashboard, satış maliyet grafiği, ücretsiz dashboard aracı">
+<meta name="description" content="Satış, maliyet, kar ve raporlama süresi verileriyle ERP dashboard grafikleri, KPI özeti ve yorum üreten ücretsiz dashboard generator aracı.">
+<meta name="keywords" content="erp dashboard generator, kpi dashboard, satış maliyet grafiği, kar marjı hesaplama, raporlama süresi hesaplayıcı">
 <link rel="canonical" href="https://erpkutusu.com/pages/dashboard.html">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Dashboard Generator | ERP Kutusu">
-<meta property="og:description" content="Satış, maliyet ve kar verilerinizi girerek hızlı dashboard grafiği oluşturun.">
+<meta property="og:title" content="ERP Dashboard Generator | ERP Kutusu">
+<meta property="og:description" content="Satış, maliyet, kar ve raporlama süresi verileriyle hızlı KPI dashboard grafiği oluşturun.">
 <meta property="og:url" content="https://erpkutusu.com/pages/dashboard.html">
 <meta property="og:site_name" content="ERP Kutusu">
 <meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Dashboard Generator | ERP Kutusu">
-<meta name="twitter:description" content="ERP, satış ve maliyet verileri için ücretsiz dashboard grafiği oluşturma aracı.">
+<meta name="twitter:title" content="ERP Dashboard Generator | ERP Kutusu">
+<meta name="twitter:description" content="ERP, satış ve maliyet verileri için ücretsiz dashboard grafiği ve KPI özeti oluşturma aracı.">
 <meta name="twitter:image" content="https://erpkutusu.com/assets/og-image.png">
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+
+<style>
+.dashboard-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.dashboard-tool {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.tool-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.panel-note {
+  color: var(--text2);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.period-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.period-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.period-label {
+  grid-column: 1 / -1;
+  color: var(--text2);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.dash-input,
+.dash-select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  color: var(--text);
+  font: inherit;
+}
+
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.metric-label {
+  color: var(--text2);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.chart-wrap {
+  position: relative;
+  min-height: 360px;
+}
+
+.insight-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.insight-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  color: var(--text2);
+  padding: 12px;
+  line-height: 1.55;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-tool,
+  .guide-grid,
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 
 <!-- CHART.JS -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
 <!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script>
@@ -43,64 +182,325 @@
 </script>
 </head>
 
-<body style="padding:40px; max-width:900px; margin:auto;">
+<body>
 
-<h1>Dashboard Generator</h1>
-<p>Satış ve maliyet verilerinizi girerek grafik oluşturun.</p>
+<nav>
+  <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+  <ul>
+    <li><a href="../index.html">Ana Sayfa</a></li>
+    <li><a href="sql.html">SQL</a></li>
+    <li><a href="kpi.html">KPI</a></li>
+    <li><a href="araclar.html">Araçlar</a></li>
+    <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
 
-<br>
+<section class="hero">
+  <div class="hero-badge">Ücretsiz ERP Dashboard Aracı</div>
+  <h1>Satış, Maliyet ve Kar Dashboard Generator</h1>
+  <p>
+    Aylık satış, maliyet ve raporlama süresi verilerini girin; kar marjı,
+    büyüme eğilimi, verimlilik kazancı ve yönetim dashboard grafiğini tek ekranda görün.
+  </p>
+</section>
 
-<label>Satış (₺)</label><br>
-<input type="number" id="sales" style="width:100%; padding:10px;"><br><br>
+<main class="dashboard-shell">
+  <section class="section section-no-top">
+    <div class="section-tag">// canlı araç</div>
+    <h2>Dashboard Verilerini Girin</h2>
+    <p class="section-sub">
+      Bu araç, ERP veya Excel raporlarından aldığınız aylık satış ve maliyet değerlerini
+      hızlıca görselleştirir. Sonuçlar tarayıcı içinde hesaplanır; verileriniz sunucuya gönderilmez.
+    </p>
 
-<label>Maliyet (₺)</label><br>
-<input type="number" id="cost" style="width:100%; padding:10px;"><br><br>
+    <div class="dashboard-tool">
+      <div class="tool-panel">
+        <div class="panel-title">Aylık Finans Verileri</div>
+        <p class="panel-note">Satış ve maliyet alanları zorunludur. Raporlama saati alanı, manuel raporlama süresi kazancını ölçmek için kullanılır.</p>
 
-<button onclick="createChart()">Grafik Oluştur</button>
+        <div style="margin-bottom:12px;">
+          <label class="calc-label" for="chartType">Grafik Tipi</label>
+          <select class="dash-select" id="chartType" onchange="updateDashboard()">
+            <option value="bar">Sütun Grafik</option>
+            <option value="line">Çizgi Grafik</option>
+          </select>
+        </div>
 
-<h2 id="result"></h2>
+        <div class="period-grid" id="periodRows"></div>
 
-<canvas id="myChart" style="margin-top:30px;"></canvas>
+        <div class="dashboard-actions">
+          <button class="btn-primary" onclick="updateDashboard()">Dashboard Oluştur</button>
+          <button class="btn-secondary" onclick="loadSampleData()">Örnek Veri</button>
+          <button class="btn-secondary" onclick="clearData()">Temizle</button>
+          <button class="btn-secondary" onclick="downloadChart()">PNG İndir</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-label">Toplam Satış</div>
+            <div class="metric-value" id="totalSales">₺0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Toplam Kar</div>
+            <div class="metric-value" id="totalProfit">₺0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Ortalama Kar Marjı</div>
+            <div class="metric-value" id="avgMargin">%0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Raporlama Kazancı</div>
+            <div class="metric-value" id="savedHours">0 sa</div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-wrap">
+            <canvas id="dashboardChart"></canvas>
+          </div>
+          <div class="insight-list" id="insights"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reporting-time">
+    <div class="section-tag">// raporlama süresi</div>
+    <h2>Raporlama Süresi Hesaplayıcı</h2>
+    <p class="section-sub">
+      Dashboard otomasyonu, sadece grafik üretmek için değil, tekrar eden manuel rapor işlerini azaltmak için de kullanılır.
+      Aylık raporlama saati alanına eski süreçte harcanan süreyi yazdığınızda toplam zaman kaybını görebilirsiniz.
+      Örneğin satış, stok ve karlılık raporları her ay Excel ile elle hazırlanıyorsa; veri çekme, kontrol, formatlama
+      ve yönetim sunumu hazırlığı ayrı ayrı zaman tüketir. Bu araç, raporlama yükünü görünür hale getirerek hangi
+      dashboard alanlarının önce otomasyona alınması gerektiğini anlamanıza yardımcı olur.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-tag">// kullanım rehberi</div>
+    <h2>ERP Dashboard Nasıl Yorumlanır?</h2>
+    <div class="guide-grid">
+      <div class="tool-card">
+        <div class="tool-name">Satış Eğilimi</div>
+        <div class="tool-desc">
+          Satış grafiği dönemler arasında büyüme veya daralma olup olmadığını gösterir. Tek bir ay yüksek görünse bile
+          trendin sürdürülebilir olup olmadığı maliyet ve kar ile birlikte değerlendirilmelidir.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Kar Marjı</div>
+        <div class="tool-desc">
+          Kar marjı, satıştan maliyet çıktıktan sonra kalan orandır. ERP raporlarında ürün grubu, müşteri veya bölge
+          bazında ayrıca takip edildiğinde fiyatlama ve iskonto kararları daha sağlıklı alınır.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Raporlama Verimliliği</div>
+        <div class="tool-desc">
+          Manuel raporlama süresi yüksekse veri doğrulama hataları, geç karar alma ve ekip bağımlılığı artar.
+          Dashboard otomasyonu bu yükü azaltarak düzenli yönetim takibini kolaylaştırır.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag">// sık sorulanlar</div>
+    <h2>Dashboard Generator Hakkında</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-name">Bu araç hangi ERP sistemleriyle kullanılabilir?</div>
+        <div class="kpi-desc">Logo, SAP, IFS, Odoo, Mikro, Netsis veya başka bir ERP sisteminden alınan satış ve maliyet özetleriyle kullanılabilir. Araç veritabanına bağlanmaz; sayısal özetleri görselleştirir.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name">Veriler kaydediliyor mu?</div>
+        <div class="kpi-desc">Hayır. Hesaplamalar tarayıcıda yapılır. Girdiğiniz satış, maliyet ve süre bilgileri ERP Kutusu sunucularına gönderilmez.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-name">Bu dashboard yönetim raporu yerine geçer mi?</div>
+        <div class="kpi-desc">Araç hızlı analiz ve örnek görselleştirme içindir. Nihai yönetim raporunda veri doğruluğu, dönem kapanışı, kur farkı, iskonto ve muhasebe kayıtları ayrıca kontrol edilmelidir.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="footer-links">
+    <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;
+    <a href="sql.html">SQL</a> &nbsp;·&nbsp;
+    <a href="kpi.html">KPI</a> &nbsp;·&nbsp;
+    <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp;
+    <a href="iletisim.html">İletişim</a>
+  </p>
+  <p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
 
 <script>
-let chart;
+const months = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
+const sampleData = [
+  { sales: 920000, cost: 610000, hours: 18 },
+  { sales: 980000, cost: 635000, hours: 17 },
+  { sales: 1125000, cost: 710000, hours: 16 },
+  { sales: 1080000, cost: 695000, hours: 14 },
+  { sales: 1240000, cost: 760000, hours: 13 },
+  { sales: 1375000, cost: 820000, hours: 12 }
+];
 
-function createChart(){
+let dashboardChart;
 
-    let sales = Number(document.getElementById("sales").value);
-    let cost = Number(document.getElementById("cost").value);
-
-    if(!sales || !cost){
-        alert("Lütfen tüm alanları doldurun");
-        return;
-    }
-
-    let profit = sales - cost;
-
-    document.getElementById("result").innerText =
-        "Kar: " + profit + " ₺";
-
-    let ctx = document.getElementById("myChart");
-
-    if(chart){
-        chart.destroy();
-    }
-
-    chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Satış', 'Maliyet', 'Kar'],
-            datasets: [{
-                label: 'Finansal Durum',
-                data: [sales, cost, profit],
-            }]
-        },
-        options: {
-            responsive: true,
-        }
-    });
+function formatCurrency(value) {
+  return new Intl.NumberFormat("tr-TR", {
+    style: "currency",
+    currency: "TRY",
+    maximumFractionDigits: 0
+  }).format(value);
 }
-</script>
 
+function renderRows() {
+  const root = document.getElementById("periodRows");
+  root.innerHTML = months.map((month, index) => `
+    <div class="period-row">
+      <div class="period-label">${month}</div>
+      <input class="dash-input" type="number" min="0" id="sales-${index}" placeholder="Satış" oninput="updateDashboard()">
+      <input class="dash-input" type="number" min="0" id="cost-${index}" placeholder="Maliyet" oninput="updateDashboard()">
+      <input class="dash-input" type="number" min="0" id="hours-${index}" placeholder="Saat" oninput="updateDashboard()">
+    </div>
+  `).join("");
+}
+
+function readData() {
+  return months.map((month, index) => {
+    const sales = Number(document.getElementById(`sales-${index}`).value) || 0;
+    const cost = Number(document.getElementById(`cost-${index}`).value) || 0;
+    const hours = Number(document.getElementById(`hours-${index}`).value) || 0;
+    return { month, sales, cost, profit: sales - cost, hours };
+  });
+}
+
+function updateDashboard() {
+  const rows = readData();
+  const filled = rows.filter(row => row.sales > 0 || row.cost > 0 || row.hours > 0);
+  const totalSales = rows.reduce((sum, row) => sum + row.sales, 0);
+  const totalCost = rows.reduce((sum, row) => sum + row.cost, 0);
+  const totalProfit = totalSales - totalCost;
+  const margin = totalSales ? (totalProfit / totalSales) * 100 : 0;
+  const firstHours = rows.find(row => row.hours > 0)?.hours || 0;
+  const currentHours = [...rows].reverse().find(row => row.hours > 0)?.hours || 0;
+  const saved = Math.max(0, firstHours - currentHours);
+  const chartType = document.getElementById("chartType").value;
+
+  document.getElementById("totalSales").textContent = formatCurrency(totalSales);
+  document.getElementById("totalProfit").textContent = formatCurrency(totalProfit);
+  document.getElementById("avgMargin").textContent = "%" + margin.toFixed(1);
+  document.getElementById("savedHours").textContent = saved.toFixed(0) + " sa";
+
+  const ctx = document.getElementById("dashboardChart");
+  if (dashboardChart) dashboardChart.destroy();
+
+  dashboardChart = new Chart(ctx, {
+    type: chartType,
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: "Satış",
+          data: rows.map(row => row.sales),
+          borderColor: "#4ade80",
+          backgroundColor: "rgba(74, 222, 128, 0.38)",
+          tension: 0.35
+        },
+        {
+          label: "Maliyet",
+          data: rows.map(row => row.cost),
+          borderColor: "#fbbf24",
+          backgroundColor: "rgba(251, 191, 36, 0.32)",
+          tension: 0.35
+        },
+        {
+          label: "Kar",
+          data: rows.map(row => row.profit),
+          borderColor: "#60a5fa",
+          backgroundColor: "rgba(96, 165, 250, 0.32)",
+          tension: 0.35
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: "#e8f0e8" }
+        },
+        tooltip: {
+          callbacks: {
+            label: context => `${context.dataset.label}: ${formatCurrency(context.raw)}`
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: "#8fa88f" }, grid: { color: "rgba(143,168,143,0.12)" } },
+        y: { ticks: { color: "#8fa88f", callback: value => formatCurrency(value) }, grid: { color: "rgba(143,168,143,0.12)" } }
+      }
+    }
+  });
+
+  renderInsights(rows, filled, margin, saved);
+}
+
+function renderInsights(rows, filled, margin, saved) {
+  const root = document.getElementById("insights");
+  if (!filled.length) {
+    root.innerHTML = '<div class="insight-item">Başlamak için satış, maliyet ve raporlama saati değerlerini girin veya örnek veri yükleyin.</div>';
+    return;
+  }
+
+  const bestMonth = rows.reduce((best, row) => row.profit > best.profit ? row : best, rows[0]);
+  const lastSales = [...rows].reverse().find(row => row.sales > 0)?.sales || 0;
+  const firstSales = rows.find(row => row.sales > 0)?.sales || 0;
+  const growth = firstSales ? ((lastSales - firstSales) / firstSales) * 100 : 0;
+  const marginText = margin >= 30 ? "güçlü" : margin >= 15 ? "izlenebilir" : "riskli";
+
+  root.innerHTML = `
+    <div class="insight-item">En yüksek kar ${bestMonth.month} döneminde oluştu: ${formatCurrency(bestMonth.profit)}.</div>
+    <div class="insight-item">İlk ve son dolu dönem arasında satış değişimi %${growth.toFixed(1)}. Bu değer trend takibi için satış raporuyla birlikte incelenmeli.</div>
+    <div class="insight-item">Ortalama kar marjı %${margin.toFixed(1)} ve mevcut görünüm ${marginText}. Marj düşüyorsa iskonto, ürün karması ve maliyet kalemleri kontrol edilmeli.</div>
+    <div class="insight-item">Raporlama süresi kazancı aylık yaklaşık ${saved.toFixed(0)} saat. Bu süre, otomatik veri çekme ve dashboard standardizasyonu için öncelik sinyali verir.</div>
+  `;
+}
+
+function loadSampleData() {
+  sampleData.forEach((row, index) => {
+    document.getElementById(`sales-${index}`).value = row.sales;
+    document.getElementById(`cost-${index}`).value = row.cost;
+    document.getElementById(`hours-${index}`).value = row.hours;
+  });
+  updateDashboard();
+}
+
+function clearData() {
+  months.forEach((_, index) => {
+    document.getElementById(`sales-${index}`).value = "";
+    document.getElementById(`cost-${index}`).value = "";
+    document.getElementById(`hours-${index}`).value = "";
+  });
+  updateDashboard();
+}
+
+function downloadChart() {
+  if (!dashboardChart) return;
+  const link = document.createElement("a");
+  link.download = "erp-dashboard.png";
+  link.href = document.getElementById("dashboardChart").toDataURL("image/png");
+  link.click();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderRows();
+  loadSampleData();
+});
+</script>
 </body>
 </html>
