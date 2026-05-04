@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERP Kalite SQL Raporlama | PPM, FPY, CAPA ve Uygunsuzluk</title>
+<meta name="google-adsense-account" content="ca-pub-6534346834787678">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6534346834787678" crossorigin="anonymous"></script>
+<meta name="description" content="ERP sistemlerinde kalite raporlama için SQL mantığı: PPM, FPY, CAPA kapanma süresi, uygunsuzluk Pareto ve tedarikçi kalite örnekleri.">
+<meta name="keywords" content="ERP kalite SQL, PPM SQL, FPY SQL, CAPA raporu, uygunsuzluk raporu, tedarikçi kalite raporu">
+<link rel="canonical" href="https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ERP Kalite SQL Raporlama | ERP Kutusu">
+<meta property="og:description" content="Kalite KPI raporlarıni ERP verileriyle SQL üzerinden hazırlama rehberi.">
+<meta property="og:url" content="https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html">
+<meta property="og:site_name" content="ERP Kutusu">
+<meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ERP Kalite SQL Raporlama | ERP Kutusu">
+<meta name="twitter:description" content="PPM, FPY, CAPA ve uygunsuzluk raporlarıni SQL ile modelleyin.">
+<meta name="twitter:image" content="https://erpkutusu.com/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "ERP Kalite SQL Raporlama",
+      "description": "ERP sistemlerinde kalite raporlama için SQL mantığı: PPM, FPY, CAPA kapanma süresi, uygunsuzluk Pareto ve tedarikçi kalite örnekleri.",
+      "image": "https://erpkutusu.com/assets/og-image.png",
+      "author": { "@type": "Person", "name": "Ensar Karayel" },
+      "publisher": { "@type": "Organization", "name": "ERP Kutusu" },
+      "datePublished": "2026-05-04",
+      "dateModified": "2026-05-04",
+      "mainEntityOfPage": "https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Kalite KPI'lari SQL ile hesaplanabilir mi?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Evet. Uygunsuzluk, kalite kontrol, üretim emri, tedarikçi ve sevkiyat kayitlari doğru ilişkilendirildiğinde PPM, FPY, CAPA kapanma süresi ve Pareto raporları SQL ile hesaplanabilir." }
+        },
+        {
+          "@type": "Question",
+          "name": "ERP kalite raporlarında en sik hata nedir?",
+          "acceptedAnswer": { "@type": "Answer", "text": "En sik hata kalite kodlarinin serbest metin olarak tutulmasi ve is emri, malzeme, tedarikçi veya müşteri bağlantısının eksik kalmasidir." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R3BD9QP259');
+</script>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="logo">ERP<span>Kutusu</span></a>
+  <ul>
+    <li><a href="../index.html">Ana Sayfa</a></li>
+    <li><a href="sql.html">SQL</a></li>
+    <li><a href="kpi.html">KPI</a></li>
+    <li><a href="araclar.html">Araçlar</a></li>
+    <li><a href="iletisim.html" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Kalite SQL Raporlama</div>
+  <h1>ERP Kalite Raporları İçin SQL Rehberi</h1>
+  <p>PPM, FPY, CAPA kapanma süresi, uygunsuzluk Pareto ve tedarikçi kalite performansı için ERP verisini rapora dönüştürme mantığı.</p>
+</section>
+
+<section class="section section-no-top">
+  <div class="section-tag">// veri modeli</div>
+  <h2>Kalite Raporu İçin Gerekli Ana Tablolar</h2>
+  <p class="section-sub">Kalite raporlamasi yalnızca kalite kontrol sonuç tablosundan olusmaz. Üretim emri, malzeme karti, stok hareketi, tedarikçi, müşteri, uygunsuzluk ve aksiyon takip kayitlari birlikte dusunulmelidir. Aksi halde rapor sadece sayı uretir; kök neden ve sorumlu alan gorunmez.</p>
+</section>
+
+<section class="section">
+  <div class="section-tag">// SQL örnekleri</div>
+  <h2>Kalite KPI SQL Mantiklari</h2>
+  <div class="sql-grid">
+    <div class="sql-card">
+      <div class="sql-card-head"><div class="sql-card-title">Tedarikçi PPM Mantığı</div><span class="erp-tag tag-genel">PPM</span></div>
+      <div class="sql-code">SELECT
+  TEDARIKCI_KODU,
+  SUM(HATALI_ADET) AS HATALI_ADET,
+  SUM(KONTROL_ADET) AS KONTROL_ADET,
+  ROUND(SUM(HATALI_ADET) * 1000000.0 / NULLIF(SUM(KONTROL_ADET), 0), 0) AS PPM
+FROM KALITE_KABUL
+WHERE KONTROL_TARIHI >= DATEADD(month, -6, GETDATE())
+GROUP BY TEDARIKCI_KODU
+ORDER BY PPM DESC</div>
+      <div class="sql-card-foot"><span class="sql-desc">Tedarikçi kalite performansıni milyon parca basina hata olarak izler.</span></div>
+    </div>
+    <div class="sql-card">
+      <div class="sql-card-head"><div class="sql-card-title">CAPA Kapanma Süresi</div><span class="erp-tag tag-genel">CAPA</span></div>
+      <div class="sql-code">SELECT
+  SORUMLU_BOLUM,
+  COUNT(*) AS CAPA_SAYISI,
+  AVG(DATEDIFF(day, ACILIS_TARIHI, KAPANIS_TARIHI)) AS ORT_KAPANMA_GUNU,
+  SUM(CASE WHEN HEDEF_TARIH < KAPANIS_TARIHI THEN 1 ELSE 0 END) AS GEC_KAPANAN
+FROM CAPA
+WHERE DURUM = 'Kapali'
+GROUP BY SORUMLU_BOLUM
+ORDER BY ORT_KAPANMA_GUNU DESC</div>
+      <div class="sql-card-foot"><span class="sql-desc">Aksiyon disiplinini bölüm bazinda takip etmek için kullanılır.</span></div>
+    </div>
+    <div class="sql-card">
+      <div class="sql-card-head"><div class="sql-card-title">Uygunsuzluk Pareto</div><span class="erp-tag tag-genel">Pareto</span></div>
+      <div class="sql-code">SELECT
+  HATA_KODU,
+  COUNT(*) AS UYGUNSUZLUK_SAYISI,
+  SUM(MALIYET) AS TOPLAM_MALIYET
+FROM UYGUNSUZLUK
+WHERE TARIH >= DATEADD(month, -3, GETDATE())
+GROUP BY HATA_KODU
+ORDER BY UYGUNSUZLUK_SAYISI DESC</div>
+      <div class="sql-card-foot"><span class="sql-desc">Tekrar eden hata tiplerini ve maliyet etkisini görünür yapar.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-tag">// raporlama kalitesi</div>
+  <h2>SQL Raporlarında Dikkat Edilecek Noktalar</h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">NULLIF Kullanımi</div>
+      <div class="tool-desc">Bolme islemlerinde sifira bolme hatalarini engellemek için toplam adet alanları NULLIF ile korunmalidir.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Tarih Filtresi</div>
+      <div class="tool-desc">KPI raporları dönem bazli izlenmelidir. Son 3 ay, son 6 ay veya yil bazli filtre net tanımlanmalıdır.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Kod Standardi</div>
+      <div class="tool-desc">Hata kodu ve kök neden alanları standart değilse Pareto raporu güvenilir sonuç vermez.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-tag">// ilgili sayfalar</div>
+  <h2>Ilgili ERP Kutusu Sayfalari</h2>
+  <div class="tools-grid">
+    <div class="tool-card"><div class="tool-name">SQL Formatter</div><div class="tool-desc">Kalite raporu sorgularini formatlayip kontrol edin.</div><a href="sql-formatter.html" class="tool-link">Formatter Aç</a></div>
+    <div class="tool-card"><div class="tool-name">AS9100 KPI Rehberi</div><div class="tool-desc">Kalite KPI setini AS9100 bakışiyla inceleyin.</div><a href="as9100-erp-kpi-rehberi.html" class="tool-link">AS9100 Rehberi</a></div>
+    <div class="tool-card"><div class="tool-name">KPI Hesaplayıcılar</div><div class="tool-desc">PPM, FPY ve COPQ için hesaplayıcılari kullanin.</div><a href="araclar.html#kaliteppm" class="tool-link">Araçlari Aç</a></div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-links">
+    <a href="../index.html">Ana Sayfa</a> &nbsp;-&nbsp;
+    <a href="sql.html">SQL</a> &nbsp;-&nbsp;
+    <a href="kpi.html">KPI</a> &nbsp;-&nbsp;
+    <a href="araclar.html">Araçlar</a> &nbsp;-&nbsp;
+    <a href="iletisim.html">İletişim</a>
+  </p>
+  <p class="footer-copy">© 2026 ERP Kutusu - Ensar Karayel · karayelensar@gmail.com</p>
+</footer>
+<script src="../js/security.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

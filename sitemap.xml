@@ -3,7 +3,7 @@
 
   <url>
     <loc>https://erpkutusu.com/</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -59,28 +59,28 @@
 
   <url>
     <loc>https://erpkutusu.com/pages/kpi.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://erpkutusu.com/pages/araclar.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://erpkutusu.com/pages/sql-formatter.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://erpkutusu.com/pages/dashboard.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -95,6 +95,27 @@
   <url>
     <loc>https://erpkutusu.com/pages/oee-nedir.html</loc>
     <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://erpkutusu.com/pages/as9100-erp-kpi-rehberi.html</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://erpkutusu.com/pages/iso-9001-kalite-kpi-rehberi.html</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html</loc>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
