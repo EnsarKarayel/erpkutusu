@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://erpkutusu.com/</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://erpkutusu.com/pages/sql.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/logo-sql-sorgulari.html</loc><lastmod>2026-04-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/sap-sql-sorgulari.html</loc><lastmod>2026-04-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/ifs-sql-sorgulari.html</loc><lastmod>2026-04-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/odoo-sql-sorgulari.html</loc><lastmod>2026-04-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/genel-sql-sorgulari.html</loc><lastmod>2026-04-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://erpkutusu.com/pages/kpi.html</loc><lastmod>2026-05-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/araclar.html</loc><lastmod>2026-05-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/sql-formatter.html</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://erpkutusu.com/pages/dashboard.html</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://erpkutusu.com/pages/erp-checklist.html</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://erpkutusu.com/pages/oee-nedir.html</loc><lastmod>2026-04-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/as9100-erp-kpi-rehberi.html</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/iso-9001-kalite-kpi-rehberi.html</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/logo-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://erpkutusu.com/pages/sap-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://erpkutusu.com/pages/ifs-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://erpkutusu.com/pages/odoo-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://erpkutusu.com/pages/minerva-plantum-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/genel-sql-sorgulari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://erpkutusu.com/pages/kpi.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/araclar.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/sql-formatter.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://erpkutusu.com/pages/dashboard.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://erpkutusu.com/pages/erp-checklist.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://erpkutusu.com/pages/oee-nedir.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/as9100-erp-kpi-rehberi.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/iso-9001-kalite-kpi-rehberi.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://erpkutusu.com/pages/erp-kalite-sql-raporlama.html</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://erpkutusu.com/pages/blog.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://erpkutusu.com/pages/erp-ai-araci.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://erpkutusu.com/pages/blog-erp-ai-araclari.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -24,9 +24,9 @@
   <url><loc>https://erpkutusu.com/pages/blog-kalite-yonetimi-erp-kpi.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://erpkutusu.com/pages/hakkimizda.html</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://erpkutusu.com/pages/iletisim.html</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://erpkutusu.com/pages/gizlilik-politikasi.html</loc><lastmod>2026-04-27</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://erpkutusu.com/pages/cerez-politikasi.html</loc><lastmod>2026-04-27</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://erpkutusu.com/pages/kullanim-kosullari.html</loc><lastmod>2026-04-27</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://erpkutusu.com/pages/gizlilik-politikasi.html</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://erpkutusu.com/pages/cerez-politikasi.html</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://erpkutusu.com/pages/kullanim-kosullari.html</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://erpkutusu.com/pages/sql-derin-sorgular-rehberi.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://erpkutusu.com/pages/erp-ekran-gelistirme-yonergeleri.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://erpkutusu.com/pages/erp-el-defteri.html</loc><lastmod>2026-05-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url></urlset>

@@ -15,22 +15,89 @@
 <meta property="og:url" content="https://erpkutusu.com/pages/erp-ai-araci.html">
 <meta property="og:site_name" content="ERP Kutusu">
 <meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"ERP AI Yardımcısı","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://erpkutusu.com/pages/erp-ai-araci.html","description":"ERP süreç açıklamasından rapor fikri, KPI önerisi ve SQL kontrol listesi üreten web aracı.","offers":{"@type":"Offer","price":"0","priceCurrency":"TRY"}}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="../css/components.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R3BD9QP259');</script>
-<style>.ai-tool-grid{width:min(1180px,calc(100% - 40px));margin:0 auto;display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:24px;align-items:start}.ai-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px}.ai-output{white-space:pre-wrap;line-height:1.7}.ai-textarea{min-height:180px;resize:vertical}.ai-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}@media(max-width:900px){.ai-tool-grid{grid-template-columns:1fr}}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R3BD9QP259');</script>
+<style>
+body.ai-page{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.ai-workspace{width:min(1280px,calc(100% - 32px));margin:24px auto 0;display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;flex:1;min-height:calc(100vh - 138px)}
+.ai-sidebar,.ai-chat{border:1px solid var(--border);background:var(--card);border-radius:var(--radius);overflow:hidden}
+.ai-sidebar{padding:18px;align-self:start;position:sticky;top:92px}
+.ai-sidebar h1{font-size:1.15rem;margin:0 0 8px;color:var(--text)}
+.ai-sidebar p{color:var(--text2);line-height:1.6;font-size:14px;margin:0 0 16px}
+.ai-chip{display:block;width:100%;text-align:left;margin:8px 0;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);cursor:pointer;font:inherit}
+.ai-chip:hover{border-color:var(--accent)}
+.ai-chat{display:flex;flex-direction:column;min-height:calc(100vh - 138px)}
+.ai-chat-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;align-items:center}
+.ai-chat-title{font-size:1.05rem;font-weight:800;color:var(--text)}
+.ai-chat-sub{color:var(--text2);font-size:13px;margin-top:3px}
+.ai-status{font-size:12px;color:var(--accent);font-family:'DM Mono',monospace}
+.ai-messages{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+.ai-message{max-width:860px;padding:16px 18px;border:1px solid var(--border);border-radius:14px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+.ai-message.assistant{background:var(--card);align-self:flex-start}
+.ai-message.user{background:var(--accent);color:#081008;align-self:flex-end;border-color:transparent}
+.ai-composer{border-top:1px solid var(--border);padding:16px;background:var(--card)}
+.ai-input-wrap{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.ai-input{width:100%;min-height:72px;max-height:180px;resize:vertical;border:1px solid var(--border2);border-radius:14px;background:var(--bg2);color:var(--text);padding:14px 15px;font:inherit;line-height:1.5}
+.ai-send{min-height:48px;padding:0 18px;border:0;border-radius:14px;background:var(--accent);color:#081008;font-weight:800;cursor:pointer}
+.ai-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.ai-tools button{font-size:12px;padding:8px 10px;border:1px solid var(--border2);background:transparent;color:var(--text2);border-radius:999px;cursor:pointer}
+.ai-note{width:min(1280px,calc(100% - 32px));margin:18px auto 38px;color:var(--text2);line-height:1.7}
+@media(max-width:900px){.ai-workspace{grid-template-columns:1fr;min-height:auto}.ai-sidebar{position:static}.ai-chat{min-height:70vh}.ai-input-wrap{grid-template-columns:1fr}.ai-send{width:100%}}
+</style>
 </head>
-<body>
-<nav><a href="../index.html" class="logo">ERP<span>Kutusu</span></a><ul><li><a href="../index.html">Ana Sayfa</a></li><li><a href="sql.html">SQL</a></li><li><a href="kpi.html">KPI</a></li><li><a href="araclar.html">Araçlar</a></li><li><a href="blog.html">Blog</a></li><li><a href="iletisim.html" class="nav-cta">İletişim</a></li></ul></nav>
-<section class="hero"><div class="hero-badge">ERP AI Aracı</div><h1>ERP Sürecinden Rapor, KPI ve SQL Fikri Üret</h1><p>Süreç ihtiyacını yaz; araç sana rapor amacı, veri kaynakları, KPI önerileri, SQL kontrol listesi ve dashboard bölümleri için yapılandırılmış bir taslak versin.</p></section>
-<section class="section section-no-top"><div class="ai-tool-grid"><div class="ai-panel"><div class="panel-title">Süreç veya rapor ihtiyacını yaz</div><p class="panel-note">Örnek: Satın alma kabul sürecinde tedarikçi bazlı kalite problemi, gecikme ve iade oranlarını takip etmek istiyorum.</p><textarea id="aiInput" class="dash-input ai-textarea" placeholder="ERP sürecini, rapor ihtiyacını veya KPI problemini yaz..."></textarea><div class="ai-actions"><button class="copy-btn" onclick="generateAI()">Taslak Üret</button><button class="copy-btn" onclick="loadExample()">Örnek Yükle</button><button class="copy-btn" onclick="copyOutput()">Kopyala</button></div></div><div class="ai-panel"><div class="panel-title">AI destekli ERP taslağı</div><div id="aiOutput" class="panel-note ai-output">Başlamak için soldaki alana süreç ihtiyacını yazın.</div></div></div></section>
-<section class="section"><div class="section-tag">// kullanım senaryoları</div><h2>ERP AI Yardımcısı Hangi Durumlarda Kullanılır?</h2><p class="section-sub">Araç özellikle toplantı öncesi hazırlık, rapor talebi netleştirme, KPI taslağı çıkarma ve SQL kontrol listesi oluşturma aşamalarında kullanılmalıdır. Bir rapor isteği doğrudan SQL'e çevrilmeden önce iş amacı, filtreler, tarih aralığı, veri sahibi, doğrulama yöntemi ve karar çıktısı netleşmelidir.</p><div class="tools-grid"><div class="tool-card"><div class="tool-name">Rapor Talep Formu</div><div class="tool-desc">Kullanıcının serbest metin ihtiyacını rapor amacı, veri alanları ve beklenen çıktı şeklinde düzenler.</div></div><div class="tool-card"><div class="tool-name">KPI Taslağı</div><div class="tool-desc">Süreç açıklamasına göre izlenebilecek metrikleri ve yorumlanması gereken riskleri önerir.</div></div><div class="tool-card"><div class="tool-name">SQL Ön Kontrol</div><div class="tool-desc">JOIN, tarih filtresi, iptal kayıtları ve veri kalitesi gibi konuları sorgu yazmadan önce hatırlatır.</div></div></div></section><section class="section"><div class="section-tag">// sınırlamalar</div><h2>AI Çıktısı Nasıl Doğrulanmalı?</h2><p class="section-sub">AI çıktısı doğrudan canlı ERP sistemine uygulanmamalıdır. Tablo adları, iş kuralları, yetki sınırları, performans etkisi ve veri doğruluğu mutlaka ERP uzmanı tarafından kontrol edilmelidir. Bu yaklaşım hem teknik güvenliği artırır hem de raporun iş hedefiyle uyumlu kalmasını sağlar.</p></section><section class="section"><div class="section-tag">// nasıl kullanılmalı</div><h2>Bu Araç Nasıl Değer Üretir?</h2><p class="section-sub">Bu araç canlı ERP verisine bağlanmaz ve otomatik karar vermez. Amacı, dağınık iş ihtiyacını raporlanabilir parçalara ayırmak, KPI mantığını netleştirmek ve SQL yazmadan önce kontrol edilmesi gereken alanları görünür hale getirmektir. Böylece ERP danışmanı, bilgi işlem ekibi veya süreç sahibi toplantıya daha net bir analiz taslağıyla girebilir.</p></section>
-<footer><p class="footer-links"><a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp; <a href="sql.html">SQL</a> &nbsp;·&nbsp; <a href="kpi.html">KPI</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a> &nbsp;·&nbsp; <a href="iletisim.html">İletişim</a></p><p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p></footer>
+<body class="ai-page">
+<nav><a href="../index.html" class="logo">ERP<span>Kutusu</span></a><ul><li><a href="../index.html">Ana Sayfa</a></li><li><a href="sql.html">SQL</a></li><li><a href="kpi.html">KPI</a></li><li><a href="araclar.html">Araçlar</a></li><li><a href="blog.html">Blog</a></li><li><a href="erp-ai-araci.html">ERP AI</a></li><li><a href="iletisim.html" class="nav-cta">İletişim</a></li></ul></nav>
+<main class="ai-workspace">
+  <aside class="ai-sidebar">
+    <h1>ERP AI Yardımcısı</h1>
+    <p>Rapor isteğini, süreç problemini veya KPI ihtiyacını yaz. Araç bunu ERP danışmanı bakışıyla rapor amacı, veri kaynağı, KPI seti, SQL kontrolü ve dashboard taslağına çevirir.</p>
+    <button class="ai-chip" onclick="loadPrompt('Satın alma kabul sürecinde tedarikçi bazlı kalite problemi, gecikme, iade oranı ve CAPA aksiyonlarını izlemek istiyorum.')">Tedarikçi kalite dashboard'u</button>
+    <button class="ai-chip" onclick="loadPrompt('Depolarda hareketsiz stok, negatif stok ve stok devir hızını yönetici ekranında takip etmek istiyorum.')">Stok ve depo analizi</button>
+    <button class="ai-chip" onclick="loadPrompt('Satış faturaları, tahsilat gecikmesi ve müşteri bazlı karlılık için finans dashboard ihtiyacım var.')">Finans ve tahsilat raporu</button>
+    <button class="ai-chip" onclick="loadPrompt('Üretim emirlerinde OEE, fire oranı, yeniden işleme ve vardiya performansını görmek istiyorum.')">Üretim KPI panosu</button>
+  </aside>
+  <section class="ai-chat" aria-label="ERP AI sohbet alanı">
+    <div class="ai-chat-head"><div><div class="ai-chat-title">ERP rapor ve süreç asistanı</div><div class="ai-chat-sub">Canlı ERP verisine bağlanmaz; toplantı öncesi analiz taslağı üretir.</div></div><div class="ai-status">LOCAL RULES</div></div>
+    <div class="ai-messages" id="aiMessages"><div class="ai-message assistant">Merhaba. Bana bir ERP süreci, rapor isteği veya KPI problemi yaz. Ben bunu şu başlıklara ayıracağım:
+
+- Rapor amacı
+- Veri kaynakları
+- KPI önerileri
+- SQL kontrol listesi
+- Dashboard bölümleri
+- Doğrulama notları
+
+Örnek: "Tedarikçi kalite performansını PPM, iade oranı ve CAPA kapanma süresiyle takip etmek istiyorum."</div></div>
+    <div class="ai-composer"><div class="ai-input-wrap"><textarea id="aiInput" class="ai-input" placeholder="ERP sürecini, rapor ihtiyacını veya KPI problemini yaz..."></textarea><button class="ai-send" onclick="generateAI()">Gönder</button></div><div class="ai-tools"><button onclick="clearChat()">Sohbeti temizle</button><button onclick="copyLast()">Son cevabı kopyala</button><button onclick="loadPrompt('Logo ERP tarafında stok yaşlandırma ve yavaş hareket gören malzemeleri raporlamak istiyorum.')">Örnek yükle</button></div></div>
+  </section>
+</main>
+<section class="ai-note"><strong>Nasıl kullanılmalı?</strong> Bu araç doğrudan SQL çalıştırmaz ve canlı ERP sistemine bağlanmaz. Üretilen taslak; tablo adları, yetki sınırları, iş kuralları ve performans etkisi açısından ERP uzmanı tarafından doğrulanmalıdır.</section>
 <script>
-function loadExample(){document.getElementById('aiInput').value='Satın alma kabul sürecinde tedarikçi bazlı kalite problemi, gecikme, iade oranı ve CAPA aksiyonlarını izlemek istiyorum. Logo ERP ve kalite kontrol kayıtlarından dashboard hazırlanacak.';generateAI();}
-function words(text){return text.toLowerCase();}
-function generateAI(){const input=document.getElementById('aiInput').value.trim();const out=document.getElementById('aiOutput');if(!input){out.textContent='Lütfen önce ERP sürecini veya rapor ihtiyacını yazın.';return;}const t=words(input);const quality=t.includes('kalite')||t.includes('capa')||t.includes('iade')||t.includes('hata');const stock=t.includes('stok')||t.includes('depo')||t.includes('malzeme');const sales=t.includes('satış')||t.includes('fatura')||t.includes('müşteri');const purchase=t.includes('satın')||t.includes('tedarik');let kpis=[];if(quality)kpis.push('PPM','FPY','CAPA kapanma süresi','Uygunsuzluk Pareto');if(stock)kpis.push('Stok devir hızı','Negatif stok','Stok yaşlandırma');if(sales)kpis.push('Brüt kar marjı','DSO','Müşteri bazlı satış trendi');if(purchase)kpis.push('Tedarikçi zamanında teslimat','Kabul ret oranı','Tedarikçi PPM');if(!kpis.length)kpis.push('Süreç tamamlanma oranı','Geciken işlem sayısı','Maliyet sapması','Trend analizi');out.textContent=`Rapor Amacı\n- ${input}\n\nÖnerilen Veri Kaynakları\n- Ana işlem tablosu: belge, tarih, durum, sorumlu ve referans alanları\n- Kart tablosu: cari, stok, tedarikçi, müşteri veya iş merkezi bilgileri\n- Hareket tablosu: miktar, tutar, depo, kalite sonucu ve kapanış bilgileri\n\nÖnerilen KPI Seti\n- ${kpis.join('\n- ')}\n\nSQL Kontrol Listesi\n- Tarih filtresi net mi?\n- İptal, taslak veya kapalı kayıtlar ayrılıyor mu?\n- JOIN ilişkilerinde tekilleştirme gerekiyor mu?\n- NULL ve sıfıra bölme riskleri kontrol edildi mi?\n- Tedarikçi, müşteri, stok veya iş emri kodları standart mı?\n\nDashboard Bölümleri\n- Özet KPI kartları\n- Trend grafiği\n- Pareto / en yüksek risk listesi\n- Geciken aksiyonlar\n- Detay tablo ve filtreler\n\nEditör Notu\nBu taslak ERP sistemine göre tablo adlarıyla doğrulanmalı ve iş sahibiyle hedef değerler netleştirilmelidir.`;}
-function copyOutput(){navigator.clipboard.writeText(document.getElementById('aiOutput').textContent || '');}
-</script><script src="../js/security.js"></script><script src="../js/main.js"></script>
-</body></html>
+let lastAnswer='';
+function addMessage(role,text){const root=document.getElementById('aiMessages');const el=document.createElement('div');el.className='ai-message '+role;el.textContent=text;root.appendChild(el);root.scrollTop=root.scrollHeight;}
+function loadPrompt(text){document.getElementById('aiInput').value=text;document.getElementById('aiInput').focus();}
+function clearChat(){document.getElementById('aiMessages').innerHTML='';lastAnswer='';addMessage('assistant','Sohbet temizlendi. Yeni ERP ihtiyacını yazabilirsin.');}
+function copyLast(){if(lastAnswer){navigator.clipboard.writeText(lastAnswer);}}
+function generateAI(){const input=document.getElementById('aiInput').value.trim();if(!input){return;}addMessage('user',input);document.getElementById('aiInput').value='';const t=input.toLowerCase();const quality=t.includes('kalite')||t.includes('capa')||t.includes('iade')||t.includes('hata')||t.includes('ppm');const stock=t.includes('stok')||t.includes('depo')||t.includes('malzeme');const sales=t.includes('satış')||t.includes('fatura')||t.includes('müşteri')||t.includes('tahsilat');const purchase=t.includes('satın')||t.includes('tedarik');const production=t.includes('üretim')||t.includes('oee')||t.includes('vardiya')||t.includes('fire');let kpis=[];if(quality)kpis.push('PPM','FPY','CAPA kapanma süresi','Uygunsuzluk Pareto','İade oranı');if(stock)kpis.push('Stok devir hızı','Hareketsiz stok günü','Negatif stok','Depo bazlı stok değeri');if(sales)kpis.push('DSO','Brüt kar marjı','Müşteri bazlı satış trendi','Vadesi geçen alacak');if(purchase)kpis.push('Tedarikçi zamanında teslimat','Kabul ret oranı','Tedarikçi PPM','Satın alma gecikme günü');if(production)kpis.push('OEE','Fire oranı','Vardiya verimi','Yeniden işleme oranı');if(!kpis.length)kpis=['Süreç tamamlanma oranı','Geciken işlem sayısı','Maliyet sapması','Trend analizi'];lastAnswer=`Rapor Amacı\n${input}\n\n1. Veri Kaynakları\n- Ana işlem tablosu: belge no, tarih, durum, sorumlu, referans\n- Kart tablosu: cari, stok, tedarikçi, müşteri, iş merkezi veya proje\n- Hareket tablosu: miktar, tutar, depo, kalite sonucu, kapanış bilgisi\n- Aksiyon tablosu: onay, CAPA, görev, hedef tarih, kapanış tarihi\n\n2. Önerilen KPI Seti\n- ${kpis.join('\n- ')}\n\n3. SQL Kontrol Listesi\n- Tarih alanı doğru mu: belge tarihi, hareket tarihi, vade tarihi ayrıldı mı?\n- İptal, taslak, kapalı ve revize kayıtlar nasıl ele alınacak?\n- JOIN ilişkisi mükerrer satır üretiyor mu?\n- NULL ve sıfıra bölme riskleri korundu mu?\n- Yetki ve kişisel veri sınırları kontrol edildi mi?\n\n4. Dashboard Taslağı\n- Üst KPI kartları\n- Aylık trend grafiği\n- En riskli 10 kayıt listesi\n- Pareto dağılımı\n- Detay tablo ve filtreler\n\n5. Doğrulama Notu\nBu taslağı ERP ekranındaki 3-5 örnek belgeyle doğrula. Sonra hedef değerleri süreç sahibiyle netleştir.`;addMessage('assistant',lastAnswer);}
+document.getElementById('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey){generateAI();}});
+</script>
+<section class="section">
+  <div class="section-tag">// kullanım kılavuzu</div>
+  <h2>ERP AI Kullanım Kılavuzu</h2>
+  <p class="section-sub">Bu ekran, klasik sohbet deneyimi gibi çalışacak şekilde tasarlandı: solda örnek senaryolar, ortada konuşma alanı, altta yazma kutusu bulunur. Amaç kullanıcının dağınık ERP ihtiyacını yapılandırılmış bir analiz taslağına çevirmektir. Araç canlı veriye bağlanmadığı için güvenlidir; fakat ürettiği öneriler ERP uzmanı tarafından tablo, yetki, iş kuralı ve performans açısından doğrulanmalıdır.</p>
+  <div class="tools-grid">
+    <div class="tool-card"><div class="tool-name">Rapor talebi hazırlığı</div><div class="tool-desc">Toplantı öncesinde kullanıcıdan gelen serbest metin isteği rapor amacı, veri kaynağı, KPI ve filtre başlıklarına ayrılır.</div></div>
+    <div class="tool-card"><div class="tool-name">Dashboard ön tasarımı</div><div class="tool-desc">Yönetici ekranında hangi KPI kartları, trendler, risk listeleri ve detay tabloları olmalı sorusuna ilk taslağı verir.</div></div>
+    <div class="tool-card"><div class="tool-name">SQL ön kontrolü</div><div class="tool-desc">Sorgu yazılmadan önce tarih, iptal kaydı, JOIN çoğalması, NULL değer ve yetki sınırı gibi riskleri hatırlatır.</div></div>
+    <div class="tool-card"><div class="tool-name">ERP eğitim notu</div><div class="tool-desc">Yeni başlayan ERP kullanıcılarına süreç ve rapor ilişkisini anlatmak için kısa, anlaşılır kontrol listeleri üretir.</div></div>
+  </div>
+</section><script src="../js/security.js"></script><script src="../js/main.js"></script>
+</body>
+</html>
