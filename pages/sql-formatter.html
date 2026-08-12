@@ -1,12 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SQL Formatter Online | ERP Kutusu</title>
 <meta name="google-adsense-account" content="ca-pub-6534346834787678">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6534346834787678"
-     crossorigin="anonymous"></script>
 <meta name="description" content="Ücretsiz online SQL formatter aracı. SQL Server, MySQL, PostgreSQL sorgularını formatla, validate et ve .sql dosyası olarak indir.">
 <meta name="keywords" content="sql formatter online, sql düzenleyici, sql formatlama, sql validator, sql server formatter, postgresql formatter">
 <link rel="canonical" href="https://erpkutusu.com/pages/sql-formatter.html">
@@ -343,6 +341,18 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="section-tag">// erp sorgu standardı</div>
+  <h2>ERP SQL Formatlama Standardı</h2>
+  <p class="section-sub">ERP raporlarında formatlama sadece okunaklılık değildir. Sorgunun bakımını, denetimini ve devralınabilirliğini etkiler. Özellikle Logo, SAP, IFS, Odoo veya özel ERP veritabanlarında aynı rapor yıllarca farklı kişiler tarafından değiştirilebilir. Bu yüzden SELECT kolonları açık yazılmalı, JOIN amacı anlaşılır olmalı, tarih ve durum filtreleri raporun iş kuralını gösterecek şekilde düzenlenmelidir.</p>
+  <p class="section-sub">Kalite, finans ve stok raporlarında sorgu düzeni ayrıca önemlidir. Denetimde raporun hangi kayıtlardan beslendiği sorulduğunda SQL satırları üzerinden belge tarihi, hareket tarihi, iptal durumu, firma dönemi, depo, tedarikçi ve müşteri kırılımları kolayca izlenebilmelidir. Bu sayfa bu nedenle yalnızca beautifier değil, ERP sorgusu için ön kontrol alanı olarak düşünülmelidir.</p>
+  <div class="tools-grid">
+    <div class="tool-card"><div class="tool-name">Kolon disiplini</div><div class="tool-desc">SELECT * yerine raporda gerçekten kullanılan kolonlar yazılmalı; aynı isimli alanlara anlamlı alias verilmelidir.</div></div>
+    <div class="tool-card"><div class="tool-name">JOIN kontrolü</div><div class="tool-desc">Başlık-satır ve hareket-kart ilişkileri mükerrer satır üretmeyecek şekilde test edilmelidir.</div></div>
+    <div class="tool-card"><div class="tool-name">Tarih filtresi</div><div class="tool-desc">Belge tarihi, kayıt tarihi, muhasebe tarihi ve kapanış tarihi aynı anlamda kullanılmamalıdır.</div></div>
+    <div class="tool-card"><div class="tool-name">Canlı veri riski</div><div class="tool-desc">UPDATE ve DELETE sorguları test ortamı, yedek ve dar WHERE koşulu olmadan çalıştırılmamalıdır.</div></div>
+  </div>
+</section>
 <footer>
   <p class="footer-links">
     <a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp;

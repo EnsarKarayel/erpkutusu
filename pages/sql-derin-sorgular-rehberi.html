@@ -40,4 +40,14 @@ Satış     : teklif, sipariş, irsaliye, fatura, iade, iskonto
 Üretim    : iş emri, operasyon, duruş, fire, sağlam üretim
 Kalite    : kontrol sonucu, hata kodu, CAPA, tedarikçi, maliyet
 Servis    : çağrı, müdahale, parça, garanti, kapanış süresi</div><div class="sql-card-foot"><span class="sql-desc">Bu matris yeni rapor talebini sınıflandırmak için başlangıç noktasıdır.</span></div></div></div>
+</section><section class="section">
+  <div class="section-tag">// uygulamalı doğrulama</div>
+  <h2>ERP SQL Raporu Yayına Almadan Önce Uygulamalı Doğrulama</h2>
+  <p class="section-sub">Bir SQL raporunun doğru çalışması sadece hata vermeden sonuç üretmesi değildir. Raporun ERP ekranındaki gerçek belgeyle, muhasebe veya stok hareketiyle ve süreç sahibinin beklediği iş kuralıyla örtüşmesi gerekir. Örneğin stok raporunda eldeki miktar doğru görünürken rezervasyon veya kalite blokajı dikkate alınmamış olabilir. Finans raporunda cari bakiye doğru görünürken vadeli çek, kur farkı veya kapama hareketi eksik kalabilir.</p>
+  <p class="section-sub">Yayına alma öncesi en az üç tip kayıt seçilmelidir: normal kayıt, istisna kayıt ve iptal/iade içeren kayıt. Bu üç kayıt ERP ekranından tek tek kontrol edilir. SQL sonucunda aynı belge numarası, aynı tarih, aynı miktar ve aynı durum görünmüyorsa rapor henüz güvenilir değildir.</p>
+  <div class="sql-grid"><div class="sql-card"><div class="sql-card-head"><div class="sql-card-title">Doğrulama Senaryosu</div><span class="erp-tag tag-genel">Kontrol</span></div><div class="sql-code">Normal kayıt     : Standart satış faturası veya stok hareketi
+İstisna kayıt    : İade, iskonto, farklı depo, farklı döviz
+İptal kayıt      : Kullanıcının ekranda görmediği ama tabloda duran belge
+Kapanmış kayıt   : Muhasebeleşmiş, kapatılmış veya tamamlanmış işlem
+Açık kayıt       : Onay bekleyen, sevk edilmemiş veya kapanmamış işlem</div><div class="sql-card-foot"><span class="sql-desc">Bu kontrol yapılmadan rapor yönetime açılmamalıdır.</span></div></div></div>
 </section><footer><p class="footer-links"><a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp; <a href="sql.html">SQL</a> &nbsp;·&nbsp; <a href="kpi.html">KPI</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a> &nbsp;·&nbsp; <a href="iletisim.html">İletişim</a></p><p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p></footer><script src="../js/security.js"></script><script src="../js/main.js"></script></body></html>
