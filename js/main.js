@@ -334,3 +334,72 @@ document.addEventListener("DOMContentLoaded", () => {
   initNewsletter();
   initContactForm();
 });
+const erpDiagnosticMap = {
+  stok: { title: "Stok ve depo odağı", kpi: "Stok devir hızı, hareketsiz stok günü, negatif stok, depo bazlı stok değeri", sql: "Stok hareketleri, depo bakiyesi, rezervasyon ve kalite blokajı tabloları kontrol edilmeli." },
+  kalite: { title: "Kalite ve CAPA odağı", kpi: "PPM, FPY, COPQ, CAPA kapanma süresi, uygunsuzluk Pareto", sql: "NCR, CAPA, tedarikçi kabul, iade ve müşteri şikayeti kayıtları birlikte okunmalı." },
+  finans: { title: "Finans ve tahsilat odağı", kpi: "DSO, vadesi geçen alacak, brüt kar marjı, müşteri karlılığı", sql: "Fatura, tahsilat, vade, kur farkı ve kapama hareketleri ayrılmalı." },
+  uretim: { title: "Üretim ve OEE odağı", kpi: "OEE, fire oranı, vardiya verimi, yeniden işleme oranı", sql: "İş emri, operasyon, duruş, fire ve sağlam üretim kayıtları doğrulanmalı." },
+  satis: { title: "Satış ve teslimat odağı", kpi: "OTIF, sipariş karşılama oranı, teslimat gecikmesi, iade oranı", sql: "Sipariş, irsaliye, fatura, iade ve sevkiyat tarihleri aynı raporda ayrılmalı." }
+};
+function formatDiagnostic(item, erp, priority) {
+  return `${item.title}\nERP: ${erp || "Genel ERP"}${priority ? `\nÖncelik: ${priority}` : ""}\n\nÖnerilen KPI seti:\n${item.kpi}\n\nSQL / veri kontrolü:\n${item.sql}\n\nSonraki adım: ilgili rehbere geçip örnek kayıtlarla doğrulama yapın.`;
+}
+function runHomeDiagnostic() {
+  const problem = document.getElementById("homeProblem")?.value || "stok";
+  const erp = document.getElementById("homeErp")?.value || "Genel ERP";
+  const out = document.getElementById("homeDiagnosticOutput");
+  const item = erpDiagnosticMap[problem] || erpDiagnosticMap.stok;
+  if (out) out.textContent = formatDiagnostic(item, erp, "Hızlı yönlendirme");
+}
+function runProcessDiagnostic() {
+  const problem = document.getElementById("processProblem")?.value || "stok";
+  const erp = document.getElementById("processErp")?.value || "Genel ERP";
+  const priority = document.getElementById("processPriority")?.value || "Raporlama";
+  const out = document.getElementById("processDiagnosticOutput");
+  const item = erpDiagnosticMap[problem] || erpDiagnosticMap.stok;
+  if (out) out.textContent = formatDiagnostic(item, erp, priority);
+}
+function calculateErpRoi() {
+  const num = (id) => Number(document.getElementById(id)?.value || 0);
+  const monthlyHours = num("roiHours");
+  const hourlyRate = num("roiRate");
+  const errorCost = num("roiError");
+  const automation = Math.min(Math.max(num("roiAutomation"), 0), 100) / 100;
+  const projectCost = num("roiCost");
+  const monthlyBenefit = (monthlyHours * hourlyRate * automation) + (errorCost * automation);
+  const yearlyBenefit = monthlyBenefit * 12;
+  const payback = monthlyBenefit > 0 ? projectCost / monthlyBenefit : 0;
+  const roi = projectCost > 0 ? ((yearlyBenefit - projectCost) / projectCost) * 100 : 0;
+  const out = document.getElementById("roiOutput");
+  if (!out) return;
+  const comment = payback <= 12 ? "Güçlü aday: proje bir yıl içinde kendini ödeyebilir." : payback <= 24 ? "Orta aday: kapsamı daraltıp hızlı kazanım alanı seçmek mantıklı." : "Dikkat: önce manuel süreç kaybı veya hata maliyeti daha net ölçülmeli.";
+  out.textContent = `Aylık tahmini fayda: ${Math.round(monthlyBenefit).toLocaleString("tr-TR")} TL\nYıllık tahmini fayda: ${Math.round(yearlyBenefit).toLocaleString("tr-TR")} TL\nGeri dönüş süresi: ${payback ? payback.toFixed(1) : "-"} ay\nYıllık ROI: ${roi.toFixed(1)}%\n\n${comment}`;
+}
+function filterErpSystems() {
+  const query = (document.getElementById("erpSearch")?.value || "").toLowerCase().trim();
+  const segment = document.getElementById("erpSegment")?.value || "all";
+  const cards = document.querySelectorAll(".erp-system-card");
+  let visible = 0;
+  cards.forEach((card) => {
+    const name = (card.dataset.name || "").toLowerCase();
+    const text = card.textContent.toLowerCase();
+    const segments = (card.dataset.segment || "").split(/\s+/);
+    const matchQuery = !query || name.includes(query) || text.includes(query);
+    const matchSegment = segment === "all" || segments.includes(segment);
+    const show = matchQuery && matchSegment;
+    card.style.display = show ? "" : "none";
+    if (show) visible += 1;
+  });
+  const out = document.getElementById("erpFilterOutput");
+  if (out) out.textContent = `${visible} ERP sistemi gösteriliyor. Seçim yaparken sektör uyumu, raporlama açıklığı, danışman ekosistemi ve veri kalitesini birlikte değerlendirin.`;
+}
+function submitErpExperience() {
+  const erp = document.getElementById("experienceErp")?.value.trim() || "Belirtilmedi";
+  const area = document.getElementById("experienceArea")?.value.trim() || "Belirtilmedi";
+  const note = document.getElementById("experienceText")?.value.trim() || "Deneyim notu yazılmadı.";
+  const subject = encodeURIComponent(`ERP deneyimi: ${erp}`);
+  const body = encodeURIComponent(`ERP: ${erp}\nKullanım alanı: ${area}\n\nDeneyim özeti:\n${note}\n\nNot: Bu deneyimin editoryal kontrolden sonra anonim veya isimli yayınlanabileceğini kabul ediyorum.`);
+  const out = document.getElementById("experienceOutput");
+  if (out) out.textContent = "E-posta taslağı hazırlanıyor. İçerik otomatik yayınlanmayacak, önce incelenecek.";
+  window.location.href = `mailto:karayelensar@gmail.com?subject=${subject}&body=${body}`;
+}
