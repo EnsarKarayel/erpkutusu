@@ -359,3 +359,8 @@
 
 .diagnostic-panel textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border2); color: var(--text); border-radius: var(--radius-sm); padding: 11px 12px; font: inherit; min-height: 120px; resize: vertical; }
 .erp-catalog-grid .tool-card { min-height: 220px; }
+
+.topic-system-group { margin-top: 28px; }
+.topic-system-group h3 { font-family: var(--display); font-size: 1.2rem; margin: 0 0 12px; color: var(--text); }
+.erp-topic-filter { margin-bottom: 18px; }
+.erp-topic-index a { min-height: 48px; display: flex; align-items: center; }

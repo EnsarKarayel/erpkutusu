@@ -403,3 +403,33 @@ function submitErpExperience() {
   if (out) out.textContent = "E-posta taslağı hazırlanıyor. İçerik otomatik yayınlanmayacak, önce incelenecek.";
   window.location.href = `mailto:karayelensar@gmail.com?subject=${subject}&body=${body}`;
 }
+function filterErpTopics() {
+  const query = (document.getElementById("erpTopicSearch")?.value || "").toLowerCase().trim();
+  const system = document.getElementById("erpTopicSystem")?.value || "all";
+  const area = document.getElementById("erpTopicArea")?.value || "all";
+  const links = document.querySelectorAll(".erp-topic-link");
+  let visible = 0;
+  links.forEach((link) => {
+    const matchQuery = !query || link.textContent.toLowerCase().includes(query);
+    const matchSystem = system === "all" || link.dataset.system === system;
+    const matchArea = area === "all" || link.dataset.area === area;
+    const show = matchQuery && matchSystem && matchArea;
+    link.style.display = show ? "" : "none";
+    if (show) visible += 1;
+  });
+  document.querySelectorAll(".topic-system-group").forEach((group) => {
+    const anyVisible = Array.from(group.querySelectorAll(".erp-topic-link")).some((link) => link.style.display !== "none");
+    group.style.display = anyVisible ? "" : "none";
+  });
+  const out = document.getElementById("erpTopicOutput");
+  if (out) out.textContent = `${visible} rehber gösteriliyor. Detay sayfalarında veri kaynağı, KPI ve canlıya geçiş kontrolü birlikte verilir.`;
+}
+function resetErpTopics() {
+  const search = document.getElementById("erpTopicSearch");
+  const system = document.getElementById("erpTopicSystem");
+  const area = document.getElementById("erpTopicArea");
+  if (search) search.value = "";
+  if (system) system.value = "all";
+  if (area) area.value = "all";
+  filterErpTopics();
+}
