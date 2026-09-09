@@ -1,0 +1,11 @@
+Alan;Aciklama;Ornek Deger;Excel Formulu
+Planlanan Sure DK;Vardiya veya is emri icin planlanan toplam sure;480;
+Plansiz Durus DK;Ariza, bekleme, setup gecikmesi;45;
+Calisma Suresi DK;Planlanan sureden duruslar dusulur;435;=C2-C3
+Teorik Cevrim Suresi DK;Bir urun icin standart sure;1;
+Toplam Uretim Adedi;Uretilen toplam adet;390;
+Saglam Uretim Adedi;Ilk seferde saglam adet;370;
+Kullanilabilirlik;Calisma suresi / planlanan sure;;=C4/C2
+Performans;Teorik sureye gore hiz verimi;;=(C6*C5)/C4
+Kalite;Saglam uretim / toplam uretim;;=C7/C6
+OEE;Kullanilabilirlik x performans x kalite;;=C8*C9*C10

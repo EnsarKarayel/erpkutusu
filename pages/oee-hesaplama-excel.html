@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OEE Hesaplama Excel Şablonu | Formül, Örnek Tablo ve ERP Notları</title>
+<meta name="google-adsense-account" content="ca-pub-6534346834787678">
+<meta name="description" content="OEE hesaplama Excel şablonu, kullanılabilirlik, performans ve kalite formülleri, örnek üretim tablosu ve ERP/MES veri kontrol notları.">
+<meta name="keywords" content="oee hesaplama excel, oee excel şablonu, oee hesaplama, oee formül excel, üretim verimliliği excel">
+<link rel="canonical" href="https://erpkutusu.com/pages/oee-hesaplama-excel.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OEE Hesaplama Excel Şablonu | ERP Kutusu">
+<meta property="og:description" content="OEE için Excel formülleri, örnek tablo ve ERP veri kontrol rehberi.">
+<meta property="og:url" content="https://erpkutusu.com/pages/oee-hesaplama-excel.html">
+<meta property="og:site_name" content="ERP Kutusu">
+<meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"OEE Hesaplama Excel Şablonu","author":{"@type":"Person","name":"Ensar Karayel"},"publisher":{"@type":"Organization","name":"ERP Kutusu"},"datePublished":"2026-09-09","dateModified":"2026-09-09","mainEntityOfPage":"https://erpkutusu.com/pages/oee-hesaplama-excel.html"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R3BD9QP259');</script>
+</head>
+<body>
+<nav><a href="../index.html" class="logo">ERP<span>Kutusu</span></a><ul><li><a href="../index.html">Ana Sayfa</a></li><li><a href="sql.html">SQL</a></li><li><a href="kpi.html">KPI</a></li><li><a href="araclar.html">Araçlar</a></li><li><a href="blog.html">Blog</a></li><li><a href="erp-ai-araci.html">ERP AI</a></li><li><a href="iletisim.html" class="nav-cta">İletişim</a></li></ul></nav>
+<section class="hero"><div class="hero-badge">OEE Excel Şablonu</div><h1>OEE Hesaplama Excel Şablonu</h1><p>OEE hesaplama Excel arayan üretim ekipleri için kullanılabilirlik, performans, kalite ve toplam OEE formülünü örnek tabloyla açıklayan pratik rehber.</p><div class="hero-actions"><a href="../assets/oee-hesaplama-excel-sablonu.csv" class="btn-primary" download>CSV Şablonu İndir</a><a href="oee-nedir.html" class="btn-secondary">OEE Rehberini Oku</a></div></section>
+<section class="section section-no-top"><div class="section-tag">// formül mantığı</div><h2>Excel'de OEE Nasıl Hesaplanır?</h2><p class="section-sub">OEE üç ayrı oranın çarpımıdır: kullanılabilirlik, performans ve kalite. Excel şablonunda önce planlanan süre, duruş süresi, çalışma süresi, teorik çevrim süresi, toplam üretim ve sağlam üretim alanları doldurulur. Sonra bu alanlardan kullanılabilirlik, performans ve kalite oranları hesaplanır.</p><div class="kpi-grid"><div class="kpi-card"><div class="kpi-name">Kullanılabilirlik</div><div class="kpi-formula">Çalışma Süresi / Planlanan Süre</div><div class="kpi-desc">Plansız duruş ve bekleme sürelerinin vardiya üzerindeki etkisini gösterir.</div></div><div class="kpi-card"><div class="kpi-name">Performans</div><div class="kpi-formula">İdeal Üretim Süresi / Çalışma Süresi</div><div class="kpi-desc">Makinenin teorik çevrim hızına ne kadar yaklaştığını ölçer.</div></div><div class="kpi-card"><div class="kpi-name">Kalite</div><div class="kpi-formula">Sağlam Ürün / Toplam Üretim</div><div class="kpi-desc">Fire ve yeniden işleme kaynaklı kaybı OEE hesabına dahil eder.</div></div></div></section>
+<section class="section"><div class="section-tag">// excel tablo örneği</div><h2>OEE Excel Tablo Yapısı</h2><p class="section-sub">Aşağıdaki yapı Excel'e aktarıldığında her vardiya, hat, makine veya iş emri için ayrı satır olarak çoğaltılabilir. ERP veya MES verisi yoksa ilk aşamada manuel takip yapılabilir; fakat uzun vadede veri kaynağı otomatikleştirilmelidir.</p><div class="sql-grid"><div class="sql-card"><div class="sql-card-head"><div class="sql-card-title">Excel Alanları ve Formüller</div><span class="erp-tag tag-genel">Excel</span></div><div class="sql-code">Planlanan Süre DK = 480
+Plansız Duruş DK = 45
+Çalışma Süresi DK = Planlanan Süre - Plansız Duruş
+Performans = (Toplam Üretim x Teorik Çevrim Süresi) / Çalışma Süresi
+Kalite = Sağlam Üretim / Toplam Üretim
+OEE = Kullanılabilirlik x Performans x Kalite</div><div class="sql-card-foot"><span class="sql-desc">Şablon CSV formatındadır ve Excel ile açılabilir.</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div></div></div></section>
+<section class="section"><div class="section-tag">// veri doğrulama</div><h2>ERP ve MES Verisiyle OEE Kontrolü</h2><p class="section-sub">Excel şablonu hızlı başlangıç sağlar; ancak OEE düzenli yönetilecekse veri ERP veya MES sisteminden gelmelidir. İş emri, operasyon, vardiya, makine, duruş nedeni, fire kodu ve sağlam üretim bilgisi aynı anahtarlarla ilişkilendirilmelidir. Aksi halde Excel tablosu güzel görünür ama iyileştirme aksiyonunu doğru yere bağlamaz.</p><p class="section-sub">Özellikle AS9100 ve ISO 9001 gibi kalite yönetimi yaklaşımlarında OEE sonucu yalnız üretim verimi değildir. Duruş nedenleri, yeniden işleme, uygunsuzluk, lot/seri izlenebilirliği ve CAPA aksiyonlarıyla birlikte okunmalıdır. Bu yüzden her OEE raporunda toplam değer kadar bileşen kırılımı da gösterilmelidir.</p></section>
+<section class="section"><div class="section-tag">// sık hatalar</div><h2>OEE Excel Hesabında Sık Yapılan Hatalar</h2><div class="tools-grid"><div class="tool-card"><div class="tool-name">Planlı duruşu yanlış yazmak</div><div class="tool-desc">Mola, bakım veya planlı temizlik gibi süreler planlanan üretim süresinden ayrı değerlendirilmelidir.</div></div><div class="tool-card"><div class="tool-name">Teorik çevrim süresini güncellememek</div><div class="tool-desc">Ürün, hat veya operasyon değiştiğinde ideal çevrim süresi de değişebilir.</div></div><div class="tool-card"><div class="tool-name">Fire kodlarını toplamamak</div><div class="tool-desc">Kalite bileşeni yalnız sağlam adet değildir; fire nedeni ve yeniden işleme etkisi aksiyon için gereklidir.</div></div></div></section>
+<section class="section"><div class="section-tag">// bağlantılı rehberler</div><h2>Devam Etmek İçin</h2><div class="route-grid"><a href="oee-nedir.html">OEE Nedir?</a><a href="araclar.html#oee">OEE Hesaplayıcı</a><a href="kalite-kpi-izleme.html">Kalite KPI İzleme</a><a href="erp-konular/logo-uretim-planlama-rehberi.html">Logo Üretim Rehberi</a><a href="erp-konular/sap-uretim-planlama-rehberi.html">SAP Üretim Rehberi</a></div></section>
+<footer><p class="footer-links"><a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp; <a href="kpi.html">KPI</a> &nbsp;·&nbsp; <a href="araclar.html">Araçlar</a> &nbsp;·&nbsp; <a href="sql.html">SQL</a></p><p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p></footer>
+<script src="../js/security.js"></script><script src="../js/main.js"></script>
+</body>
+</html>

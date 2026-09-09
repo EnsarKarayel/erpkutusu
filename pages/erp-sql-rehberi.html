@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERP SQL Rehberi | Sorgu Yazma, Raporlama ve Kontrol Listesi</title>
+<meta name="google-adsense-account" content="ca-pub-6534346834787678">
+<meta name="description" content="ERP SQL nedir? Logo, SAP, IFS, Odoo ve genel ERP sistemlerinde güvenilir SQL raporu yazmak için sorgu mantığı, KPI ve kontrol listesi.">
+<meta name="keywords" content="erp sql, erp sql sorguları, logo sql, sap sql, ifs sql, odoo sql, erp raporlama">
+<link rel="canonical" href="https://erpkutusu.com/pages/erp-sql-rehberi.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ERP SQL Rehberi | ERP Kutusu">
+<meta property="og:description" content="ERP SQL sorguları için belge akışı, KPI, doğrulama ve performans kontrol listesi.">
+<meta property="og:url" content="https://erpkutusu.com/pages/erp-sql-rehberi.html">
+<meta property="og:site_name" content="ERP Kutusu">
+<meta property="og:image" content="https://erpkutusu.com/assets/og-image.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ERP SQL Rehberi","author":{"@type":"Person","name":"Ensar Karayel"},"publisher":{"@type":"Organization","name":"ERP Kutusu"},"datePublished":"2026-09-09","dateModified":"2026-09-09","mainEntityOfPage":"https://erpkutusu.com/pages/erp-sql-rehberi.html"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="../css/components.css"><script async src="https://www.googletagmanager.com/gtag/js?id=G-R3BD9QP259"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R3BD9QP259');</script>
+</head>
+<body>
+<nav><a href="../index.html" class="logo">ERP<span>Kutusu</span></a><ul><li><a href="../index.html">Ana Sayfa</a></li><li><a href="sql.html">SQL</a></li><li><a href="kpi.html">KPI</a></li><li><a href="araclar.html">Araçlar</a></li><li><a href="erp-bilgi-bankasi.html">Bilgi Bankası</a></li><li><a href="erp-ai-araci.html">ERP AI</a></li></ul></nav>
+<section class="hero"><div class="hero-badge">ERP SQL Rehberi</div><h1>ERP SQL Sorgusu Nasıl Yazılır?</h1><p>ERP SQL arayan kullanıcılar için stok, finans, satış, üretim ve kalite raporlarında doğru tabloyu, doğru tarihi ve doğru iş kuralını seçme rehberi.</p><div class="hero-actions"><a href="sql.html" class="btn-primary">SQL Kütüphanesi</a><a href="sql-formatter.html" class="btn-secondary">SQL Formatter</a></div></section>
+<section class="section section-no-top"><div class="section-tag">// temel yaklaşım</div><h2>ERP SQL Nedir?</h2><p class="section-sub">ERP SQL, veritabanındaki işlem ve ana veri tablolarını kullanarak işletme kararına uygun rapor üretme yöntemidir. Amaç yalnızca satır listelemek değildir; sipariş, fatura, stok hareketi, iş emri, kalite kaydı veya tahsilat hareketini doğru iş kuralıyla okumaktır. Aynı veri, tarih alanı veya belge durumu yanlış seçilirse rapor sonucu değişebilir.</p><p class="section-sub">Logo, SAP, IFS, Odoo, Mikro, Netsis veya başka bir ERP kullanılsa da iyi sorgunun mantığı benzerdir. Önce raporun karar amacı yazılır, sonra kaynak belge ve tablo ilişkileri belirlenir. Daha sonra iptal, kapalı, revize, taslak, iade ve mükerrer kayıtların nasıl ele alınacağı netleştirilir.</p></section>
+<section class="section"><div class="section-tag">// sorgu haritası</div><h2>ERP SQL Yazarken 7 Kontrol</h2><div class="sql-grid"><div class="sql-card"><div class="sql-card-head"><div class="sql-card-title">ERP SQL Kontrol Listesi</div><span class="erp-tag tag-genel">SQL</span></div><div class="sql-code">1. Rapor hangi kararı destekliyor?
+2. Ana tablo işlem mi, kart mı, hareket mi?
+3. Tarih alanı belge tarihi mi, hareket tarihi mi, vade tarihi mi?
+4. İptal, iade, taslak ve kapalı kayıtlar ayrıldı mı?
+5. JOIN ilişkisi satır çoğaltıyor mu?
+6. NULL, sıfıra bölme ve para birimi riski kontrol edildi mi?
+7. Sonuç ERP ekranındaki örnek belgeyle doğrulandı mı?</div><div class="sql-card-foot"><span class="sql-desc">Her ERP raporunda bu liste küçük bir güvenlik ağıdır.</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div></div></div></section>
+<section class="section"><div class="section-tag">// örnek rapor alanları</div><h2>En Çok Yazılan ERP SQL Raporları</h2><div class="tools-grid"><div class="tool-card"><div class="tool-name">Stok ve depo</div><div class="tool-desc">Depo bazlı bakiye, hareketsiz stok, negatif stok, lot/seri izleme ve kalite blokajı raporları.</div><a href="erp-konular/logo-stok-depo-rehberi.html" class="tool-link">Stok rehberi</a></div><div class="tool-card"><div class="tool-name">Finans ve tahsilat</div><div class="tool-desc">Vadesi geçmiş alacak, müşteri risk grubu, kur farkı, fatura/tahsilat kapama ve DSO raporları.</div><a href="erp-konular/logo-finans-raporlama-rehberi.html" class="tool-link">Finans rehberi</a></div><div class="tool-card"><div class="tool-name">Üretim ve OEE</div><div class="tool-desc">İş emri durumu, plan/fiili farkı, fire, vardiya verimi, duruş ve OEE hesaplama raporları.</div><a href="oee-hesaplama-excel.html" class="tool-link">OEE Excel</a></div><div class="tool-card"><div class="tool-name">Kalite ve CAPA</div><div class="tool-desc">PPM, FPY, uygunsuzluk Pareto, tedarikçi kalite ve CAPA kapanma süresi raporları.</div><a href="kalite-kpi-izleme.html" class="tool-link">Kalite KPI</a></div></div></section>
+<section class="section"><div class="section-tag">// performans</div><h2>Sorgu Performansı ve Güvenilirlik</h2><p class="section-sub">ERP SQL sorguları canlı veritabanında çalışıyorsa performans riski özellikle önemlidir. Geniş tarih aralığı, kontrolsüz LIKE kullanımı, gereksiz SELECT *, yanlış JOIN ve indekslenmeyen alanlar raporu yavaşlatabilir. Rapor önce sınırlı tarih ve örnek belge ile test edilmeli, sonra kullanıcı yetkileri ve filtreleri eklenmelidir.</p><p class="section-sub">Yönetim dashboard'u için yazılan sorgularda sonuçların tekrarlanabilir olması gerekir. Bugün çalışan rapor yarın farklı bir sonuç veriyorsa bunun nedeni veri değişimi mi, tarih filtresi mi, kapama hareketi mi, yoksa sorgu hatası mı anlaşılmalıdır. Bu nedenle SQL notu ile iş kuralı birlikte saklanmalıdır.</p></section>
+<section class="section"><div class="section-tag">// devam</div><h2>Bağlantılı Kaynaklar</h2><div class="route-grid"><a href="sql.html">Hazır SQL Kütüphanesi</a><a href="sql-derin-sorgular-rehberi.html">Derin SQL Rehberi</a><a href="sql-formatter.html">SQL Formatter</a><a href="erp-ai-araci.html">ERP AI Yardımcısı</a><a href="erp-bilgi-bankasi.html">ERP Bilgi Bankası</a></div></section>
+<footer><p class="footer-links"><a href="../index.html">Ana Sayfa</a> &nbsp;·&nbsp; <a href="sql.html">SQL</a> &nbsp;·&nbsp; <a href="kpi.html">KPI</a> &nbsp;·&nbsp; <a href="araclar.html">Araçlar</a></p><p class="footer-copy">© 2026 ERP Kutusu — Ensar Karayel · karayelensar@gmail.com</p></footer><script src="../js/security.js"></script><script src="../js/main.js"></script>
+</body></html>
