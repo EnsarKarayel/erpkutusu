@@ -81,7 +81,7 @@
     <div class="hero-badge">IFS SQL Rehberi</div>
     <h1>IFS SQL Sorguları</h1>
     <p>
-        IFS kullanıcıları için hazır SQL sorguları, üretim, stok, satın alma ve iş emri
+        IFS kullanıcıları için kopyalanabilir SQL sorguları, üretim, stok, satın alma ve iş emri
         raporlamasında kullanılabilecek pratik örnekler.
     </p>
 </section>
@@ -234,6 +234,56 @@ ORDER BY EKSIK_MIKTAR DESC</div>
             </div>
         </div>
 
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">IFS Geciken Satın Alma Satırları</div><span class="erp-tag tag-ifs">IFS</span></div>
+  <div class="sql-code">SELECT
+  ORDER_NO,
+  LINE_NO,
+  RELEASE_NO,
+  VENDOR_NO,
+  PART_NO,
+  WANTED_RECEIPT_DATE,
+  LINE_STATE
+FROM PURCHASE_ORDER_LINE_ALL
+WHERE WANTED_RECEIPT_DATE < TRUNC(SYSDATE)
+  AND LINE_STATE NOT IN ('Closed', 'Cancelled')
+ORDER BY WANTED_RECEIPT_DATE ASC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Satın alma gecikmelerini önceliklendirmek için açık satır listesi</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">IFS Açık Müşteri Siparişleri</div><span class="erp-tag tag-ifs">IFS</span></div>
+  <div class="sql-code">SELECT
+  ORDER_NO,
+  LINE_NO,
+  REL_NO,
+  CUSTOMER_NO,
+  CATALOG_NO,
+  BUY_QTY_DUE,
+  PLANNED_DELIVERY_DATE,
+  OBJSTATE
+FROM CUSTOMER_ORDER_LINE
+WHERE OBJSTATE NOT IN ('Delivered', 'Invoiced', 'Cancelled')
+ORDER BY PLANNED_DELIVERY_DATE ASC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Teslim edilmemiş satış sipariş satırları</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">IFS Operasyon Gecikme Kontrolü</div><span class="erp-tag tag-ifs">IFS</span></div>
+  <div class="sql-code">SELECT
+  so.WO_NO,
+  so.PART_NO,
+  op.OPERATION_NO,
+  op.WORK_CENTER_NO,
+  op.PLAN_FINISH,
+  so.OBJSTATE
+FROM SHOP_ORD so
+JOIN SHOP_ORDER_OPERATION op ON op.ORDER_NO = so.ORDER_NO
+WHERE op.PLAN_FINISH < SYSDATE
+  AND so.OBJSTATE IN ('Released', 'Started')
+ORDER BY op.PLAN_FINISH ASC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Planlanan bitiş tarihi geçmiş üretim operasyonları</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
     </div>
 </section>
 

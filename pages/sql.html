@@ -6,7 +6,7 @@
 
     <title>ERP SQL Sorguları | Logo, SAP, IFS, Odoo ve Minerva SQL Örnekleri</title>
 <meta name="google-adsense-account" content="ca-pub-6534346834787678">
-    <meta name="description" content="ERP sistemleri için hazır SQL sorguları. Logo, SAP, IFS, Odoo, Minerva ve Plantum için stok, satış, finans, üretim ve raporlama sorguları.">
+    <meta name="description" content="ERP sistemleri için kopyalanabilir SQL sorguları. Logo, SAP, IFS, Odoo, Minerva ve Plantum için stok, satış, finans, üretim ve raporlama örnekleri.">
     <meta name="keywords" content="logo sql sorguları, sap sql, ifs sql, odoo sql, minerva sql, plantum sql, erp sql sorguları">
     <link rel="canonical" href="https://erpkutusu.com/pages/sql.html">
 
@@ -84,7 +84,7 @@
     <div class="hero-badge">Hazır ERP SQL Kütüphanesi</div>
     <h1>ERP Sistemleri İçin Hazır SQL Sorguları</h1>
     <p>
-        Logo, SAP, IFS, Odoo, Minerva ve Plantum için hazırlanmış stok, satış,
+        Logo, SAP, IFS, Odoo, Minerva ve Plantum için firma/dönem kodu uyarlanarak çalıştırılabilecek stok, satış,
         finans, müşteri, üretim ve raporlama odaklı SQL sorgularını burada bulabilirsiniz.
     </p>
 </section>
@@ -455,6 +455,171 @@ FROM PLANLAMA`
   BITIS_ZAMANI
 FROM OPERASYON_TAKIP`
     }
+
+    ,
+    {
+        title: "Logo Fatura Satırı Detayı",
+        erp: "Logo",
+        category: "Satış",
+        description: "Logo SQL Server ortamında son 30 gün satış faturası satırlarını listeler.",
+        query: `SELECT TOP 100
+  inv.FICHENO       AS FATURA_NO,
+  inv.DATE_         AS FATURA_TARIHI,
+  cl.CODE           AS CARI_KOD,
+  cl.DEFINITION_    AS CARI_UNVAN,
+  itm.CODE          AS STOK_KODU,
+  itm.NAME          AS STOK_ADI,
+  st.AMOUNT         AS MIKTAR,
+  st.LINENET        AS SATIR_NET_TUTAR
+FROM LG_001_01_INVOICE inv
+JOIN LG_001_01_STLINE st ON st.INVOICEREF = inv.LOGICALREF
+LEFT JOIN LG_001_CLCARD cl ON cl.LOGICALREF = inv.CLIENTREF
+LEFT JOIN LG_001_ITEMS itm ON itm.LOGICALREF = st.STOCKREF
+WHERE inv.CANCELLED = 0
+  AND inv.TRCODE IN (7, 8)
+  AND inv.DATE_ >= DATEADD(day, -30, GETDATE())
+ORDER BY inv.DATE_ DESC, inv.FICHENO DESC`
+    },
+    {
+        title: "Logo Cari Bakiye Kontrolü",
+        erp: "Logo",
+        category: "Finans",
+        description: "Cari hesap bazında borç-alacak bakiyesini özetler.",
+        query: `SELECT
+  cl.CODE        AS CARI_KOD,
+  cl.DEFINITION_ AS CARI_UNVAN,
+  SUM(CASE WHEN line.SIGN = 0 THEN line.AMOUNT ELSE -line.AMOUNT END) AS BAKIYE
+FROM LG_001_CLCARD cl
+JOIN LG_001_01_CLFLINE line ON line.CLIENTREF = cl.LOGICALREF
+WHERE line.CANCELLED = 0
+GROUP BY cl.CODE, cl.DEFINITION_
+HAVING ABS(SUM(CASE WHEN line.SIGN = 0 THEN line.AMOUNT ELSE -line.AMOUNT END)) > 0.01
+ORDER BY BAKIYE DESC`
+    },
+    {
+        title: "Logo Hareketsiz Stok Kontrolü",
+        erp: "Logo",
+        category: "Stok",
+        description: "90 gündür hareket görmeyen stok kartlarını bulur.",
+        query: `SELECT
+  itm.CODE AS STOK_KODU,
+  itm.NAME AS STOK_ADI,
+  MAX(st.DATE_) AS SON_HAREKET_TARIHI
+FROM LG_001_ITEMS itm
+LEFT JOIN LG_001_01_STLINE st ON st.STOCKREF = itm.LOGICALREF
+WHERE itm.ACTIVE = 0
+GROUP BY itm.CODE, itm.NAME
+HAVING MAX(st.DATE_) < DATEADD(day, -90, GETDATE())
+   OR MAX(st.DATE_) IS NULL
+ORDER BY SON_HAREKET_TARIHI ASC`
+    },
+    {
+        title: "SAP B1 Fatura Satırı Detayı",
+        erp: "SAP",
+        category: "Satış",
+        description: "SAP Business One SQL Server için son 30 gün satış fatura satırları.",
+        query: `SELECT TOP 100
+  inv.DocNum      AS FATURA_NO,
+  inv.DocDate     AS FATURA_TARIHI,
+  inv.CardCode    AS MUSTERI_KODU,
+  inv.CardName    AS MUSTERI,
+  line.ItemCode   AS STOK_KODU,
+  line.Dscription AS STOK_ADI,
+  line.Quantity   AS MIKTAR,
+  line.LineTotal  AS SATIR_TUTAR
+FROM OINV inv
+JOIN INV1 line ON line.DocEntry = inv.DocEntry
+WHERE inv.CANCELED = 'N'
+  AND inv.DocDate >= DATEADD(day, -30, GETDATE())
+ORDER BY inv.DocDate DESC, inv.DocNum DESC`
+    },
+    {
+        title: "SAP B1 Kritik Stok",
+        erp: "SAP",
+        category: "Stok",
+        description: "Depo bazında minimum stok altına düşen kalemleri listeler.",
+        query: `SELECT
+  item.ItemCode AS STOK_KODU,
+  item.ItemName AS STOK_ADI,
+  whs.WhsCode   AS DEPO,
+  whs.OnHand    AS MEVCUT_STOK,
+  item.MinLevel AS MIN_STOK
+FROM OITM item
+JOIN OITW whs ON whs.ItemCode = item.ItemCode
+WHERE item.MinLevel > 0
+  AND whs.OnHand < item.MinLevel
+ORDER BY (item.MinLevel - whs.OnHand) DESC`
+    },
+    {
+        title: "SAP Açık Satış Siparişleri",
+        erp: "SAP",
+        category: "Satış",
+        description: "SAP SD sipariş başlıklarında kapanmamış belgeleri listeler.",
+        query: `SELECT
+  vbak.VBELN AS SIPARIS_NO,
+  vbak.AUART AS SIPARIS_TURU,
+  vbak.KUNNR AS MUSTERI,
+  vbak.ERDAT AS OLUSTURMA_TARIHI,
+  vbak.GBSTK AS GENEL_DURUM
+FROM VBAK vbak
+WHERE vbak.GBSTK <> 'C'
+ORDER BY vbak.ERDAT DESC`
+    },
+    {
+        title: "IFS Geciken Satın Alma Satırları",
+        erp: "IFS",
+        category: "Raporlama",
+        description: "IFS açık satın alma satırlarında beklenen teslim tarihi geçen kayıtlar.",
+        query: `SELECT
+  ORDER_NO,
+  LINE_NO,
+  RELEASE_NO,
+  VENDOR_NO,
+  PART_NO,
+  WANTED_RECEIPT_DATE,
+  LINE_STATE
+FROM PURCHASE_ORDER_LINE_ALL
+WHERE WANTED_RECEIPT_DATE < TRUNC(SYSDATE)
+  AND LINE_STATE NOT IN ('Closed', 'Cancelled')
+ORDER BY WANTED_RECEIPT_DATE ASC`
+    },
+    {
+        title: "IFS Açık Müşteri Siparişleri",
+        erp: "IFS",
+        category: "Satış",
+        description: "Teslim edilmemiş müşteri sipariş satırlarını önceliklendirmek için kullanılır.",
+        query: `SELECT
+  ORDER_NO,
+  LINE_NO,
+  REL_NO,
+  CUSTOMER_NO,
+  CATALOG_NO,
+  BUY_QTY_DUE,
+  PLANNED_DELIVERY_DATE,
+  OBJSTATE
+FROM CUSTOMER_ORDER_LINE
+WHERE OBJSTATE NOT IN ('Delivered', 'Invoiced', 'Cancelled')
+ORDER BY PLANNED_DELIVERY_DATE ASC`
+    },
+    {
+        title: "IFS Operasyon Gecikme Kontrolü",
+        erp: "IFS",
+        category: "Üretim",
+        description: "Planlanan bitiş tarihi geçmiş üretim operasyonlarını gösterir.",
+        query: `SELECT
+  so.WO_NO,
+  so.PART_NO,
+  op.OPERATION_NO,
+  op.WORK_CENTER_NO,
+  op.PLAN_FINISH,
+  so.OBJSTATE
+FROM SHOP_ORD so
+JOIN SHOP_ORDER_OPERATION op ON op.ORDER_NO = so.ORDER_NO
+WHERE op.PLAN_FINISH < SYSDATE
+  AND so.OBJSTATE IN ('Released', 'Started')
+ORDER BY op.PLAN_FINISH ASC`
+    }
+
 ];
 
 const grid = document.getElementById("sqlGrid");

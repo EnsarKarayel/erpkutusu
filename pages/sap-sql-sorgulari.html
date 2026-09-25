@@ -236,6 +236,54 @@ ORDER BY TOPLAM_TUTAR DESC</div>
             </div>
         </div>
 
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">SAP B1 Fatura Satırı Detayı</div><span class="erp-tag tag-sap">SAP</span></div>
+  <div class="sql-code">SELECT TOP 100
+  inv.DocNum      AS FATURA_NO,
+  inv.DocDate     AS FATURA_TARIHI,
+  inv.CardCode    AS MUSTERI_KODU,
+  inv.CardName    AS MUSTERI,
+  line.ItemCode   AS STOK_KODU,
+  line.Dscription AS STOK_ADI,
+  line.Quantity   AS MIKTAR,
+  line.LineTotal  AS SATIR_TUTAR
+FROM OINV inv
+JOIN INV1 line ON line.DocEntry = inv.DocEntry
+WHERE inv.CANCELED = 'N'
+  AND inv.DocDate >= DATEADD(day, -30, GETDATE())
+ORDER BY inv.DocDate DESC, inv.DocNum DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">SAP Business One SQL Server için satış fatura satırı analizi</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">SAP B1 Kritik Stok Listesi</div><span class="erp-tag tag-sap">SAP</span></div>
+  <div class="sql-code">SELECT
+  item.ItemCode AS STOK_KODU,
+  item.ItemName AS STOK_ADI,
+  whs.WhsCode   AS DEPO,
+  whs.OnHand    AS MEVCUT_STOK,
+  item.MinLevel AS MIN_STOK
+FROM OITM item
+JOIN OITW whs ON whs.ItemCode = item.ItemCode
+WHERE item.MinLevel > 0
+  AND whs.OnHand < item.MinLevel
+ORDER BY (item.MinLevel - whs.OnHand) DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Minimum stok altına düşen ürünleri depo bazında listeler</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">SAP SD Açık Sipariş Takibi</div><span class="erp-tag tag-sap">SAP</span></div>
+  <div class="sql-code">SELECT
+  vbak.VBELN AS SIPARIS_NO,
+  vbak.AUART AS SIPARIS_TURU,
+  vbak.KUNNR AS MUSTERI,
+  vbak.ERDAT AS OLUSTURMA_TARIHI,
+  vbak.GBSTK AS GENEL_DURUM
+FROM VBAK vbak
+WHERE vbak.GBSTK <> 'C'
+ORDER BY vbak.ERDAT DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">SAP ECC/S4 satış sipariş başlıklarında kapanmamış belgeler</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
     </div>
 </section>
 

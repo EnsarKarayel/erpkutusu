@@ -81,7 +81,7 @@
     <div class="hero-badge">Logo ERP SQL Rehberi</div>
     <h1>Logo SQL Sorguları</h1>
     <p>
-        Logo ERP kullanıcıları için hazır SQL sorguları, raporlama örnekleri ve veri analiz
+        Logo ERP kullanıcıları için kopyalanabilir SQL sorguları, raporlama örnekleri ve veri analiz
         amaçlı temel sorgu şablonları.
     </p>
 </section>
@@ -307,6 +307,58 @@ HAVING MAX(h.DATE_) < DATEADD(month, -3, GETDATE())</div>
   </div>
 </div>
 
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">Logo Fatura Satırı Detayı</div><span class="erp-tag tag-logo">Logo</span></div>
+  <div class="sql-code">SELECT TOP 100
+  inv.FICHENO       AS FATURA_NO,
+  inv.DATE_         AS FATURA_TARIHI,
+  cl.CODE           AS CARI_KOD,
+  cl.DEFINITION_    AS CARI_UNVAN,
+  itm.CODE          AS STOK_KODU,
+  itm.NAME          AS STOK_ADI,
+  st.AMOUNT         AS MIKTAR,
+  st.LINENET        AS SATIR_NET_TUTAR
+FROM LG_001_01_INVOICE inv
+JOIN LG_001_01_STLINE st ON st.INVOICEREF = inv.LOGICALREF
+LEFT JOIN LG_001_CLCARD cl ON cl.LOGICALREF = inv.CLIENTREF
+LEFT JOIN LG_001_ITEMS itm ON itm.LOGICALREF = st.STOCKREF
+WHERE inv.CANCELLED = 0
+  AND inv.TRCODE IN (7, 8)
+  AND inv.DATE_ >= DATEADD(day, -30, GETDATE())
+ORDER BY inv.DATE_ DESC, inv.FICHENO DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Firma/dönem kodu LG_001_01 kısmından uyarlanarak hızlı satış detayı verir</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">Logo Cari Bakiye Kontrolü</div><span class="erp-tag tag-logo">Logo</span></div>
+  <div class="sql-code">SELECT
+  cl.CODE        AS CARI_KOD,
+  cl.DEFINITION_ AS CARI_UNVAN,
+  SUM(CASE WHEN line.SIGN = 0 THEN line.AMOUNT ELSE -line.AMOUNT END) AS BAKIYE
+FROM LG_001_CLCARD cl
+JOIN LG_001_01_CLFLINE line ON line.CLIENTREF = cl.LOGICALREF
+WHERE line.CANCELLED = 0
+GROUP BY cl.CODE, cl.DEFINITION_
+HAVING ABS(SUM(CASE WHEN line.SIGN = 0 THEN line.AMOUNT ELSE -line.AMOUNT END)) > 0.01
+ORDER BY BAKIYE DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Cari risk ve tahsilat takibi için borç-alacak bakiyesi</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
+
+<div class="sql-card">
+  <div class="sql-card-head"><div class="sql-card-title">Logo Aylık Net Satış Trendi</div><span class="erp-tag tag-logo">Logo</span></div>
+  <div class="sql-code">SELECT
+  YEAR(inv.DATE_)  AS YIL,
+  MONTH(inv.DATE_) AS AY,
+  COUNT(*)         AS FATURA_SAYISI,
+  SUM(inv.NETTOTAL) AS NET_SATIS
+FROM LG_001_01_INVOICE inv
+WHERE inv.CANCELLED = 0
+  AND inv.TRCODE IN (7, 8)
+  AND inv.DATE_ >= DATEADD(month, -12, GETDATE())
+GROUP BY YEAR(inv.DATE_), MONTH(inv.DATE_)
+ORDER BY YIL DESC, AY DESC</div>
+  <div class="sql-card-foot"><span class="sql-desc">Yönetim dashboardu için aylık satış trendi</span><button class="copy-btn" onclick="copySQL(this)">Kopyala</button></div>
+</div>
     </div>
 </section>
 
